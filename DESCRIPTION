@@ -1,9 +1,9 @@
-Package: MyBioconductorPackage
+Package: iSEEindex
 Title: Demonstration of a Bioconductor Package
 Version: 0.99.0
 Date: 2022-05-10
 Authors@R: 
-    c(person("Kevin", "Rue", "Christophe", "kevinrue@users.noreply.github.com",
+    c(person("Kevin", "Rue", "Christophe", "kevinrue67@gmail.com",
              role = c("aut", "cre"),
              comment = c(ORCID = "0000-0003-3899-3872")))
 Description: This package demonstrates the set up of a Bioconductor-friendly
@@ -11,8 +11,8 @@ Description: This package demonstrates the set up of a Bioconductor-friendly
     initialisation of a git repository as well as the connection of the local
     repository to the GitHub website.
 License: Artistic-2.0
-URL: https://github.com/kevinrue/MyBioconductorPackage
-BugReports: https://support.bioconductor.org/t/MyBioconductorPackage
+URL: https://github.com/iSEE/iSEEindex
+BugReports: https://support.bioconductor.org/t/iSEEindex
 biocViews: Software,
     Infrastructure
 Encoding: UTF-8
