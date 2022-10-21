@@ -1,4 +1,4 @@
 library(testthat)
-library(MyBioconductorPackage)
+library(iSEEindex)
 
-test_check("MyBioconductorPackage")
+test_check("iSEEindex")
