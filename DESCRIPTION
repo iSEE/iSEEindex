@@ -3,7 +3,7 @@ Title: iSEE extension for a landing page to a custom collection of data sets
 Version: 0.99.0
 Date: 2022-10-21
 Authors@R: 
-    c(person("Kevin", "Rue", "Christophe", "kevinrue67@gmail.com",
+    c(person("Kevin", "Rue-Albrecht", email = "kevinrue67@gmail.com",
              role = c("aut", "cre"),
              comment = c(ORCID = "0000-0003-3899-3872")))
 Description: This package demonstrates the set up of a Bioconductor-friendly
