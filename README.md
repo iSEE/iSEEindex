@@ -16,7 +16,13 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/iSEE/iSEEindex/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEindex?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEindex` is to …
+The goal of `iSEEindex` is to provide an interface to any collection of
+data sets within an iSEE web-application.
+
+The main functionality of this package is to define a custom landing
+page allowing app maintainers to list a custom collection of data sets
+that users can selected from and directly load objects into an iSEE
+web-application.
 
 ## Installation instructions
 
