@@ -23,7 +23,13 @@ Depends:
     SingleCellExperiment
 Imports:
     BiocFileCache,
+    DT,
     iSEE,
+    methods,
+    rintrojs,
+    shiny,
+    shinydashboard,
+    shinyjs,
     utils
 Suggests: 
     BiocStyle,
