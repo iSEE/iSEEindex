@@ -11,7 +11,7 @@
 #' ## Setup ----
 #' 
 #' dataset_fun <- function() {
-#'     read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+#'     out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
 #' }
 #' 
 #' ## Usage ----
@@ -25,7 +25,7 @@
 
 #' Load Object and Coerce to SingleCellExperiment
 #'
-#' @param bfc A 
+#' @param bfc A [BiocFileCache()] object.
 #' @param uri A URI as a character scalar.
 #'
 #' @return

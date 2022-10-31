@@ -10,7 +10,7 @@
 .convert_to_sce(x)
 }
 \arguments{
-\item{bfc}{A}
+\item{bfc}{A \code{\link[=BiocFileCache]{BiocFileCache()}} object.}
 
 \item{uri}{A URI as a character scalar.}
 

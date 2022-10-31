@@ -22,7 +22,9 @@ Depends:
     SummarizedExperiment,
     SingleCellExperiment
 Imports:
-    BiocFileCache
+    BiocFileCache,
+    iSEE,
+    utils
 Suggests: 
     BiocStyle,
     covr,
