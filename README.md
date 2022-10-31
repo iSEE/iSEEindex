@@ -16,7 +16,13 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/iSEE/iSEEindex/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEindex?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEindex` is to …
+The goal of `iSEEindex` is to provide an interface to any collection of
+data sets within an iSEE web-application.
+
+The main functionality of this package is to define a custom landing
+page allowing app maintainers to list a custom collection of data sets
+that users can selected from and directly load objects into an iSEE
+web-application.
 
 ## Installation instructions
 
@@ -41,7 +47,8 @@ BiocManager::install("iSEE/iSEEindex")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to load the package once it
+is installed:
 
 ``` r
 library("iSEEindex")
@@ -56,11 +63,10 @@ Please run this yourself to check for any updates on how to cite
 
 ``` r
 print(citation('iSEEindex'), bibtex = TRUE)
-#> It is recommended to use 'given' instead of 'middle'.
 #> 
 #> To cite package 'iSEEindex' in publications use:
 #> 
-#>   Kevin Christophe Rue (2022). iSEEindex: iSEE extension for a landing
+#>   Kevin Rue-Albrecht (2022). iSEEindex: iSEE extension for a landing
 #>   page to a custom collection of data sets. R package version 0.99.0.
 #>   https://github.com/iSEE/iSEEindex
 #> 
@@ -68,7 +74,7 @@ print(citation('iSEEindex'), bibtex = TRUE)
 #> 
 #>   @Manual{,
 #>     title = {iSEEindex: iSEE extension for a landing page to a custom collection of data sets},
-#>     author = {Kevin Christophe Rue},
+#>     author = {Kevin Rue-Albrecht},
 #>     year = {2022},
 #>     note = {R package version 0.99.0},
 #>     url = {https://github.com/iSEE/iSEEindex},

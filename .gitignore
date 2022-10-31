@@ -9,3 +9,4 @@ inst/doc
 .Rprofile
 renv
 renv.lock
+docs
