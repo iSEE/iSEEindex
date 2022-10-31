@@ -62,7 +62,9 @@ iSEEindex <- function(bfc, FUN.datasets) {
 .launch_isee <- function(FUN, bfc, session, pObjects) {
     # nocov start
     id_object <- pObjects[[.dataset_selected_id]]
-    withProgress(message = sprintf("Loading '%s'", id_object),
+    # TODO: refactor as function that takes data set identifier and returns label
+    label_object <- subset(pObjects$datasets_table, uri == id_object, drop = FALSE)[["short_name"]]
+    withProgress(message = sprintf("Loading '%s'", label_object),
         value = 0, max = 2, {
         incProgress(1, detail = "(Down)loading object")
         se2 <- try(.load_sce(bfc, id_object))
