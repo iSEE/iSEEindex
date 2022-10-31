@@ -7,19 +7,19 @@
 .datasets_available(FUN)
 }
 \arguments{
-\item{FUN}{A function .}
+\item{FUN}{A function.}
 }
 \value{
 \code{.datasets_available()} returns a \code{data.frame} of metadata for available data sets.
 }
 \description{
-Import metadata for available data sets.
+Import and process metadata for available data sets.
 }
 \examples{
 ## Setup ----
 
 dataset_fun <- function() {
-    read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+    out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
 }
 
 ## Usage ----
