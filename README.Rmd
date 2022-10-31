@@ -45,9 +45,9 @@ BiocManager::install("iSEE/iSEEindex")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to load the package once it is installed:
 
-```{r example, eval = requireNamespace('iSEEindex')}
+```{r example, eval = requireNamespace('iSEEindex'), message=FALSE, warning=FALSE}
 library("iSEEindex")
 ## basic example code
 ```
