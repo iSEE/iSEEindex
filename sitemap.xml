@@ -28,6 +28,39 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/INTERNAL_create_observers.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INTERNAL_create_persistent_objects.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INTERNAL_datasets_available.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INTERNAL_landing_page.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INTERNAL_launch_isee.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INTERNAL_load_initial.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INTERNAL_load_sce.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INTERNAL_render_datasets_table.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INTERNAL_render_markdown_overview.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dot-initial_choices.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEEindex.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
 </urlset>

@@ -11,7 +11,8 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="iSEE extension for a landing page to a custom collection of data sets">
+<script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="iSEE extension for a landing page to a custom collection of data sets">
 <meta property="og:description" content="This package demonstrates the set up of a Bioconductor-friendly
     package using the packages usethis and biocthis. The setup includes the
     initialisation of a git repository as well as the connection of the local
@@ -76,7 +77,8 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>iSEEindex</code> is to …</p>
+<p>The goal of <code>iSEEindex</code> is to provide an interface to any collection of data sets within an iSEE web-application.</p>
+<p>The main functionality of this package is to define a custom landing page allowing app maintainers to list a custom collection of data sets that users can selected from and directly load objects into an iSEE web-application.</p>
 <div class="section level2">
 <h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
@@ -94,7 +96,7 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p>This is a basic example which shows you how to load the package once it is installed:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/iSEE/iSEEindex" class="external-link">"iSEEindex"</a></span><span class="op">)</span></span>
 <span><span class="co">## basic example code</span></span></code></pre></div>
@@ -105,11 +107,10 @@
 <p>Below is the citation output from using <code>citation('iSEEindex')</code> in R. Please run this yourself to check for any updates on how to cite <strong>iSEEindex</strong>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">'iSEEindex'</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; It is recommended to use 'given' instead of 'middle'.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; To cite package 'iSEEindex' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Kevin Christophe Rue (2022). iSEEindex: iSEE extension for a landing</span></span>
+<span><span class="co">#&gt;   Kevin Rue-Albrecht (2022). iSEEindex: iSEE extension for a landing</span></span>
 <span><span class="co">#&gt;   page to a custom collection of data sets. R package version 0.99.0.</span></span>
 <span><span class="co">#&gt;   https://github.com/iSEE/iSEEindex</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -117,7 +118,7 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   @Manual{,</span></span>
 <span><span class="co">#&gt;     title = {iSEEindex: iSEE extension for a landing page to a custom collection of data sets},</span></span>
-<span><span class="co">#&gt;     author = {Kevin Christophe Rue},</span></span>
+<span><span class="co">#&gt;     author = {Kevin Rue-Albrecht},</span></span>
 <span><span class="co">#&gt;     year = {2022},</span></span>
 <span><span class="co">#&gt;     note = {R package version 0.99.0},</span></span>
 <span><span class="co">#&gt;     url = {https://github.com/iSEE/iSEEindex},</span></span>
