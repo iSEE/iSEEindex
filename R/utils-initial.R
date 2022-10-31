@@ -15,6 +15,7 @@
 #' [iSEE()] app for that data set.
 #' 
 #' @export
+#' @rdname INTERNAL_initial_choices
 #'
 #' @examples
 #' .initial_choices("dummy_id")
