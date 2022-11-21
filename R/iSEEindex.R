@@ -32,6 +32,9 @@
 #' }
 iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
     stopifnot(is(bfc, "BiocFileCache"))
+    if (is.null(FUN.initial)) {
+        FUN.initial <- function() NULL
+    }
     iSEE(
         landingPage=.landing_page(bfc, FUN.datasets, FUN.initial),
         appTitle = sprintf("iSEEindex - v%s",
@@ -83,12 +86,16 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
         if (is(se2, "try-error")) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")
         } else {
-            initial_id <- pObjects[[.ui_initial]]
-            which_initial <- which(pObjects$initial_table[[.initial_config_id]] == initial_id)
-            initial_uri <- pObjects$initial_table[which_initial, .initial_uri, drop=TRUE]
-            initial_message <- capture.output(
-                init <- try(.load_initial(bfc, dataset_id, initial_id, initial_uri)),
-                type = "message")
+            if (is.null(pObjects$initial_table)) {
+                init <- NULL
+            } else {
+                initial_id <- pObjects[[.ui_initial]]
+                which_initial <- which(pObjects$initial_table[[.initial_config_id]] == initial_id)
+                initial_uri <- pObjects$initial_table[which_initial, .initial_uri, drop=TRUE]
+                initial_message <- capture.output(
+                    init <- try(.load_initial(bfc, dataset_id, initial_id, initial_uri)),
+                    type = "message")
+            }
             if (is(init, "try-error")) {
                 showModal(modalDialog(
                     title = "Invalid initial state",
