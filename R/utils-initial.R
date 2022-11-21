@@ -23,7 +23,7 @@
     which_initial <- available[[.initial_dataset_id]] == id
     config_subset_table <- available[which_initial, , drop=FALSE]
     initial_choices <- config_subset_table$config_id
-    names(initial_choices) <- config_subset_table$label
+    names(initial_choices) <- config_subset_table[[.initial_label]]
     choices <- c(choices, initial_choices)
     choices
 }

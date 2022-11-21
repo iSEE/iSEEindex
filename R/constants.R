@@ -29,5 +29,6 @@
 
 .initial_config_id <- "config_id"
 .initial_dataset_id <- "dataset_id"
+.initial_label <- "label"
 .initial_uri <- "uri"
 .initial_description <- "description"
