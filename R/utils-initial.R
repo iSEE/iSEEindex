@@ -20,7 +20,8 @@
 .initial_choices <- function(id, available) {
     # x: URI of the data set
     choices <- c("Default" = .initial_default_choice)
-    config_subset_table <- subset(available, dataset_id == id)
+    which_initial <- available[[.initial_dataset_id]] == id
+    config_subset_table <- available[which_initial, , drop=FALSE]
     initial_choices <- config_subset_table$config_id
     names(initial_choices) <- config_subset_table$label
     choices <- c(choices, initial_choices)

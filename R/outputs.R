@@ -57,7 +57,8 @@
         if (!length(dataset_selected_id)) {
             contents <- markdown("Please select a data set.")
         } else {
-            dataset_info <- subset(pObjects$datasets_table, id == dataset_selected_id, drop=FALSE)
+            which_dataset <- which(pObjects$datasets_table[[.datasets_id]] == dataset_selected_id)
+            dataset_info <- pObjects$datasets_table[which_dataset, , drop=FALSE]
             contents <- markdown(paste0(
                 "# ", sprintf("%s", dataset_info[[.datasets_label]]), "\n\n",
                 sprintf("%s", dataset_info[[.datasets_description]]), "\n\n"

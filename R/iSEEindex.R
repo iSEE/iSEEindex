@@ -70,9 +70,11 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
 .launch_isee <- function(FUN, bfc, session, pObjects) {
     # nocov start
     dataset_id <- pObjects[[.dataset_selected_id]]
-    dataset_uri <- subset(pObjects$datasets_table, id == dataset_id, drop = FALSE)[[.datasets_uri]]
+    which_dataset <- which(pObjects$datasets_table[[.datasets_id]] == dataset_id)
+    # TODO: refactor as function that takes data set identifier and returns uri
+    dataset_uri <- pObjects$datasets_table[which_dataset, .datasets_uri, drop=TRUE]
     # TODO: refactor as function that takes data set identifier and returns label
-    dataset_label <- subset(pObjects$datasets_table, id == dataset_id, drop = FALSE)[[.datasets_label]]
+    dataset_label <- pObjects$datasets_table[which_dataset, .datasets_label, drop=TRUE]
     withProgress(message = sprintf("Loading '%s'", dataset_label),
         value = 0, max = 2, {
         incProgress(1, detail = "(Down)loading object")
@@ -82,7 +84,8 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")
         } else {
             initial_id <- pObjects[[.ui_initial]]
-            initial_uri <- subset(pObjects$initial_table, config_id == initial_id, drop = FALSE)[[.initial_uri]]
+            which_initial <- which(pObjects$initial_table[[.initial_id]] == initial_id)
+            initial_uri <- pObjects$initial_table[which_initial, .initial_uri, drop=TRUE]
             initial_message <- capture.output(
                 init <- try(.load_initial(bfc, dataset_id, initial_id, initial_uri)),
                 type = "message")
