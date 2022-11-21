@@ -84,7 +84,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")
         } else {
             initial_id <- pObjects[[.ui_initial]]
-            which_initial <- which(pObjects$initial_table[[.initial_id]] == initial_id)
+            which_initial <- which(pObjects$initial_table[[.initial_config_id]] == initial_id)
             initial_uri <- pObjects$initial_table[which_initial, .initial_uri, drop=TRUE]
             initial_message <- capture.output(
                 init <- try(.load_initial(bfc, dataset_id, initial_id, initial_uri)),
