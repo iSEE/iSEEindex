@@ -61,13 +61,14 @@ iSEEindex <- function(bfc, FUN.datasets) {
 #' @rdname INTERNAL_launch_isee
 .launch_isee <- function(FUN, bfc, session, pObjects) {
     # nocov start
-    id_object <- pObjects[[.dataset_selected_id]]
+    dataset_id <- pObjects[[.dataset_selected_id]]
+    dataset_uri <- subset(pObjects$datasets_table, id == dataset_id, drop = FALSE)[[.datasets_uri]]
     # TODO: refactor as function that takes data set identifier and returns label
-    label_object <- subset(pObjects$datasets_table, uri == id_object, drop = FALSE)[["short_name"]]
-    withProgress(message = sprintf("Loading '%s'", label_object),
+    dataset_label <- subset(pObjects$datasets_table, id == dataset_id, drop = FALSE)[[.datasets_label]]
+    withProgress(message = sprintf("Loading '%s'", dataset_label),
         value = 0, max = 2, {
         incProgress(1, detail = "(Down)loading object")
-        se2 <- try(.load_sce(bfc, id_object))
+        se2 <- try(.load_sce(bfc, dataset_uri))
         incProgress(1, detail = "Launching iSEE app")
         if (is(se2, "try-error")) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")

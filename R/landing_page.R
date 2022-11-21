@@ -26,8 +26,8 @@
                         shinydashboard::box(title = "Available Data Sets",
                             collapsible = FALSE, width = NULL,
                             selectizeInput(.ui_dataset_columns, label = "Show columns:",
-                                choices = setdiff(colnames(datasets_available_table), "uri"),
-                                selected = c("short_name", "long_name"),
+                                choices = setdiff(colnames(datasets_available_table), c(.datasets_id, .datasets_uri)),
+                                selected = c(.datasets_label, .datasets_description),
                                 multiple = TRUE,
                                 options = list(plugins=list('remove_button', 'drag_drop'))),
                             DTOutput(.ui_dataset_table)
