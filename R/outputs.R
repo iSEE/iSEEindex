@@ -85,7 +85,10 @@
                 "sometimes at the cost of a longer loading time."
             ))
         } else {
-            contents <- markdown("TODO: display information about the configuration.")
+            initial_id <- pObjects[[.ui_initial]]
+            which_initial <- which(pObjects$initial_table[[.initial_id]] == initial_id)
+            initial_info <- pObjects$initial_table[which_initial, .initial_description, drop=TRUE]
+            contents <- markdown(initial_info)
         }
         contents
     })

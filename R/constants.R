@@ -30,3 +30,4 @@
 .initial_id <- "config_id"
 .initial_dataset_id <- "dataset_id"
 .initial_uri <- "uri"
+.initial_description <- "description"

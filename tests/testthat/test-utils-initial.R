@@ -39,3 +39,13 @@ test_that(".load_initial works for non-default choice", {
     expect_type(out, "list")
     
 })
+
+test_that(".load_initial detects invalid scripts", {
+    
+    tf <- tempfile()
+    file.create(tf)
+    uri <- paste0("localhost://", tf)
+    	
+    expect_error(iSEEindex:::.load_initial(bfc, "ID0", "config0", uri), "No object named 'initial' was found")
+    
+})
