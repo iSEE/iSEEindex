@@ -1,10 +1,20 @@
 # .datasets_available ----
 
-test_that(".initial_choices works", {
+test_that(".initial_choices works ", {
     
-    out <- iSEEindex:::.initial_choices("dummy_id")
+    out <- iSEEindex:::.initial_choices("dummy_id", NULL)
     
     expect_identical(out, c("Default" = "(Default)"))
+})
+
+test_that(".initial_choices works ", {
+    
+    FUN <- function(x) {
+        out <- c("name" = "value")
+    }
+    out <- iSEEindex:::.initial_choices("dummy_id", FUN)
+    
+    expect_identical(out, c(Default = "(Default)", name = "value"))
 })
 
 # .load_sce ----

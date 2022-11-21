@@ -4,12 +4,17 @@
 \alias{iSEEindex}
 \title{iSEEindex app}
 \usage{
-iSEEindex(bfc, FUN.datasets)
+iSEEindex(bfc, FUN.datasets, FUN.initial = NULL)
 }
 \arguments{
 \item{bfc}{An \code{\link[=BiocFileCache]{BiocFileCache()}} object.}
 
-\item{FUN.datasets}{A function that returns a \code{data.frame} of metadata for available data sets.}
+\item{FUN.datasets}{A function that returns a \code{data.frame} of metadata for
+available data sets.}
+
+\item{FUN.initial}{A function that takes a data set identifier and returns
+a named character vector of R scripts that each define an initial configuration.
+Default to \code{NULL}, disabling custom initial states altogether.}
 }
 \value{
 An \code{\link[=iSEE]{iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.

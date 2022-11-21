@@ -3,6 +3,7 @@
 #' @param bfc A [BiocFileCache()] object.
 #' @param FUN.datasets A function that returns a `data.frame` of metadata for available data sets.
 #' See [.datasets_available()].
+#' @param FUN.initial A function that returns a named character vector of files for initial configuration states.
 #'
 #' @return A `function` that defines UI elements and observers for the
 #' landing page of the app.
@@ -14,7 +15,7 @@
 #' @importFrom shinyjs disable
 #'
 #' @rdname INTERNAL_landing_page
-.landing_page <- function(bfc, FUN.datasets) {
+.landing_page <- function(bfc, FUN.datasets, FUN.initial) {
     datasets_available_table <- .datasets_available(FUN.datasets)
 
     function (FUN, input, output, session) {
@@ -71,7 +72,7 @@
             rerender_overview=1L,
             rerender_initial=1L)
 
-        .create_observers(input, session, pObjects, rObjects)
+        .create_observers(input, session, pObjects, rObjects, FUN.initial)
 
         .create_launch_observers(FUN, bfc, input, session, pObjects)
 

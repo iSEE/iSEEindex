@@ -5,6 +5,8 @@
 #' meant to populate a Shiny [selectizeInput()].
 #'
 #' @param x Data set identifier as a character scalar.
+#' @param FUN.initial Function that returns a named character vector of files
+#' that define initial configuration states for a given data set identifier.
 #' 
 #' @details 
 #' A default option is automatically prepended to the choices for all data sets.
@@ -19,9 +21,12 @@
 #'
 #' @examples
 #' .initial_choices("dummy_id")
-.initial_choices <- function(x) {
+.initial_choices <- function(x, FUN.initial) {
     # x: URI of the data set
     choices <- c("Default" = .initial_default_choice)
+    if (!is.null(FUN.initial)) {
+        choices <- c(choices, FUN.initial(x))
+    }
     choices
 }
 
