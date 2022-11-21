@@ -26,7 +26,7 @@ library(BiocFileCache)
 bfc <- BiocFileCache(cache = tempdir())
 
 dataset_fun <- function() {
-    read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+    read.csv(system.file(package="iSEEindex", "datasets.csv"))
 }
 
 initial_fun <- function() {

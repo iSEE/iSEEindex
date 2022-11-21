@@ -1,3 +1,5 @@
 dataset_id,config_id,label,uri
-ID1,config01,Configuration 1,https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_01.R?download=1
-ID1,config02,Configuration 2,https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_02.R?download=1
+ID1,config01rcall,Configuration 1 (R call),"rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
+ID1,config02rcall,Configuration 2 (R call),"rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_02.R')"
+ID1,config01zenodo,Configuration 1 (zenodo.org),https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_01.R?download=1
+ID1,config02zenodo,Configuration 2 (zenodo.org),https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_02.R?download=1

@@ -7,6 +7,7 @@
 \description{
 The iSEEindexHttpsResource class represents a resource accessible through
 an HTTPS link.
+A URI for this type of resource uses the prefix \dQuote{https://}.
 }
 \section{Slot overview}{
 

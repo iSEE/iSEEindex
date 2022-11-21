@@ -3,6 +3,8 @@
 export(.initial_choices)
 export(iSEEindex)
 exportClasses(iSEEindexHttpsResource)
+exportClasses(iSEEindexLocalhostResource)
+exportClasses(iSEEindexRcallResource)
 exportClasses(iSEEindexResource)
 exportMethods(precache)
 exportMethods(show)
