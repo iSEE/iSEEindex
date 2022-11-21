@@ -30,6 +30,7 @@ Imports:
     shiny,
     shinydashboard,
     shinyjs,
+    stringr,
     utils
 Suggests: 
     BiocStyle,

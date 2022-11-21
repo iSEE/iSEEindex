@@ -48,7 +48,7 @@
 #' 
 .load_sce <- function(bfc, uri) {
     uri_object <- .uri_to_object(uri)
-    bfc_rname <- download(uri_object)
+    bfc_rname <- precache(uri_object)
     # TODO: Call .get1 method on object of class
     bfc_result <- bfcquery(bfc, bfc_rname, field = "rname", exact = TRUE)
     # nocov start
@@ -82,9 +82,19 @@
     x
 }
 
+#' Convert URI to Class
+#'
+#' @param uri URI to a resource.
+#'
+#' @return An object of a class that matches the URI protocol.
+#' 
+#' @importFrom methods new
+#' @importFrom stringr str_to_title
+#'
+#' @rdname INTERNAL_uri_to_object
 .uri_to_object <- function(uri) {
     protocol <- gsub("(.+)://.+", "\\1", uri)
-    protocol_titled <- stringr::str_to_title(protocol)
+    protocol_titled <- str_to_title(protocol)
     target_class <- sprintf("iSEEindex%sResource", protocol_titled)
     object <- try({
         new(target_class, uri = uri)
