@@ -26,6 +26,7 @@
 #' Load Object and Coerce to SingleCellExperiment
 #'
 #' @param bfc A [BiocFileCache()] object.
+#' @param id A data set identifier as a character scalar.
 #' @param uri A URI as a character scalar.
 #'
 #' @return
@@ -46,14 +47,14 @@
 #' 
 #' iSEEindex:::.load_sce(bfc, uri)
 #' 
-.load_sce <- function(bfc, uri) {
+.load_sce <- function(bfc, id, uri) {
     uri_object <- .uri_to_object(uri)
     bfc_rname <- precache(uri_object)
     # TODO: Call .get1 method on object of class
-    bfc_result <- bfcquery(bfc, bfc_rname, field = "rname", exact = TRUE)
+    bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
     # nocov start
     if (nrow(bfc_result) == 0) {
-        object_path <- bfcadd(bfc, bfc_rname)
+        object_path <- bfcadd(x = bfc, rname = id, fpath = bfc_rname)
     } else {
         object_path <- bfc[[bfc_result$rid]]
     }

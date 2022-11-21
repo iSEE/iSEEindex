@@ -16,13 +16,22 @@
 #'
 #' @examples
 #' library(BiocFileCache)
-#' bfc <- BiocFileCache()
+#' bfc <- BiocFileCache(cache = tempdir())
+#' 
 #' dataset_fun <- function() {
 #'     out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
 #' }
-#'
-#' app <- iSEEindex(bfc, dataset_fun)
-#'
+#' 
+#' initial_fun <- function(id) {
+#'     config_table <- read.csv(system.file(package = "iSEEindex", "initial.csv"))
+#'     config_subset_table <- subset(config_table, dataset_id == id)
+#'     out <- config_subset_table$uri
+#'     names(out) <- config_subset_table$label
+#'     out
+#' }
+#' 
+#' app <- iSEEindex(bfc, dataset_fun, initial_fun)
+#' 
 #' if (interactive()) {
 #'   shiny::runApp(app, port = 1234)
 #' }
@@ -72,7 +81,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
     withProgress(message = sprintf("Loading '%s'", dataset_label),
         value = 0, max = 2, {
         incProgress(1, detail = "(Down)loading object")
-        se2 <- try(.load_sce(bfc, dataset_uri))
+        se2 <- try(.load_sce(bfc, dataset_id, dataset_uri))
         incProgress(1, detail = "Launching iSEE app")
         if (is(se2, "try-error")) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")

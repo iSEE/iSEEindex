@@ -15,11 +15,12 @@ test_that(".load_sce works", {
     ## Setup ----
 
     bfc <- BiocFileCache::BiocFileCache()
+    id <- "ID1"
     url <- "https://zenodo.org/record/7186593/files/ReprocessedAllenData.rds?download=1"
     
     ## Usage ---
     
-    out <- iSEEindex:::.load_sce(bfc, url)
+    out <- iSEEindex:::.load_sce(bfc, id, url)
     
     expect_s4_class(out, "SummarizedExperiment")
 })

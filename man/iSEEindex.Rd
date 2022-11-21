@@ -24,12 +24,21 @@ iSEEindex app
 }
 \examples{
 library(BiocFileCache)
-bfc <- BiocFileCache()
+bfc <- BiocFileCache(cache = tempdir())
+
 dataset_fun <- function() {
     out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
 }
 
-app <- iSEEindex(bfc, dataset_fun)
+initial_fun <- function(id) {
+    config_table <- read.csv(system.file(package = "iSEEindex", "initial.csv"))
+    config_subset_table <- subset(config_table, dataset_id == id)
+    out <- config_subset_table$uri
+    names(out) <- config_subset_table$label
+    out
+}
+
+app <- iSEEindex(bfc, dataset_fun, initial_fun)
 
 if (interactive()) {
   shiny::runApp(app, port = 1234)
