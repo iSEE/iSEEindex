@@ -8,3 +8,5 @@
 ^codecov\.yml$
 ^pkgdown$
 ^docs$
+^doc$
+^Meta$
