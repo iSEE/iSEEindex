@@ -12,9 +12,8 @@ iSEEindex(bfc, FUN.datasets, FUN.initial = NULL)
 \item{FUN.datasets}{A function that returns a \code{data.frame} of metadata for
 available data sets.}
 
-\item{FUN.initial}{A function that takes a data set identifier and returns
-a named character vector of R scripts that each define an initial configuration.
-Default to \code{NULL}, disabling custom initial states altogether.}
+\item{FUN.initial}{A function that returns a \code{data.frame} of metadata for
+available initial configuration states.}
 }
 \value{
 An \code{\link[=iSEE]{iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
@@ -27,15 +26,11 @@ library(BiocFileCache)
 bfc <- BiocFileCache(cache = tempdir())
 
 dataset_fun <- function() {
-    out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+    read.csv(system.file(package = "iSEEindex", "datasets.csv"))
 }
 
-initial_fun <- function(id) {
-    config_table <- read.csv(system.file(package = "iSEEindex", "initial.csv"))
-    config_subset_table <- subset(config_table, dataset_id == id)
-    out <- config_subset_table$uri
-    names(out) <- config_subset_table$label
-    out
+initial_fun <- function() {
+    read.csv(system.file(package = "iSEEindex", "initial.csv"))
 }
 
 app <- iSEEindex(bfc, dataset_fun, initial_fun)

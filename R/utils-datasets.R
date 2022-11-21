@@ -1,28 +1,3 @@
-#' Available Data Sets
-#'
-#' Import and process metadata for available data sets.
-#'
-#' @param FUN A function.
-#'
-#' @return
-#' `.datasets_available()` returns a `data.frame` of metadata for available data sets.
-#' 
-#' @examples
-#' ## Setup ----
-#' 
-#' dataset_fun <- function() {
-#'     out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
-#' }
-#' 
-#' ## Usage ----
-#' 
-#' iSEEindex:::.datasets_available(dataset_fun)
-#'
-#' @rdname INTERNAL_datasets_available
-.datasets_available <- function(FUN) {
-    FUN()
-}
-
 #' Load Object and Coerce to SingleCellExperiment
 #'
 #' @param bfc A [BiocFileCache()] object.
@@ -40,21 +15,22 @@
 #' ## Setup ----
 #' 
 #' library(BiocFileCache)
-#' bfc <- BiocFileCache()
+#' bfc <- BiocFileCache(tempdir())
+#' id <- "ID0"
 #' uri <- "https://zenodo.org/record/7186593/files/ReprocessedAllenData.rds?download=1"
 #' 
 #' ## Usage ---
 #' 
-#' iSEEindex:::.load_sce(bfc, uri)
+#' iSEEindex:::.load_sce(bfc, id, uri)
 #' 
 .load_sce <- function(bfc, id, uri) {
-    uri_object <- .uri_to_object(uri)
-    bfc_rname <- precache(uri_object)
-    # TODO: Call .get1 method on object of class
     bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
     # nocov start
     if (nrow(bfc_result) == 0) {
-        object_path <- bfcadd(x = bfc, rname = id, fpath = bfc_rname)
+        # TODO: refactor to a funtion that is also used by .load_initial
+        uri_object <- .uri_to_object(uri)
+        bfc_fpath <- precache(uri_object)
+        object_path <- bfcadd(x = bfc, rname = id, fpath = bfc_fpath)
     } else {
         object_path <- bfc[[bfc_result$rid]]
     }

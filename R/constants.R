@@ -26,3 +26,5 @@
 .datasets_uri <- "uri"
 .datasets_label <- "label"
 .datasets_description <- "description"
+
+.initial_uri <- "uri"

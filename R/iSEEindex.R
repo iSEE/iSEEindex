@@ -3,9 +3,8 @@
 #' @param bfc An [BiocFileCache()] object.
 #' @param FUN.datasets A function that returns a `data.frame` of metadata for
 #' available data sets.
-#' @param FUN.initial A function that takes a data set identifier and returns
-#' a named character vector of R scripts that each define an initial configuration.
-#' Default to `NULL`, disabling custom initial states altogether.
+#' @param FUN.initial A function that returns a `data.frame` of metadata for
+#' available initial configuration states.
 #'
 #' @return An [iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
 #'
@@ -19,15 +18,11 @@
 #' bfc <- BiocFileCache(cache = tempdir())
 #' 
 #' dataset_fun <- function() {
-#'     out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+#'     read.csv(system.file(package = "iSEEindex", "datasets.csv"))
 #' }
 #' 
-#' initial_fun <- function(id) {
-#'     config_table <- read.csv(system.file(package = "iSEEindex", "initial.csv"))
-#'     config_subset_table <- subset(config_table, dataset_id == id)
-#'     out <- config_subset_table$uri
-#'     names(out) <- config_subset_table$label
-#'     out
+#' initial_fun <- function() {
+#'     read.csv(system.file(package = "iSEEindex", "initial.csv"))
 #' }
 #' 
 #' app <- iSEEindex(bfc, dataset_fun, initial_fun)
@@ -86,8 +81,10 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
         if (is(se2, "try-error")) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")
         } else {
+            initial_id <- pObjects[[.ui_initial]]
+            initial_uri <- subset(pObjects$initial_table, config_id == initial_id, drop = FALSE)[[.initial_uri]]
             initial_message <- capture.output(
-                init <- try(.load_initial(pObjects)),
+                init <- try(.load_initial(bfc, dataset_id, initial_id, initial_uri)),
                 type = "message")
             if (is(init, "try-error")) {
                 showModal(modalDialog(

@@ -30,7 +30,7 @@
         dataset_selected_id <- pObjects$datasets_table[[.datasets_id]][input[[.dataset_selected_row]]]
         pObjects[[.dataset_selected_id]] <- dataset_selected_id
         rObjects$rerender_overview <- iSEE:::.increment_counter(isolate(rObjects$rerender_overview))
-        initial_choices <- .initial_choices(dataset_selected_id, FUN.initial)
+        initial_choices <- .initial_choices(dataset_selected_id, pObjects$initial_table)
         updateSelectizeInput(session, .ui_initial, choices = initial_choices)
     }, ignoreInit = FALSE, ignoreNULL = FALSE)
     # nocov end

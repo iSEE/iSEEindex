@@ -1,15 +1,3 @@
-# .datasets_available ----
-
-test_that(".datasets_available works", {
-    
-    out <- iSEEindex:::.datasets_available(dataset_fun)
-    
-    expect_s3_class(out, "data.frame")
-    expect_identical(nrow(out), 1L)
-})
-
-# .load_sce ----
-
 test_that(".load_sce works", {
     
     ## Setup ----
@@ -52,6 +40,6 @@ test_that(".uri_to_object works for https uri", {
 
 test_that(".uri_to_object throws an error for undefined protocols", {
     
-    expect_error(iSEEindex:::.uri_to_object("ftp://test.com"), "Failed to convert URI to resource object. ")
+    expect_error(iSEEindex:::.uri_to_object("ftp://test.com"), "Failed to convert URI to resource object.")
     
 })

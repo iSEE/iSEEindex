@@ -84,7 +84,7 @@
                 "sometimes at the cost of a longer loading time."
             ))
         } else {
-            contents <- markdown("TODO: support custom initial states")
+            contents <- markdown("TODO: display information about the configuration.")
         }
         contents
     })
