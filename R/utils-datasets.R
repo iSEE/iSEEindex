@@ -47,10 +47,13 @@
 #' iSEEindex:::.load_sce(bfc, uri)
 #' 
 .load_sce <- function(bfc, uri) {
-    bfc_result <- bfcquery(bfc, uri, field = "rname", exact = TRUE)
+    uri_object <- .uri_to_object(uri)
+    bfc_rname <- download(uri_object)
+    # TODO: Call .get1 method on object of class
+    bfc_result <- bfcquery(bfc, bfc_rname, field = "rname", exact = TRUE)
     # nocov start
     if (nrow(bfc_result) == 0) {
-        object_path <- bfcadd(bfc, uri)
+        object_path <- bfcadd(bfc, bfc_rname)
     } else {
         object_path <- bfc[[bfc_result$rid]]
     }
@@ -77,4 +80,21 @@
         x <- as(x, "SingleCellExperiment")
     }
     x
+}
+
+.uri_to_object <- function(uri) {
+    protocol <- gsub("(.+)://.+", "\\1", uri)
+    protocol_titled <- stringr::str_to_title(protocol)
+    target_class <- sprintf("iSEEindex%sResource", protocol_titled)
+    object <- try({
+        new(target_class, uri = uri)
+    })
+    if (is(object, "try-error")) {
+        stop(
+            "Failed to convert URI to resource object. ",
+            sprintf("Consider implementing the resource class '%s'.", target_class)
+            )
+    } 
+    
+    object
 }

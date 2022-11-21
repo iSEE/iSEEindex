@@ -39,3 +39,18 @@ test_that(".convert_to_sce works for SummarizedExperiment", {
     expect_s4_class(out, "SingleCellExperiment")
 
 })
+
+# .uri_to_object ----
+
+test_that(".uri_to_object works for https uri", {
+    
+    out <- iSEEindex:::.uri_to_object("https://test.com")
+    expect_s4_class(out, "iSEEindexHttpsResource")
+    
+})
+
+test_that(".uri_to_object throws an error for undefined protocols", {
+    
+    expect_error(iSEEindex:::.uri_to_object("ftp://test.com"), "Failed to convert URI to resource object. ")
+    
+})
