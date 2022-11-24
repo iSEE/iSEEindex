@@ -49,18 +49,19 @@ setMethod("show", "iSEEindexResource",
 #' \item \code{...}, additional arguments passed to and from other methods.
 #' }
 #' 
+#' @author Kevin Rue-Albrecht
+#' 
 #' @docType methods
 #' @aliases precache
 #' @name iSEEindexResource-generics
-#' @author Kevin Rue-Albrecht
 NULL
+
 setGeneric("precache", function(x, ...) {
     stopifnot(is(x, "iSEEindexResource"), length(x) == 1L)
     standardGeneric("precache")
 })
 
 #' @export
-#' @aliases precache,iSEEindexResource-method
 setMethod("precache", "iSEEindexResource",
     function(x, ...)
 {

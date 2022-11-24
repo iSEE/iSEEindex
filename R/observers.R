@@ -10,14 +10,11 @@
 #' @param rObjects A reactive list of values generated in the landing page.
 #' @param FUN.initial A function that returns available scripts for initial configurations states for a given data set identifier.
 #' 
-#' @details
-#' Currently, the `.create_observers()` function expects a column named `uri`
-#' in the metadata table of available data sets, which it uses as the identifier
-#' for each data set.
-#' 
 #' @return 
 #' Those functions create observers in the server function in which they are called.
 #' In all cases, a \code{NULL} value is invisibly returned.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny isolate observeEvent updateSelectizeInput
 #' @importFrom rintrojs introjs
@@ -60,7 +57,7 @@
 
 #' @param FUN A function to initialize the \pkg{iSEE} observer
 #' architecture. Refer to [iSEE::createLandingPage()] for more details.
-#' @param bfc An [BiocFileCache()] object.
+#' @param bfc A [BiocFileCache()] object.
 #' landing page.
 #'
 #' @importFrom shiny observeEvent

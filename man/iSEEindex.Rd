@@ -39,3 +39,6 @@ if (interactive()) {
   shiny::runApp(app, port = 1234)
 }
 }
+\author{
+Kevin Rue-Albrecht
+}

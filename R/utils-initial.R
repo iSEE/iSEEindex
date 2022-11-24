@@ -15,6 +15,8 @@
 #' @return A named character vector of choices for initial states of the
 #' [iSEE()] app for that data set.
 #' 
+#' @author Kevin Rue-Albrecht
+#' 
 #' @export
 #' @rdname INTERNAL_initial_choices
 .initial_choices <- function(id, available) {
@@ -41,6 +43,8 @@
 #' information present in the data set.
 #'
 #' @return A `list` of [Panel-class] representing an initial app state.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @rdname INTERNAL_load_initial
 .load_initial <- function(bfc, dataset_id, config_id, uri) {

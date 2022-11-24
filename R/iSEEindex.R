@@ -7,6 +7,8 @@
 #' available initial configuration states.
 #'
 #' @return An [iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @export
 #'
@@ -63,6 +65,8 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
 #' landing page.
 #'
 #' @return A `NULL` value is invisibly returned.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @importFrom utils capture.output
 #' @importFrom shiny incProgress markdown modalDialog p showModal

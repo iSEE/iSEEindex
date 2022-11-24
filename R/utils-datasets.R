@@ -6,6 +6,8 @@
 #'
 #' @return
 #' `.load_sce()` returns a [SingleCellExperiment()] object.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @import SingleCellExperiment
 #' @importFrom BiocFileCache bfcadd bfcquery
@@ -44,6 +46,8 @@
 #'
 #' @return
 #' For `.convert_to_sce()`, a [SingleCellExperiment()] object.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @importFrom methods is as
 #' @importFrom SummarizedExperiment SummarizedExperiment
@@ -64,6 +68,8 @@
 #' @param uri URI to a resource.
 #'
 #' @return An object of a class that matches the URI protocol.
+#' 
+#' @author Kevin Rue-Albrecht
 #' 
 #' @importFrom methods new
 #' @importFrom stringr str_to_title

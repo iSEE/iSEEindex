@@ -7,6 +7,8 @@
 #' @return Adds a rendered [DT::datatable()] to `output`.
 #' A \code{NULL} value is invisibly returned.
 #' 
+#' @author Kevin Rue-Albrecht
+#' 
 #' @importFrom DT datatable renderDT
 #'
 #' @rdname INTERNAL_render_datasets_table
@@ -45,6 +47,8 @@
 #'
 #' @return Adds a rendered [DT::datatable()] to `output`.
 #' A \code{NULL} value is invisibly returned.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny markdown renderUI
 #'

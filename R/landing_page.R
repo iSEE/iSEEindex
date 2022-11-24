@@ -6,6 +6,8 @@
 #'
 #' @return A `function` that defines UI elements and observers for the
 #' landing page of the app.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny actionButton br column fluidRow reactiveValues
 #' renderUI selectizeInput tabPanel tagList uiOutput
@@ -95,6 +97,8 @@
 #' @param initial_table A `data.frame` of metadata for all available initial configuration scripts.
 #'
 #' @return An environment containing several global variables for use throughout the application.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @rdname INTERNAL_create_persistent_objects
 .create_persistent_objects <- function(datasets_table, initial_table) {
