@@ -47,11 +47,27 @@ BiocManager::install("iSEE/iSEEindex")
 
 ## Example
 
-This is a basic example which shows you how to load the package once it is installed:
+This is a basic example which shows you how to launch an application that lists publicly available data sets hosted on [zenodo.org][zenodo-repository]:
 
 ```{r example, eval = requireNamespace('iSEEindex'), message=FALSE, warning=FALSE}
 library("iSEEindex")
-## basic example code
+library("BiocFileCache")
+
+bfc <- BiocFileCache(cache = tempdir())
+
+dataset_fun <- function() {
+    read.csv(system.file(package="iSEEindex", "datasets.csv"))
+}
+
+initial_fun <- function() {
+    read.csv(system.file(package = "iSEEindex", "initial.csv"))
+}
+
+app <- iSEEindex(bfc, dataset_fun, initial_fun)
+
+if (interactive()) {
+  shiny::runApp(app, port = 1234)
+}
 ```
 
 ## Citation
@@ -84,3 +100,7 @@ This package was developed using `r BiocStyle::Biocpkg('biocthis')`.
 ## Code of Conduct
 
 Please note that the iSEEindex project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+
+<!-- Links -->
+
+[zenodo-repository]: https://zenodo.org/record/7304331

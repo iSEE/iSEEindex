@@ -7,6 +7,8 @@
 #' @return Adds a rendered [DT::datatable()] to `output`.
 #' A \code{NULL} value is invisibly returned.
 #' 
+#' @author Kevin Rue-Albrecht
+#' 
 #' @importFrom DT datatable renderDT
 #'
 #' @rdname INTERNAL_render_datasets_table
@@ -31,6 +33,8 @@
 
 #' Render Overview of Selected Data Set
 #' 
+#' @description
+#' 
 #' `.render_markdown_overview()` renders an overview of the selected data set using Markdown.
 #' 
 #' `.render_initial_overview()` renders an overview of the selected initial configuration using Markdown.
@@ -43,8 +47,13 @@
 #' Currently, those functions expect a column named `uri` in the metadata table
 #' of available data sets, which it uses as the identifier for each data set.
 #'
-#' @return Adds a rendered [DT::datatable()] to `output`.
-#' A \code{NULL} value is invisibly returned.
+#' @return
+#' `.render_markdown_overview()` and `.render_initial_overview()` both
+#' add a rendered [shiny::markdown()] to `output`.
+#' 
+#' In both cases, a \code{NULL} value is invisibly returned.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny markdown renderUI
 #'
@@ -57,10 +66,11 @@
         if (!length(dataset_selected_id)) {
             contents <- markdown("Please select a data set.")
         } else {
-            dataset_info <- subset(pObjects$datasets_table, uri == dataset_selected_id, drop=FALSE)
+            which_dataset <- which(pObjects$datasets_table[[.datasets_id]] == dataset_selected_id)
+            dataset_info <- pObjects$datasets_table[which_dataset, , drop=FALSE]
             contents <- markdown(paste0(
-                "# ", sprintf("%s", dataset_info$short_name), "\n\n",
-                sprintf("%s", dataset_info$long_name), "\n\n"
+                "# ", sprintf("%s", dataset_info[[.datasets_label]]), "\n\n",
+                sprintf("%s", dataset_info[[.datasets_description]]), "\n\n"
             ))
         }
         contents
@@ -84,7 +94,10 @@
                 "sometimes at the cost of a longer loading time."
             ))
         } else {
-            contents <- markdown("TODO: support custom initial states")
+            initial_id <- pObjects[[.ui_initial]]
+            which_initial <- which(pObjects$initial_table[[.initial_config_id]] == initial_id)
+            initial_info <- pObjects$initial_table[which_initial, .initial_description, drop=TRUE]
+            contents <- markdown(initial_info)
         }
         contents
     })

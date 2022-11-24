@@ -2,10 +2,12 @@
 #'
 #' @param bfc A [BiocFileCache()] object.
 #' @param FUN.datasets A function that returns a `data.frame` of metadata for available data sets.
-#' See [.datasets_available()].
+#' @param FUN.initial A function that returns a `data.frame` of metadata for initial configuration states.
 #'
 #' @return A `function` that defines UI elements and observers for the
 #' landing page of the app.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny actionButton br column fluidRow reactiveValues
 #' renderUI selectizeInput tabPanel tagList uiOutput
@@ -14,8 +16,9 @@
 #' @importFrom shinyjs disable
 #'
 #' @rdname INTERNAL_landing_page
-.landing_page <- function(bfc, FUN.datasets) {
-    datasets_available_table <- .datasets_available(FUN.datasets)
+.landing_page <- function(bfc, FUN.datasets, FUN.initial) {
+    datasets_available_table <- FUN.datasets()
+    initial_available_table <- FUN.initial()
 
     function (FUN, input, output, session) {
         # nocov start
@@ -26,8 +29,8 @@
                         shinydashboard::box(title = "Available Data Sets",
                             collapsible = FALSE, width = NULL,
                             selectizeInput(.ui_dataset_columns, label = "Show columns:",
-                                choices = setdiff(colnames(datasets_available_table), "uri"),
-                                selected = c("short_name", "long_name"),
+                                choices = setdiff(colnames(datasets_available_table), c(.datasets_id, .datasets_uri)),
+                                selected = c(.datasets_label, .datasets_description),
                                 multiple = TRUE,
                                 options = list(plugins=list('remove_button', 'drag_drop'))),
                             DTOutput(.ui_dataset_table)
@@ -65,13 +68,15 @@
         shinyjs::disable(iSEE:::.generalSessionInfo) # session info
         shinyjs::disable(iSEE:::.generalCitationInfo) # citation info
 
-        pObjects <- .create_persistent_objects(datasets_available_table)
+        pObjects <- .create_persistent_objects(
+            datasets_available_table,
+            initial_available_table)
         rObjects <- reactiveValues(
             rerender_datasets=1L,
             rerender_overview=1L,
             rerender_initial=1L)
 
-        .create_observers(input, session, pObjects, rObjects)
+        .create_observers(input, session, pObjects, rObjects, FUN.initial)
 
         .create_launch_observers(FUN, bfc, input, session, pObjects)
 
@@ -89,12 +94,16 @@
 #' Create persistent objects
 #'
 #' @param datasets_table A `data.frame` of metadata for all available data sets.
+#' @param initial_table A `data.frame` of metadata for all available initial configuration scripts.
 #'
 #' @return An environment containing several global variables for use throughout the application.
+#' 
+#' @author Kevin Rue-Albrecht
 #'
 #' @rdname INTERNAL_create_persistent_objects
-.create_persistent_objects <- function(datasets_table) {
+.create_persistent_objects <- function(datasets_table, initial_table) {
     pObjects <- new.env()
     pObjects$datasets_table <- datasets_table
+    pObjects$initial_table <- initial_table
     pObjects
 }

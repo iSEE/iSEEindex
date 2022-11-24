@@ -1,8 +1,12 @@
 ^renv$
 ^renv\.lock$
-^MyBioconductorPackage\.Rproj$
+^iSEEindex\.Rproj$
 ^\.Rproj\.user$
 ^dev$
 ^README\.Rmd$
 ^\.github$
 ^codecov\.yml$
+^pkgdown$
+^docs$
+^doc$
+^Meta$

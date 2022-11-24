@@ -1,2 +1,3 @@
-uri,short_name,long_name
-https://zenodo.org/record/7186593/files/ReprocessedAllenData.rds?download=1,ReprocessedAllenData.rds,Reprocessed Allen Data
+id,label,description,uri
+ID1,ReprocessedAllenData.rds,Reprocessed Allen Data,https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds?download=1
+ID2,ReprocessedAllenData.rds,Reprocessed Allen Data (copy),https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds?download=1

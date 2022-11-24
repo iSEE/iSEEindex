@@ -2,31 +2,45 @@
 % Please edit documentation in R/iSEEindex.R
 \name{iSEEindex}
 \alias{iSEEindex}
-\title{iSEEindex app}
+\title{iSEEindex App}
 \usage{
-iSEEindex(bfc, FUN.datasets)
+iSEEindex(bfc, FUN.datasets, FUN.initial = NULL)
 }
 \arguments{
 \item{bfc}{An \code{\link[=BiocFileCache]{BiocFileCache()}} object.}
 
-\item{FUN.datasets}{A function that returns a \code{data.frame} of metadata for available data sets.}
+\item{FUN.datasets}{A function that returns a \code{data.frame} of metadata for
+available data sets.}
+
+\item{FUN.initial}{A function that returns a \code{data.frame} of metadata for
+available initial configuration states.}
 }
 \value{
 An \code{\link[=iSEE]{iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
 }
 \description{
-iSEEindex app
+Generate an \pkg{iSEE} app that includes a landing page enabling
+users to choose from a custom set of data sets and initial configuration
+states prepared by the app maintainer.
 }
 \examples{
 library(BiocFileCache)
-bfc <- BiocFileCache()
+bfc <- BiocFileCache(cache = tempdir())
+
 dataset_fun <- function() {
-    out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+    read.csv(system.file(package="iSEEindex", "datasets.csv"))
 }
 
-app <- iSEEindex(bfc, dataset_fun)
+initial_fun <- function() {
+    read.csv(system.file(package = "iSEEindex", "initial.csv"))
+}
+
+app <- iSEEindex(bfc, dataset_fun, initial_fun)
 
 if (interactive()) {
   shiny::runApp(app, port = 1234)
 }
+}
+\author{
+Kevin Rue-Albrecht
 }

@@ -1,0 +1,5 @@
+dataset_id,config_id,label,uri,description
+ID1,config01rcall,"Configuration 1 (R call)","rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')","One `ReducedDimensionPlot` panel, one `ColumnDataTable` panel.<br/><br/>File distributed with the `iSEEindex` package."
+ID1,config02rcall,"Configuration 2 (R call)","rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_02.R')","One `RowDataTable` panel, one `ColumnDataTable` panel.<br/><br/>File distributed with the `iSEEindex` package."
+ID1,config01zenodo,"Configuration 1 (zenodo.org)",https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_01.R?download=1,"One `ReducedDimensionPlot` panel, one `ColumnDataTable` panel.<br/><br/>File downloaded from <https://zenodo.org/record/7304331>."
+ID1,config02zenodo,"Configuration 2 (zenodo.org)",https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_02.R?download=1,"One `RowDataTable` panel, one `ColumnDataTable` panel.<br/><br/>File downloaded from <https://zenodo.org/record/7304331>."
