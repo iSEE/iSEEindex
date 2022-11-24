@@ -10,7 +10,6 @@ The iSEEindexResource class represents an undefined resource.
 }
 \section{Slot overview}{
 
-The following slots are relevant to panel organization:
 \itemize{
 \item \code{uri}, a character scalar specifying the URI to a resource.
 }

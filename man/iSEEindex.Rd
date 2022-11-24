@@ -2,7 +2,7 @@
 % Please edit documentation in R/iSEEindex.R
 \name{iSEEindex}
 \alias{iSEEindex}
-\title{iSEEindex app}
+\title{iSEEindex App}
 \usage{
 iSEEindex(bfc, FUN.datasets, FUN.initial = NULL)
 }
@@ -19,7 +19,9 @@ available initial configuration states.}
 An \code{\link[=iSEE]{iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
 }
 \description{
-iSEEindex app
+Generate an \pkg{iSEE} app that includes a landing page enabling
+users to choose from a custom set of data sets and initial configuration
+states prepared by the app maintainer.
 }
 \examples{
 library(BiocFileCache)

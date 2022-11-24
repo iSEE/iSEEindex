@@ -1,4 +1,8 @@
-#' iSEEindex app
+#' iSEEindex App
+#' 
+#' Generate an \pkg{iSEE} app that includes a landing page enabling
+#' users to choose from a custom set of data sets and initial configuration
+#' states prepared by the app maintainer.
 #'
 #' @param bfc An [BiocFileCache()] object.
 #' @param FUN.datasets A function that returns a `data.frame` of metadata for

@@ -3,7 +3,6 @@
 #' The iSEEindexResource class represents an undefined resource.
 #' 
 #' @section Slot overview:
-#' The following slots are relevant to panel organization:
 #' \itemize{
 #' \item \code{uri}, a character scalar specifying the URI to a resource.
 #' }
@@ -43,7 +42,7 @@ setMethod("show", "iSEEindexResource",
 #' An overview of the generics for downloading and caching resources.
 #' 
 #' @section Defining the parameter interface:
-#' `precache(x, ...)` potentially downloads a resource from an URI and returns the path to the local downloaded file:
+#' `precache(x, ...)` potentially downloads a resource from an URI and returns the path to the local file:
 #' \itemize{
 #' \item \code{x}, a character scalar that represents a URI.
 #' \item \code{...}, additional arguments passed to and from other methods.
