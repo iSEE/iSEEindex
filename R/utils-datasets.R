@@ -1,11 +1,16 @@
 #' Load Object and Coerce to SingleCellExperiment
+#' 
+#' @description 
+#' `.load_sce()` loads the selected data set.
+#' 
+#' `.convert_to_sce()` coerces the selected data set to a [SingleCellExperiment-class] object.
 #'
 #' @param bfc A [BiocFileCache()] object.
 #' @param id A data set identifier as a character scalar.
 #' @param uri A URI as a character scalar.
 #'
 #' @return
-#' `.load_sce()` returns a [SingleCellExperiment()] object.
+#' For `.load_sce()`, a [SingleCellExperiment()] object.
 #' 
 #' @author Kevin Rue-Albrecht
 #'

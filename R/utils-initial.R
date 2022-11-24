@@ -31,18 +31,17 @@
 }
 
 #' Load an Initial Application State
+#' 
+#' Loads the selected initial application state.
+#' This can be a custom R script or the default initial state that creates
+#' one panel of each class compatible with the contents of the data set.
 #'
 #' @param bfc A [BiocFileCache()] object.
 #' @param dataset_id Character scalar. Identifier of the data set selected.
 #' @param config_id Character scalar. Identifier of the configuration file to load.
 #' @param uri Character scalar. URI of the configuration file to download, if needed.
-#' 
-#' @details 
-#' Currently, this function always return `NULL`, representing the default
-#' initial state that includes one panel of each type compatible with the
-#' information present in the data set.
 #'
-#' @return A `list` of [Panel-class] representing an initial app state.
+#' @return A `list` of [Panel-class] objects, representing an initial app state.
 #' 
 #' @author Kevin Rue-Albrecht
 #'

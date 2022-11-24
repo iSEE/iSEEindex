@@ -33,6 +33,8 @@
 
 #' Render Overview of Selected Data Set
 #' 
+#' @description
+#' 
 #' `.render_markdown_overview()` renders an overview of the selected data set using Markdown.
 #' 
 #' `.render_initial_overview()` renders an overview of the selected initial configuration using Markdown.
