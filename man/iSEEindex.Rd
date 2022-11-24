@@ -23,6 +23,18 @@ Generate an \pkg{iSEE} app that includes a landing page enabling
 users to choose from a custom set of data sets and initial configuration
 states prepared by the app maintainer.
 }
+\section{Data Sets Metadata}{
+
+The function passed to the argument \code{FUN.datasets} must return a \code{data.frame} that contains the following columns:
+
+\describe{
+\item{id}{A unique identifier for the data set.}
+\item{label}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
+\item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
+\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
+}
+}
+
 \examples{
 library(BiocFileCache)
 bfc <- BiocFileCache(cache = tempdir())
