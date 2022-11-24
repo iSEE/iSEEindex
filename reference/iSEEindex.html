@@ -85,6 +85,53 @@ available initial configuration states.</p></dd>
 
 <p>An <code>iSEE()</code> app with a custom landing page using a <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache()</a></code> to cache a selection of data sets.</p>
     </div>
+    <div id="data-sets">
+    <h2>Data Sets</h2>
+    
+
+<p>The function passed to the argument <code>FUN.datasets</code> must return a <code>data.frame</code> that contains the following columns:</p>
+<dl><dt>id</dt>
+<dd><p>A unique identifier for the data set.</p></dd>
+
+<dt>label</dt>
+<dd><p>A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.</p></dd>
+
+<dt>uri</dt>
+<dd><p>A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.</p></dd>
+
+<dt>description</dt>
+<dd><p>A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.</p></dd>
+
+
+</dl><p>The <code>id</code> is used to identify the data set file in the <span class="pkg">BiocFileCache</span>.
+Thus, we recommend using a dedicated <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache()</a></code> for the app, using the <code>BiocFileCache(cache)</code> to specify an on-disk location (directory path) for the dedicated cache.</p>
+    </div>
+    <div id="initial-configurations">
+    <h2>Initial Configurations</h2>
+    
+
+<p>The function passed to the argument <code>FUN.initial</code> must return a <code>data.frame</code> that contains the following columns:</p>
+<dl><dt>dataset_id</dt>
+<dd><p>The unique identifier of a data set.</p></dd>
+
+<dt>config_id</dt>
+<dd><p>A unique identifier for the initial configuration.</p></dd>
+
+<dt>label</dt>
+<dd><p>A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.</p></dd>
+
+<dt>uri</dt>
+<dd><p>A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.</p></dd>
+
+<dt>description</dt>
+<dd><p>A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.</p></dd>
+
+
+</dl><p>The <code>dataset_id</code> must match one of the <code>id</code> values in the data set metadata.
+See section 'Data Sets'.</p>
+<p>The same <code>config_id</code> may be re-used in combination with different <code>dataset_id</code>.
+The <code>dataset_id</code> and <code>initial_id</code> are combined to identify the initial configuration script and the associated data set in the <span class="pkg">BiocFileCache</span>.</p>
+    </div>
     <div id="author">
     <h2>Author</h2>
     <p>Kevin Rue-Albrecht</p>
