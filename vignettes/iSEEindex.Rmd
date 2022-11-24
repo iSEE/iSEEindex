@@ -114,7 +114,7 @@ if (interactive()) {
 }
 ```
 
-```{r}
+```{r, echo=FALSE}
 SCREENSHOT("screenshots/landing_page.png", delay=20)
 ```
 
