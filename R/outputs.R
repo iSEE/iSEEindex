@@ -47,8 +47,11 @@
 #' Currently, those functions expect a column named `uri` in the metadata table
 #' of available data sets, which it uses as the identifier for each data set.
 #'
-#' @return Adds a rendered [DT::datatable()] to `output`.
-#' A \code{NULL} value is invisibly returned.
+#' @return
+#' `.render_markdown_overview()` and `.render_initial_overview()` both
+#' add a rendered [shiny::markdown()] to `output`.
+#' 
+#' In both cases, a \code{NULL} value is invisibly returned.
 #' 
 #' @author Kevin Rue-Albrecht
 #'
