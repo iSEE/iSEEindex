@@ -28,6 +28,9 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, eval=!exists("SCREENSHOT"), include=FALSE}
+SCREENSHOT <- function(x, ...) knitr::include_graphics(x)
+```
 
 ```{r vignetteSetup, echo=FALSE, message=FALSE, warning = FALSE}
 ## Track time spent on making the vignette
@@ -86,15 +89,55 @@ We hope that `r Biocpkg("iSEEindex")` will be useful for your research. Please u
 citation("iSEEindex")
 ```
 
-# Quick start to using to `iSEEindex`
+# Quick start to using `iSEEindex`
 
-```{r "start", message=FALSE}
+This is a basic example which shows you how to launch an application that lists publicly available data sets hosted on [zenodo.org][zenodo-repository]:
+
+```{r "start", message=FALSE, warning=FALSE}
 library("iSEEindex")
+library("BiocFileCache")
+
+bfc <- BiocFileCache(cache = tempdir())
+
+dataset_fun <- function() {
+    read.csv(system.file(package="iSEEindex", "datasets.csv"))
+}
+
+initial_fun <- function() {
+    read.csv(system.file(package = "iSEEindex", "initial.csv"))
+}
+
+app <- iSEEindex(bfc, dataset_fun, initial_fun)
+
+if (interactive()) {
+  shiny::runApp(app, port = 1234)
+}
 ```
 
-Here is an example of you can cite your package inside the vignette:
+```{r}
+SCREENSHOT("screenshots/landing_page.png", delay=20)
+```
 
-* `r Biocpkg("iSEEindex")` `r Citep(bib[["iSEEindex"]])`
+Let's break down this example step by step, to illustrate the functionality and flexibility of `r Biocpkg("iSEEindex")`.
+
+First, we load the `r Biocpkg("iSEEindex")` and `r Biocpkg("BiocFileCache")` packages, to access their functionality.
+
+Next, we use the `BiocFileCache::BiocFileCache()` function, to create a persistent on-disk cache of files that the app can use for adding and retrieving data files between sessions.
+This is particularly useful in this example, as we demonstrate the hosting of data sets and configuration scripts in RDS files and R scripts remotely, in a [zenodo.org repository][zenodo-repository].
+
+Next, we define a function -- in this example, named `dataset_fun` -- that returns a `data.frame` of metadata for available data sets.
+In this example, the information is parsed from an example file distributed in the `inst/` directory of the package.
+However, users may define a function that fetches that information in any way they see fit, e.g. authenticating and accessing data from privately accessible sources.
+Requirements for that function are detailed in the help page `?iSEEindex`, for the argument `FUN.datasets`.
+
+Next, we define another function -- in this example, named `initial_fun` -- that returns a `data.frame` of metadata for available initial configurations of the application state, for each individual data set.
+In this example, the information is parsed from an example file distributed in the `inst/` directory of the package.
+However, similarly to the previous function, users may define a function that fetches that information in any way they see fit.
+Requirements for that function are detailed in the help page `?iSEEindex`, for the argument `FUN.initial`.
+
+Then, we pass the `BiocFileCache` object and the two custom functions defined above to the `iSEEindex::iSEEindex()` function, to create an `r Biocpkg("iSEE")` application that incorporates a landing page offering users the choice of data sets and initial configurations fetched by the custom functions.
+
+Finally, we use the `shiny::runApp()` function to launch the app.
 
 
 
@@ -162,3 +205,7 @@ Citations made with `r CRANpkg("RefManageR")` `r Citep(bib[["RefManageR"]])`.
 ## Print bibliography
 PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
 ```
+
+<!-- Links -->
+
+[zenodo-repository]: https://zenodo.org/record/7304331

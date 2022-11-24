@@ -84,7 +84,9 @@
 #' @examples
 #' iSEEindex:::.uri_to_object("https://example.org/file.rds")
 #' iSEEindex:::.uri_to_object("localhost:///path/to/file.rds")
-#' iSEEindex:::.uri_to_object("rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+#' iSEEindex:::.uri_to_object(
+#'   "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
+#' )
 .uri_to_object <- function(uri) {
     protocol <- gsub("(.+)://.+", "\\1", uri)
     protocol_titled <- str_to_title(protocol)
