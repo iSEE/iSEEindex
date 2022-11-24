@@ -1,5 +1,7 @@
 #' Observers for iSEEindex
 #' 
+#' @description 
+#' 
 #' `.create_observers()` initialises observers for the \pkg{iSEEindex} landing page.
 #' 
 #' `.create_launch_observers()` initialises observers for launching the \pkg{iSEE} main app.
