@@ -53,13 +53,17 @@ This is a basic example which shows you how to launch an application that lists 
 library("iSEEindex")
 library("BiocFileCache")
 
-bfc <- BiocFileCache()
+bfc <- BiocFileCache(cache = tempdir())
 
 dataset_fun <- function() {
-    out <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+    read.csv(system.file(package="iSEEindex", "datasets.csv"))
 }
 
-app <- iSEEindex(bfc, dataset_fun)
+initial_fun <- function() {
+    read.csv(system.file(package = "iSEEindex", "initial.csv"))
+}
+
+app <- iSEEindex(bfc, dataset_fun, initial_fun)
 
 if (interactive()) {
   shiny::runApp(app, port = 1234)
