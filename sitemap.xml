@@ -31,6 +31,21 @@
     <loc>/reference/iSEEindex.html</loc>
   </url>
   <url>
+    <loc>/reference/iSEEindexHttpsResource-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEEindexLocalhostResource-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEEindexRcallResource-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEEindexResource-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/iSEEindexResource-generics.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
 </urlset>
