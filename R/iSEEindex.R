@@ -46,6 +46,9 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
 }
 
 #' Prepare and Launch the Main App.
+#' 
+#' Invokes a function that replaces the landing page by the \pkg{iSEE}
+#' interactive dashboard.
 #'
 #' @details
 #' This function wraps steps that can be tracked and reported to the
