@@ -110,6 +110,25 @@ In this instance, the `precache()` function has the only job to remove the `loca
 
 This type of resource is documented in `help("iSEEindexHttpsResource-class")`.
 
+### Structure
+
+Briefly, this class is used to represent files that are publicly accessible online over HTTPS.
+
+The URI must use the scheme "https", followed by the URI to the file on the internet.
+
+Example:
+
+```bash
+https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds?download=1
+```
+
+
+### Caching
+
+The `r Biocpkg("BiocFileCache")` package can perfectly well handle HTTPS.
+
+In this instance, the `precache()` function has no other job than to return the URI _as is_, for the `r Biocpkg("BiocFileCache")` package to use during caching.
+
 
 ## iSEEindexRcallResource
 
