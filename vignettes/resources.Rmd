@@ -82,30 +82,6 @@ The `r Biocpkg("BiocFileCache")` package is then used to cache the resource file
 
 # Built-in resources {#builtin}
 
-## iSEEindexLocalhostResource
-
-### Structure
-
-This type of resource is documented in `help("iSEEindexLocalhostResource-class")`.
-
-Briefly, this class is used to represent files that are already present on the machine that runs the application.
-
-The URI must use the scheme "localhost", followed by the path -- absolute or relative -- to the file on disk.
-
-Example:
-
-```bash
-localhost:///absolute/path/to/file
-localhost://relative/path/to/file
-```
-
-### Caching
-
-Now, while the `r Biocpkg("BiocFileCache")` package can perfectly well handle local files, it does not know how to deal with the custom scheme `localhost`.
-
-In this instance, the `precache()` function has the only job to remove the `localhost://` prefix from the URI, and return the remainder of the URI, which the `r Biocpkg("BiocFileCache")` package can use for caching.
-
-
 ## iSEEindexHttpsResource
 
 This type of resource is documented in `help("iSEEindexHttpsResource-class")`.
@@ -114,7 +90,7 @@ This type of resource is documented in `help("iSEEindexHttpsResource-class")`.
 
 Briefly, this class is used to represent files that are publicly accessible online over HTTPS.
 
-The URI must use the scheme "https", followed by the URI to the file on the internet.
+The URI must use the standard scheme "https", followed by the URI to the file on the internet.
 
 Example:
 
@@ -130,10 +106,45 @@ The `r Biocpkg("BiocFileCache")` package can perfectly well handle HTTPS.
 In this instance, the `precache()` function has no other job than to return the URI _as is_, for the `r Biocpkg("BiocFileCache")` package to use during caching.
 
 
+## iSEEindexLocalhostResource
+
+### Structure
+
+This type of resource is documented in `help("iSEEindexLocalhostResource-class")`.
+
+Briefly, this class is used to represent files that are already present on the machine that runs the application.
+
+The URI must use the custom scheme "localhost", followed by the path -- absolute or relative -- to the file on disk.
+
+Example:
+
+```bash
+localhost:///absolute/path/to/file
+localhost://relative/path/to/file
+```
+
+### Caching
+
+Now, while the `r Biocpkg("BiocFileCache")` package can perfectly well handle local files, it does not know how to deal with the custom scheme `localhost`.
+
+In this instance, the `precache()` function has the only job to remove the `localhost://` prefix from the URI, and return the remainder of the URI, which the `r Biocpkg("BiocFileCache")` package can use for caching.
+
+
 ## iSEEindexRcallResource
 
 This type of resource is documented in `help("iSEEindexRcallResource-class")`.
 
+Briefly, this class is used to represent files whose URI is obtained as the result of executing R code.
+
+The URI must use the custom scheme "rcall", followed by the R code to execute.
+
+This custom scheme was created mainly to dynamically fetch the example files distributed and installed with the package.
+
+Example:
+
+```bash
+rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
+```
 
 # Reproducibility
 
