@@ -54,10 +54,67 @@ bib <- c(
 
 # iSEEindex resources
 
+## Overview
+
 `r Biocpkg("iSEEindex")` imports data sets and initial app configurations from files.
 Each of those files is represented by a Uniform Resource Identifier (URI) in the metadata returned by the functions supplied to the `FUN.datasets` and `FUN.initial` arguments of the `iSEEindex()` function.
 
-`r Biocpkg("iSEEindex")` requires each URI to contain a scheme [Wikipedia][scheme-wikipedia] component, which is used to identify the type of resource and invoke the associated method for accessing it.
+`r Biocpkg("iSEEindex")` requires each URI to contain a scheme [Wikipedia][scheme-wikipedia] component, to identify the type of resource and invoke the associated method for accessing it.
+
+This system allows `r Biocpkg("iSEEindex")` users to use both standard and custom schemes in the URI of their resources, to fetch files from virtually any logical or physical resource, be it local or remote.
+
+In this vignette, we describe the implementation of `r Biocpkg("iSEEindex")` resources, using built-in classes of resources as examples.
+
+
+## Implementation
+
+Given a scheme `<scheme>`, `r Biocpkg("iSEEindex")` automatically attempts to create an object of class `iSEEindex<Scheme>Resource` that contains the class `iSEEindexResource`.
+For instance, the scheme `https` produces an object of class `iSEEindexHttpsResource`.
+
+`r Biocpkg("iSEEindex")` provides a range of built-in `iSEEindexResource` sub-classes, described [further below](#builtin).
+
+The raw value of the URI (including the scheme component) is stored in the `uri` slot of the `iSEEindexResource` object.
+
+Each `iSEEindexResource` sub-class must define the method `precache()`.
+The method is invoked to process the raw value of the URI, potentially download the resource file locally using custom code, and return the value of a URI that the `r Biocpkg("BiocFileCache")` package is capable of processing.
+
+The `r Biocpkg("BiocFileCache")` package is then used to cache the resource file on first use, and fetch the cached file in subsequent uses.
+
+# Built-in resources {#builtin}
+
+## iSEEindexLocalhostResource
+
+### Structure
+
+This type of resource is documented in `help("iSEEindexLocalhostResource-class")`.
+
+Briefly, this class is used to represent files that are already present on the machine that runs the application.
+
+The URI must use the scheme "localhost", followed by the path -- absolute or relative -- to the file on disk.
+
+Example:
+
+```bash
+localhost:///absolute/path/to/file
+localhost://relative/path/to/file
+```
+
+### Caching
+
+Now, while the `r Biocpkg("BiocFileCache")` package can perfectly well handle local files, it does not know how to deal with the custom scheme `localhost`.
+
+In this instance, the `precache()` function has the only job to remove the `localhost://` prefix from the URI, and return the remainder of the URI, which the `r Biocpkg("BiocFileCache")` package can use for caching.
+
+
+## iSEEindexHttpsResource
+
+This type of resource is documented in `help("iSEEindexHttpsResource-class")`.
+
+
+## iSEEindexRcallResource
+
+This type of resource is documented in `help("iSEEindexRcallResource-class")`.
+
 
 # Reproducibility
 
