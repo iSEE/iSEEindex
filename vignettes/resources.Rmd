@@ -153,7 +153,7 @@ rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
 The custom scheme `rcall` is entirely made up for the purpose described here; it is not in any way recognised as a standard scheme by the [Internet Assigned Numbers Authority (IANA)][iana-uri].
 As such, the `r Biocpkg("BiocFileCache")` package cannot possibly know how to handle that custom scheme.
 
-In this instance, the `precache()` function has the job to remove the `rcall://` prefix from the URI, evaluate the remainder of the URI as R code, and return the output of the R code, which should then be a valid URI that the `r Biocpkg("BiocFileCache")` package can use for caching.
+In this instance, the `precache()` function has the job to remove the `rcall://` prefix from the URI, evaluate the remainder of the URI as R code, and return the output of the R code, which should be a `character` scalar representing a valid URI that the `r Biocpkg("BiocFileCache")` package can use for caching.
 
 
 # Reproducibility
