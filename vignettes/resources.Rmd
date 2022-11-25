@@ -132,6 +132,8 @@ In this instance, the `precache()` function has the only job to remove the `loca
 
 ## iSEEindexRcallResource
 
+### Structure
+
 This type of resource is documented in `help("iSEEindexRcallResource-class")`.
 
 Briefly, this class is used to represent files whose URI is obtained as the result of executing R code.
@@ -145,6 +147,14 @@ Example:
 ```bash
 rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
 ```
+
+### Caching
+
+The custom scheme `rcall` is entirely made up for the purpose described here; it is not in any way recognised as a standard scheme by the [Internet Assigned Numbers Authority (IANA)][iana-uri].
+As such, the `r Biocpkg("BiocFileCache")` package cannot possibly know how to handle that custom scheme.
+
+In this instance, the `precache()` function has the job to remove the `rcall://` prefix from the URI, evaluate the remainder of the URI as R code, and return the output of the R code, which should then be a valid URI that the `r Biocpkg("BiocFileCache")` package can use for caching.
+
 
 # Reproducibility
 
@@ -214,3 +224,4 @@ PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
 <!-- Links -->
 
 [scheme-wikipedia]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax
+[iana-uri]: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
