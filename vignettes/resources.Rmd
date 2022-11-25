@@ -52,10 +52,12 @@ bib <- c(
 )
 ```
 
-# iSEE resources
+# iSEEindex resources
 
 `r Biocpkg("iSEEindex")` imports data sets and initial app configurations from files.
 Each of those files is represented by a Uniform Resource Identifier (URI) in the metadata returned by the functions supplied to the `FUN.datasets` and `FUN.initial` arguments of the `iSEEindex()` function.
+
+`r Biocpkg("iSEEindex")` requires each URI to contain a scheme [Wikipedia][scheme-wikipedia] component, which is used to identify the type of resource and invoke the associated method for accessing it.
 
 # Reproducibility
 
@@ -124,4 +126,4 @@ PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
 
 <!-- Links -->
 
-[zenodo-repository]: https://zenodo.org/record/7304331
+[scheme-wikipedia]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax
