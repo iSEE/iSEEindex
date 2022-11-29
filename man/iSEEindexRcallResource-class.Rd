@@ -31,7 +31,7 @@ In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEin
 Refer to the documentation for each method for more details on the remaining arguments.
 
 \itemize{
-\item \code{\link{precache}(x, ,..)} trims the \verb{rcall://} prefix,
+\item \code{\link{precache}(x, ...)} trims the \verb{rcall://} prefix,
 evaluates the remainder of the URI as R code,
 and returns the resulting file path, for use in the \pkg{BiocFileCache}.
 }

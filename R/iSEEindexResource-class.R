@@ -12,7 +12,7 @@
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #' 
 #' \itemize{
-#' \item \code{\link{precache}(x, ,..)} throws an error, encouraging users to develop a method for derived classes that are not suported yet.
+#' \item \code{\link{precache}(x, ...)} throws an error, encouraging users to develop a method for derived classes that are not suported yet.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -86,7 +86,7 @@ setMethod("precache", "iSEEindexResource",
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #' 
 #' \itemize{
-#' \item \code{\link{precache}(x, ,..)} returns the URI to the resource as-is,
+#' \item \code{\link{precache}(x, ...)} returns the URI to the resource as-is,
 #' because The \pkg{BiocFileCache} naturally supports the HTTPS protocol.
 #' }
 #' 
@@ -141,7 +141,7 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #' 
 #' \itemize{
-#' \item \code{\link{precache}(x, ,..)} trims the `localhost://` prefix,
+#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix,
 #' and returns the remainder of the URI as a file path, for use in the \pkg{BiocFileCache}.
 #' }
 #' 
@@ -196,7 +196,7 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #' 
 #' \itemize{
-#' \item \code{\link{precache}(x, ,..)} trims the `rcall://` prefix,
+#' \item \code{\link{precache}(x, ...)} trims the `rcall://` prefix,
 #' evaluates the remainder of the URI as R code,
 #' and returns the resulting file path, for use in the \pkg{BiocFileCache}.
 #' }
