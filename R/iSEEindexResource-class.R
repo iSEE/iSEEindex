@@ -225,3 +225,77 @@ setMethod("precache", "iSEEindexRcallResource",
     stopifnot(file.exists(out))
     return(out)
 })
+
+# iSEEindexS3Resource ----
+
+#' The iSEEindexS3Resource class
+#' 
+#' The iSEEindexS3Resource class represents a cloud storage resource accessible
+#' via the 
+#' [paws.storage](https://cran.r-project.org/package=paws.storage)
+#' R package.
+#' A URI for this type of resource uses the prefix \dQuote{s3://}.
+#' 
+#' @details 
+#' The URI must correspond to an existing file in an AWS S3 compatible cloud
+#' storage system that produces an object called `initial` that contains a
+#' valid configuration for an \pkg{iSEE} app. For details about authentication, 
+#' please consult the 
+#' [paws R package documentation](https://github.com/paws-r/paws/blob/main/docs/credentials.md).
+#'  
+#' 
+#' For instance:
+#' 
+#' ```
+#' s3://your-bucket/your-prefix/index.rds)
+#' ```
+#' 
+#' @section Slot overview:
+#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+#' 
+#' @section Supported methods:
+#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexS3Resource} class.
+#' Refer to the documentation for each method for more details on the remaining arguments.
+#' 
+#' \itemize{
+#' \item \code{\link{precache}(x, ...)} trims the `rcall://` prefix,
+#' evaluates the remainder of the URI as R code,
+#' and returns the resulting file path, for use in the \pkg{BiocFileCache}.
+#' }
+#' 
+#' @author Thomas Sandmann
+#'
+#' @name iSEEindexS3Resource-class
+#' @rdname iSEEindexS3Resource-class
+#' @aliases 
+#' precache,iSEEindexS3Resource-method
+NULL
+
+#' @export
+setClass("iSEEindexS3Resource", contains="iSEEindexResource")
+
+#' 
+#' @param ... Additional arguments passed on to the [paws.storage::s3()]
+#' function.
+#' @param temp_dir Scalar character, the directory to store the downloaded file
+#' in before it is handed over to BiocFileCache. This directory will be created
+#' recursively if it doesn't already exist.
+#' @export
+#' @importFrom urltools url_parse
+#' @importFrom paws.storage s3
+#' @rdname iSEEindexS3Resource-class
+setMethod("precache", "iSEEindexS3Resource",
+          function(x, temp_dir = tempdir(), ...)
+          {
+            uri <- urltools::url_parse(x@uri)
+            if(uri$scheme != "s3") stop("URI scheme must be `s3`")
+            
+            # connect to S3 and download the file
+            svc <- paws.storage::s3(...)
+            dir.create(temp_dir, recursive = TRUE, showWarnings = FALSE)
+            out <- file.path(temp_dir, basename(uri$path))
+            svc$download_file(Bucket = uri$domain, Key = uri$path,
+                              Filename = out)
+            stopifnot(file.exists(out))
+            return(out)
+          })
