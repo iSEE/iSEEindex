@@ -103,7 +103,7 @@ https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds?download=1
 
 The `r Biocpkg("BiocFileCache")` package can perfectly well handle HTTPS.
 
-In this instance, the `precache()` function has no other job than to cache the file located at the resulting file URI using `r Biocpkg("BiocFileCache")`.
+In this instance, the `precache()` function has no other job than to cache the file located at the given URI using `r Biocpkg("BiocFileCache")`.
 
 
 ## iSEEindexLocalhostResource

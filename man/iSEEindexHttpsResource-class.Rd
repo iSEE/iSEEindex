@@ -20,8 +20,7 @@ In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEin
 Refer to the documentation for each method for more details on the remaining arguments.
 
 \itemize{
-\item \code{\link{precache}(x, ...)} returns the URI to the resource as-is,
-because The \pkg{BiocFileCache} naturally supports the HTTPS protocol.
+\item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at the given URI using \pkg{BiocFileCache} and returns the file path to the cached file.
 }
 }
 

@@ -88,8 +88,7 @@ setMethod("precache", "iSEEindexResource",
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #' 
 #' \itemize{
-#' \item \code{\link{precache}(x, ...)} returns the URI to the resource as-is,
-#' because The \pkg{BiocFileCache} naturally supports the HTTPS protocol.
+#' \item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at the given URI using \pkg{BiocFileCache} and returns the file path to the cached file.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -144,8 +143,7 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #' 
 #' \itemize{
-#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix,
-#' and returns the remainder of the URI as a file path, for use in the \pkg{BiocFileCache}.
+#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -201,8 +199,9 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' 
 #' \itemize{
 #' \item \code{\link{precache}(x, ...)} trims the `rcall://` prefix,
-#' evaluates the remainder of the URI as R code,
-#' and returns the resulting file path, for use in the \pkg{BiocFileCache}.
+#' evaluates the remainder of the URI as R code, and caches a copy of the
+#' resource located at the resulting file path using \pkg{BiocFileCache},
+#' before returning the file path to the cached file.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -264,8 +263,8 @@ setMethod("precache", "iSEEindexRcallResource",
 #' \item \code{\link{precache}(x, ..., temp_dir = tempdir())} trims the `s3://` prefix,
 #' parses information encoded in the remainder of the URI,
 #' downloads the resource from AWS S3 using that information,
-#' and returns the local file path to the downloaded resource,
-#' for use in the \pkg{BiocFileCache}.
+#' and caches a copy of the resource located at the resulting file path using
+#' \pkg{BiocFileCache}, before returning the file path to the cached file.
 #' }
 #' 
 #' @section Pre-caching:

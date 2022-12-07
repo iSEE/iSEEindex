@@ -36,8 +36,8 @@ Refer to the documentation for each method for more details on the remaining arg
 \item \code{\link{precache}(x, ..., temp_dir = tempdir())} trims the \verb{s3://} prefix,
 parses information encoded in the remainder of the URI,
 downloads the resource from AWS S3 using that information,
-and returns the local file path to the downloaded resource,
-for use in the \pkg{BiocFileCache}.
+and caches a copy of the resource located at the resulting file path using
+\pkg{BiocFileCache}, before returning the file path to the cached file.
 }
 }
 

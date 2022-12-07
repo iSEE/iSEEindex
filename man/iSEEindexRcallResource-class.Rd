@@ -32,8 +32,9 @@ Refer to the documentation for each method for more details on the remaining arg
 
 \itemize{
 \item \code{\link{precache}(x, ...)} trims the \verb{rcall://} prefix,
-evaluates the remainder of the URI as R code,
-and returns the resulting file path, for use in the \pkg{BiocFileCache}.
+evaluates the remainder of the URI as R code, and caches a copy of the
+resource located at the resulting file path using \pkg{BiocFileCache},
+before returning the file path to the cached file.
 }
 }
 
