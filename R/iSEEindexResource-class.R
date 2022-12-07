@@ -317,6 +317,7 @@ setClass("iSEEindexS3Resource", contains="iSEEindexResource")
 setMethod("precache", "iSEEindexS3Resource",
     function(x, bfc, id, ..., temp_dir = tempdir())
 {
+    # nocov start
     # Trim 's3://' from the original URI and pass to paws.storage,
     # which will manage the download.
     # Pass the local filepath to BiocFileCache, which will cache the downloaded file.
@@ -333,4 +334,5 @@ setMethod("precache", "iSEEindexS3Resource",
     stopifnot(file.exists(fpath))
     object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "move", ...)
     return(object_path)
+    # nocov end
 })
