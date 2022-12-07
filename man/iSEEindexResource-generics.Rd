@@ -8,11 +8,13 @@
 \description{
 An overview of the generics for downloading and caching resources.
 }
-\section{Defining the parameter interface}{
+\section{Preparing and caching resources}{
 
-\code{precache(x, ...)} potentially downloads a resource from an URI and returns the path to the local file:
+\code{precache(x, bfc, id, ...)} potentially downloads a resource from an URI, caches it, and returns the path to the cached file:
 \itemize{
 \item \code{x}, a character scalar that represents a URI.
+\item \code{bfc}, a \code{\link[=BiocFileCache]{BiocFileCache()}} object..
+\item \code{id}, a data set identifier as a character scalar..
 \item \code{...}, additional arguments passed to and from other methods.
 }
 }

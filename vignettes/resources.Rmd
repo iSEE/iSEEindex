@@ -103,7 +103,7 @@ https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds?download=1
 
 The `r Biocpkg("BiocFileCache")` package can perfectly well handle HTTPS.
 
-In this instance, the `precache()` function has no other job than to return the URI _as is_, for the `r Biocpkg("BiocFileCache")` package to use during caching.
+In this instance, the `precache()` function has no other job than to cache the file located at the given URI using `r Biocpkg("BiocFileCache")`.
 
 
 ## iSEEindexLocalhostResource
@@ -127,7 +127,7 @@ localhost://relative/path/to/file
 
 Now, while the `r Biocpkg("BiocFileCache")` package can perfectly well handle local files, it does not know how to deal with the custom scheme `localhost`.
 
-In this instance, the `precache()` function has the only job to remove the `localhost://` prefix from the URI, and return the remainder of the URI, which the `r Biocpkg("BiocFileCache")` package can use for caching.
+In this instance, the `precache()` function has the only job to remove the `localhost://` prefix from the URI, and cache the file located at the resulting file path using `r Biocpkg("BiocFileCache")`.
 
 
 ## iSEEindexRcallResource
@@ -153,7 +153,32 @@ rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
 The custom scheme `rcall` is entirely made up for the purpose described here; it is not in any way recognised as a standard scheme by the [Internet Assigned Numbers Authority (IANA)][iana-uri].
 As such, the `r Biocpkg("BiocFileCache")` package cannot possibly know how to handle that custom scheme.
 
-In this instance, the `precache()` function has the job to remove the `rcall://` prefix from the URI, evaluate the remainder of the URI as R code, and return the output of the R code, which should be a `character` scalar representing a valid URI that the `r Biocpkg("BiocFileCache")` package can use for caching.
+In this instance, the `precache()` function has the job to remove the `rcall://` prefix from the URI, evaluate the remainder of the URI as R code, and cache the file located at the resulting file path using `r Biocpkg("BiocFileCache")`.
+
+
+## iSEEindexS3Resource
+
+### Structure
+
+This type of resource is documented in `help("iSEEindexS3Resource-class")`.
+
+Briefly, this class is used to represent files that are accessible directly from [Amazon S3][amazon-s3].
+
+The URI must use the custom scheme "s3", followed by the S3 URI to the file.
+
+This custom scheme was created mainly to dynamically fetch the example files distributed and installed with the package.
+
+Example:
+
+```bash
+s3://bucket/prefix/index.rds
+```
+
+### Caching
+
+Now, while the scheme `s3` is recognised by the [AWS Command Line Interface][aws-cli], the `r Biocpkg("BiocFileCache")` package does not know how to deal with it.
+
+In this instance, the `precache()` function has the job to parse the URI for information that is passed to the `r BiocStyle::CRANpkg("paws.storage")` package to download the file, which is then cached using `r Biocpkg("BiocFileCache")`.
 
 
 # Reproducibility
@@ -176,11 +201,11 @@ Code for creating the vignette
 ```{r createVignette, eval=FALSE}
 ## Create the vignette
 library("rmarkdown")
-system.time(render("iSEEindex.Rmd", "BiocStyle::html_document"))
+system.time(render("resources.Rmd", "BiocStyle::html_document"))
 
 ## Extract the R code
 library("knitr")
-knit("iSEEindex.Rmd", tangle = TRUE)
+knit("resources.Rmd", tangle = TRUE)
 ```
 
 Date the vignette was generated.
@@ -225,3 +250,5 @@ PrintBibliography(bib, .opts = list(hyperlink = "to.doc", style = "html"))
 
 [scheme-wikipedia]: https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax
 [iana-uri]: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
+[amazon-s3]: https://aws.amazon.com/s3/
+[aws-cli]: https://aws.amazon.com/cli/

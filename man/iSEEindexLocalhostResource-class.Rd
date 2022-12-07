@@ -34,8 +34,7 @@ In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEin
 Refer to the documentation for each method for more details on the remaining arguments.
 
 \itemize{
-\item \code{\link{precache}(x, ...)} trims the \verb{localhost://} prefix,
-and returns the remainder of the URI as a file path, for use in the \pkg{BiocFileCache}.
+\item \code{\link{precache}(x, ...)} trims the \verb{localhost://} prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
 }
 }
 

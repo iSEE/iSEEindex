@@ -21,7 +21,7 @@ In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEin
 Refer to the documentation for each method for more details on the remaining arguments.
 
 \itemize{
-\item \code{\link{precache}(x, ...)} throws an error, encouraging users to develop a method for derived classes that are not suported yet.
+\item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging users to develop a method for derived classes that are not suported yet.
 }
 }
 
