@@ -176,7 +176,7 @@ s3://bucket/prefix/index.rds
 
 ### Caching
 
-Now, while the scheme `s3` is recognised by the [AWS Command Line Interface][aws-cli], `r Biocpkg("BiocFileCache")` does not know how to deal with it.
+Now, while the scheme `s3` is recognised by the [AWS Command Line Interface][aws-cli], the `r Biocpkg("BiocFileCache")` package does not know how to deal with it.
 
 In this instance, the `precache()` function has the job to parse the URI for information that is passed to the `r BiocStyle::CRANpkg("paws.storage")` package to download the file, which is then cached using `r Biocpkg("BiocFileCache")`.
 
