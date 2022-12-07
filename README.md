@@ -17,12 +17,40 @@ coverage](https://codecov.io/gh/iSEE/iSEEindex/branch/main/graph/badge.svg)](htt
 <!-- badges: end -->
 
 The goal of `iSEEindex` is to provide an interface to any collection of
-data sets within an iSEE web-application.
+data sets hosted anywhere within an iSEE web-application.
 
 The main functionality of this package is to define a custom landing
-page allowing app maintainers to list a custom collection of data sets
-that users can selected from and directly load objects into an iSEE
-web-application.
+page for iSEE web-applications where app maintainers can list entirely
+custom collections of data sets hosted on virtually any locally or
+remotely accessible network.
+
+A number of built-in methods are implemented, providing access to common
+types of resources, e.g.:
+
+- Local filesystem
+- HTTPS URIs
+- Amazon S3 buckets
+
+Each type of resource is identified by the scheme component of its URI.
+Standard schemes can be used alongside custom-made ones, e.g.:
+
+- `localhost://` for local files.
+- `https://` for files downloaded over the HTTPS protocol.
+- `s3://` for files downloaded from Amazon S3 buckets.
+
+The `iSEEindex` framework enables app maintainers to independently
+define new methods for their own choice of standard and custom-made URI
+schemes. More information is available in the vignette *Implementing
+custom iSEEindex resources*.
+
+The resulting landing page presents end-users of the web-applications
+with the predefined choice of data sets and initial configuration states
+(specific to each data set). After selecting a data set and – optionally
+– an initial configuration, launching the main app fetches resources
+from their respective URI and caches them using the
+*[BiocFileCache](https://bioconductor.org/packages/3.16/BiocFileCache)*
+package. Finally, data sets and configurations from the cache into the
+main `iSEE` application, for interactive exploration.
 
 ## Installation instructions
 
