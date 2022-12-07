@@ -4,17 +4,6 @@
 \alias{iSEEindexS3Resource-class}
 \alias{precache,iSEEindexS3Resource-method}
 \title{The iSEEindexS3Resource class}
-\usage{
-\S4method{precache}{iSEEindexS3Resource}(x, temp_dir = tempdir(), ...)
-}
-\arguments{
-\item{temp_dir}{Scalar character, the directory to store the downloaded file
-in before it is handed over to BiocFileCache. This directory will be created
-recursively if it doesn't already exist.}
-
-\item{...}{Additional arguments passed on to the \code{\link[paws.storage:s3]{paws.storage::s3()}}
-function.}
-}
 \description{
 The iSEEindexS3Resource class represents a cloud storage resource accessible
 via the
@@ -24,10 +13,9 @@ A URI for this type of resource uses the prefix \dQuote{s3://}.
 }
 \details{
 The URI must correspond to an existing file in an AWS S3 compatible cloud
-storage system that produces an object called \code{initial} that contains a
-valid configuration for an \pkg{iSEE} app. For details about authentication,
-please consult the
-\href{https://github.com/paws-r/paws/blob/main/docs/credentials.md}{paws R package documentation}.
+storage system.
+
+For details about authentication, see section \dQuote{AWS Credentials} below.
 
 For instance:
 
@@ -45,12 +33,48 @@ In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEin
 Refer to the documentation for each method for more details on the remaining arguments.
 
 \itemize{
-\item \code{\link{precache}(x, ...)} trims the \verb{rcall://} prefix,
-evaluates the remainder of the URI as R code,
-and returns the resulting file path, for use in the \pkg{BiocFileCache}.
+\item \code{\link{precache}(x, ..., temp_dir = tempdir())} trims the \verb{s3://} prefix,
+parses information encoded in the remainder of the URI,
+downloads the resource from AWS S3 using that information,
+and returns the local file path to the downloaded resource,
+for use in the \pkg{BiocFileCache}.
 }
 }
 
+\section{Pre-caching}{
+
+Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
+\describe{
+\item{\code{...}}{Additional arguments passed on to the \code{\link[paws.storage:s3]{paws.storage::s3()}}}
+\item{\code{temp_dir}}{Scalar character, the directory to store the downloaded file
+in before it is handed over to \pkg{BiocFileCache}. This directory will be created
+recursively if it doesn't already exist.}
+}
+}
+
+\section{AWS Credentials and region settings}{
+
+For detailed information, please consult the
+\href{https://github.com/paws-r/paws/blob/main/docs/credentials.md}{paws R package documentation}.
+
+Currently, you must have the \href{https://aws.amazon.com/cli/}{AWS Command Line Interface} installed to use AWS SSO with \pkg{paws.storage}.
+
+The AWS region can be set in the file \verb{~/.aws/config}.
+For instance:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{[default]
+region=eu-west-2
+}\if{html}{\out{</div>}}
+
+Credentials for all services can be set in the AWS shared credentials file \verb{~/.aws/credentials}.
+For instance:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{[default]
+aws_access_key_id=your AWS access key
+aws_secret_access_key=your AWS secret key
+}\if{html}{\out{</div>}}
+}
+
 \author{
-Thomas Sandmann
+Thomas Sandmann, Kevin Rue-Albrecht
 }

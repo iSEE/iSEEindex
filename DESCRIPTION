@@ -1,6 +1,6 @@
 Package: iSEEindex
 Title: iSEE extension for a landing page to a custom collection of data sets
-Version: 0.99.1
+Version: 0.99.0
 Date: 2022-12-04
 Authors@R: 
     c(person("Kevin", "Rue-Albrecht", email = "kevinrue67@gmail.com",
@@ -10,10 +10,11 @@ Authors@R:
              role = c("ctb"),
              comment = c(ORCID = "0000-0002-6601-8890")),
     person("Denali Therapeutics", role = c("fnd")))
-Description: This package demonstrates the set up of a Bioconductor-friendly
-    package using the packages usethis and biocthis. The setup includes the
-    initialisation of a git repository as well as the connection of the local
-    repository to the GitHub website.
+Description: This package provides an interface to any collection of data sets
+    within an iSEE web-application. The main functionality of this package is
+    to define a custom landing page allowing app maintainers to list a custom
+    collection of data sets that users can selected from and directly load
+    objects into an iSEE web-application.
 License: Artistic-2.0
 URL: https://github.com/iSEE/iSEEindex
 BugReports: https://support.bioconductor.org/t/iSEEindex
