@@ -250,7 +250,7 @@ setMethod("precache", "iSEEindexRcallResource",
 #' For instance:
 #' 
 #' ```
-#' s3://your-bucket/your-prefix/index.rds)
+#' s3://bucket/prefix/index.rds
 #' ```
 #' 
 #' @section Slot overview:

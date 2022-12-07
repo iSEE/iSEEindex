@@ -19,7 +19,7 @@ For details about authentication, see section \dQuote{AWS Credentials} below.
 
 For instance:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{s3://your-bucket/your-prefix/index.rds)
+\if{html}{\out{<div class="sourceCode">}}\preformatted{s3://bucket/prefix/index.rds
 }\if{html}{\out{</div>}}
 }
 \section{Slot overview}{
