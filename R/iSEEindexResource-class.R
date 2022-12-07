@@ -167,7 +167,7 @@ setMethod("precache", "iSEEindexLocalhostResource",
     # which will manage the caching.
     # Use action="copy" to leave the original file untouched.
     fpath <- sub("localhost://", "", x@uri)
-    stopifnot(file.exists(out))
+    stopifnot(file.exists(fpath))
     object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "copy", ...)
     return(object_path)
 })
