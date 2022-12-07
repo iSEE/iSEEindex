@@ -86,8 +86,7 @@
 #' iSEEindex:::.uri_to_object("https://example.org/file.rds")
 #' iSEEindex:::.uri_to_object("localhost:///path/to/file.rds")
 #' iSEEindex:::.uri_to_object(
-#'   "rcall://system.file(package='iSEEindex',
-#'                        ReprocessedAllenData_config_01.R')"
+#'   "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
 #' )
 #' iSEEindex:::.uri_to_object("s3://your-bucket/your-prefix/file.rds")
 #' iSEEindex:::.uri_to_object("s3://your-bucket/your-prefix/file.rds")
