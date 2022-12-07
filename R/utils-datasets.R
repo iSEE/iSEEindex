@@ -77,6 +77,7 @@
 #' @author Kevin Rue-Albrecht
 #' 
 #' @importFrom methods new
+#' @importFrom urltools url_parse
 #' @importFrom stringr str_to_title
 #'
 #' @rdname INTERNAL_uri_to_object
@@ -87,8 +88,10 @@
 #' iSEEindex:::.uri_to_object(
 #'   "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
 #' )
+#' iSEEindex:::.uri_to_object("s3://your-bucket/your-prefix/file.rds")
+#' iSEEindex:::.uri_to_object("s3://your-bucket/your-prefix/file.rds")
 .uri_to_object <- function(uri) {
-    protocol <- gsub("(.+)://.+", "\\1", uri)
+    protocol <- urltools::url_parse(uri)$scheme
     protocol_titled <- str_to_title(protocol)
     target_class <- sprintf("iSEEindex%sResource", protocol_titled)
     object <- try({
@@ -97,7 +100,8 @@
     if (is(object, "try-error")) {
         stop(
             "Failed to convert URI to resource object. ",
-            sprintf("Consider implementing the resource class '%s'.", target_class)
+            sprintf("Consider implementing the resource class '%s'.",
+                    target_class)
             )
     } 
     

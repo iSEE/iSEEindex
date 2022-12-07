@@ -225,3 +225,102 @@ setMethod("precache", "iSEEindexRcallResource",
     stopifnot(file.exists(out))
     return(out)
 })
+
+# iSEEindexS3Resource ----
+
+#' The iSEEindexS3Resource class
+#' 
+#' The iSEEindexS3Resource class represents a cloud storage resource accessible
+#' via the 
+#' [paws.storage](https://cran.r-project.org/package=paws.storage)
+#' R package.
+#' A URI for this type of resource uses the prefix \dQuote{s3://}.
+#' 
+#' @details 
+#' The URI must correspond to an existing file in an AWS S3 compatible cloud
+#' storage system.
+#' 
+#' For details about authentication, see section \dQuote{AWS Credentials} below.
+#' 
+#' For instance:
+#' 
+#' ```
+#' s3://your-bucket/your-prefix/index.rds)
+#' ```
+#' 
+#' @section Slot overview:
+#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+#' 
+#' @section Supported methods:
+#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexS3Resource} class.
+#' Refer to the documentation for each method for more details on the remaining arguments.
+#' 
+#' \itemize{
+#' \item \code{\link{precache}(x, ..., temp_dir = tempdir())} trims the `s3://` prefix,
+#' parses information encoded in the remainder of the URI,
+#' downloads the resource from AWS S3 using that information,
+#' and returns the local file path to the downloaded resource,
+#' for use in the \pkg{BiocFileCache}.
+#' }
+#' 
+#' @section Pre-caching:
+#' Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
+#' \describe{
+#' \item{`...`}{Additional arguments passed on to the [paws.storage::s3()]}
+#' \item{`temp_dir`}{Scalar character, the directory to store the downloaded file
+#' in before it is handed over to \pkg{BiocFileCache}. This directory will be created
+#' recursively if it doesn't already exist.}
+#' }
+#' 
+#' @section AWS Credentials and region settings:
+#' For detailed information, please consult the
+#' [paws R package documentation](https://github.com/paws-r/paws/blob/main/docs/credentials.md).
+#' 
+#' Currently, you must have the [AWS Command Line Interface](https://aws.amazon.com/cli/) installed to use AWS SSO with \pkg{paws.storage}.
+#' 
+#' The AWS region can be set in the file `~/.aws/config`.
+#' For instance:
+#' 
+#' ```
+#' [default]
+#' region=eu-west-2
+#' ```
+#' 
+#' Credentials for all services can be set in the AWS shared credentials file `~/.aws/credentials`.
+#' For instance:
+#' 
+#' ```
+#' [default]
+#' aws_access_key_id=your AWS access key
+#' aws_secret_access_key=your AWS secret key
+#' ```
+#' 
+#' @author Thomas Sandmann, Kevin Rue-Albrecht
+#'
+#' @name iSEEindexS3Resource-class
+#' @rdname iSEEindexS3Resource-class
+#' @aliases 
+#' precache,iSEEindexS3Resource-method
+NULL
+
+#' @export
+setClass("iSEEindexS3Resource", contains="iSEEindexResource")
+
+#' @export
+#' @importFrom urltools url_parse
+#' @importFrom paws.storage s3
+setMethod("precache", "iSEEindexS3Resource",
+    function(x, ..., temp_dir = tempdir())
+{
+    uri <- urltools::url_parse(x@uri)
+    if(uri$scheme != "s3") stop("URI scheme must be `s3`")
+    
+    # connect to S3 and download the file
+    svc <- paws.storage::s3(...)
+    dir.create(temp_dir, recursive = TRUE, showWarnings = FALSE)
+    out <- file.path(temp_dir, basename(uri$path))
+    svc$download_file(Bucket = uri$domain, Key = uri$path,
+        Filename = out)
+    stopifnot(file.exists(out))
+    return(out)
+})

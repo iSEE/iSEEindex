@@ -51,7 +51,7 @@
         initial <- NULL
     } else {
         bfc_config_id <- paste0(dataset_id, "_", config_id)
-        # TODO: refactor to a funtion that is also used by .load_sce
+        # TODO: refactor to a function that is also used by .load_sce
         bfc_result <- bfcquery(bfc, bfc_config_id, field = "rname", exact = TRUE)
         # nocov start
         if (nrow(bfc_result) == 0) {
