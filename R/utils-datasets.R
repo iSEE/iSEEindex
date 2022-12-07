@@ -36,8 +36,7 @@
     if (nrow(bfc_result) == 0) {
         # TODO: refactor to a funtion that is also used by .load_initial
         uri_object <- .uri_to_object(uri)
-        bfc_fpath <- precache(uri_object)
-        object_path <- bfcadd(x = bfc, rname = id, fpath = bfc_fpath)
+        object_path <- precache(uri_object, bfc, id)
     } else {
         object_path <- bfc[[bfc_result$rid]]
     }

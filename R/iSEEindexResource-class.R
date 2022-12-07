@@ -12,7 +12,7 @@
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #' 
 #' \itemize{
-#' \item \code{\link{precache}(x, ...)} throws an error, encouraging users to develop a method for derived classes that are not suported yet.
+#' \item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging users to develop a method for derived classes that are not suported yet.
 #' }
 #' 
 #' @author Kevin Rue-Albrecht
@@ -41,10 +41,12 @@ setMethod("show", "iSEEindexResource",
 #' 
 #' An overview of the generics for downloading and caching resources.
 #' 
-#' @section Defining the parameter interface:
-#' `precache(x, ...)` potentially downloads a resource from an URI and returns the path to the local file:
+#' @section Preparing and caching resources:
+#' `precache(x, bfc, id, ...)` potentially downloads a resource from an URI, caches it, and returns the path to the cached file:
 #' \itemize{
 #' \item \code{x}, a character scalar that represents a URI.
+#' \item \code{bfc}, a [BiocFileCache()] object..
+#' \item \code{id}, a data set identifier as a character scalar..
 #' \item \code{...}, additional arguments passed to and from other methods.
 #' }
 #' 
@@ -55,14 +57,14 @@ setMethod("show", "iSEEindexResource",
 #' @name iSEEindexResource-generics
 NULL
 
-setGeneric("precache", function(x, ...) {
+setGeneric("precache", function(x, bfc, id, ...) {
     stopifnot(is(x, "iSEEindexResource"), length(x) == 1L)
     standardGeneric("precache")
 })
 
 #' @export
 setMethod("precache", "iSEEindexResource",
-    function(x, ...)
+    function(x, bfc, id, ...)
 {
     msg <- sprintf("no 'precache' method defined for object
         of class %s, consider defining your own.",
@@ -103,12 +105,13 @@ setClass("iSEEindexHttpsResource", contains="iSEEindexResource")
 
 #' @export
 setMethod("precache", "iSEEindexHttpsResource",
-    function(x, ...)
+    function(x, bfc, id, ...)
 {
-    # Do not download anything
-    # Simply return the original URI to BiocFileCache
-    # which will manage the download automatically.
-    return(x@uri)
+    # Pass the URI as-is.
+    # Let the BiocFileCache manage the download automatically.
+    fpath <- x@uri
+    object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "copy", ...)
+    return(object_path)
 })
 
 # iSEEindexLocalhostResource ----
@@ -158,14 +161,15 @@ setClass("iSEEindexLocalhostResource", contains="iSEEindexResource")
 
 #' @export
 setMethod("precache", "iSEEindexLocalhostResource",
-    function(x, ...)
+    function(x, bfc, id, ...)
 {
-    # Do not download anything
-    # Simply trim 'localhost://' from the original URI and pass to BiocFileCache
+    # Trim 'localhost://' from the original URI and pass to BiocFileCache,
     # which will manage the caching.
-    out <- sub("localhost://", "", x@uri)
+    # Use action="copy" to leave the original file untouched.
+    fpath <- sub("localhost://", "", x@uri)
     stopifnot(file.exists(out))
-    return(out)
+    object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "copy", ...)
+    return(object_path)
 })
 
 # iSEEindexRcallResource ----
@@ -214,16 +218,17 @@ setClass("iSEEindexRcallResource", contains="iSEEindexResource")
 
 #' @export
 setMethod("precache", "iSEEindexRcallResource",
-    function(x, ...)
+    function(x, bfc, id, ...)
 {
-    # Do not download anything
     # Trim 'rcall://' from the original URI and evaluate the R call,
-    # check that the value is an existing filepath and pass to BiocFileCache
+    # check that the value is an existing filepath and pass to BiocFileCache,
     # which will manage the caching.
+    # Use action="copy" to leave the original file untouched.
     call_string <- sub("rcall://", "", x@uri)
-    out <- eval(parse(text = call_string))
-    stopifnot(file.exists(out))
-    return(out)
+    fpath <- eval(parse(text = call_string))
+    stopifnot(file.exists(fpath))
+    object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "copy", ...)
+    return(object_path)
 })
 
 # iSEEindexS3Resource ----
@@ -310,17 +315,22 @@ setClass("iSEEindexS3Resource", contains="iSEEindexResource")
 #' @importFrom urltools url_parse
 #' @importFrom paws.storage s3
 setMethod("precache", "iSEEindexS3Resource",
-    function(x, ..., temp_dir = tempdir())
+    function(x, bfc, id, ..., temp_dir = tempdir())
 {
+    # Trim 's3://' from the original URI and pass to paws.storage,
+    # which will manage the download.
+    # Pass the local filepath to BiocFileCache, which will cache the downloaded file.
+    # Use action="move" to save time and disk space.
     uri <- urltools::url_parse(x@uri)
     if(uri$scheme != "s3") stop("URI scheme must be `s3`")
     
     # connect to S3 and download the file
     svc <- paws.storage::s3(...)
     dir.create(temp_dir, recursive = TRUE, showWarnings = FALSE)
-    out <- file.path(temp_dir, basename(uri$path))
+    fpath <- file.path(temp_dir, basename(uri$path))
     svc$download_file(Bucket = uri$domain, Key = uri$path,
-        Filename = out)
-    stopifnot(file.exists(out))
-    return(out)
+        Filename = fpath)
+    stopifnot(file.exists(fpath))
+    object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "move", ...)
+    return(object_path)
 })

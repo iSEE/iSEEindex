@@ -56,8 +56,7 @@
         # nocov start
         if (nrow(bfc_result) == 0) {
             uri_object <- .uri_to_object(uri)
-            bfc_fpath <- precache(uri_object)
-            script_path <- bfcadd(x = bfc, rname = bfc_config_id, fpath = bfc_fpath)
+            script_path <- precache(uri_object, bfc, id)
         } else {
             script_path <- bfc[[bfc_result$rid]]
         }
