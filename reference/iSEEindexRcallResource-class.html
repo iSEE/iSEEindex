@@ -92,8 +92,9 @@ for an <span class="pkg">iSEE</span> app.</p>
 <p>In the following code snippets, <code>x</code> is an instance of a iSEEindexRcallResource class.
 Refer to the documentation for each method for more details on the remaining arguments.</p>
 <ul><li><p><code><a href="iSEEindexResource-generics.html">precache</a>(x, ...)</code> trims the <code>rcall://</code> prefix,
-evaluates the remainder of the URI as R code,
-and returns the resulting file path, for use in the <span class="pkg">BiocFileCache</span>.</p></li>
+evaluates the remainder of the URI as R code, and caches a copy of the
+resource located at the resulting file path using <span class="pkg">BiocFileCache</span>,
+before returning the file path to the cached file.</p></li>
 </ul></div>
     <div id="author">
     <h2>Author</h2>

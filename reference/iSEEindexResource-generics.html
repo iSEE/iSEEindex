@@ -66,11 +66,13 @@
     </div>
 
 
-    <div id="defining-the-parameter-interface">
-    <h2>Defining the parameter interface</h2>
+    <div id="preparing-and-caching-resources">
+    <h2>Preparing and caching resources</h2>
     
 
-<p><code>precache(x, ...)</code> potentially downloads a resource from an URI and returns the path to the local file:</p><ul><li><p><code>x</code>, a character scalar that represents a URI.</p></li>
+<p><code>precache(x, bfc, id, ...)</code> potentially downloads a resource from an URI, caches it, and returns the path to the cached file:</p><ul><li><p><code>x</code>, a character scalar that represents a URI.</p></li>
+<li><p><code>bfc</code>, a <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache()</a></code> object..</p></li>
+<li><p><code>id</code>, a data set identifier as a character scalar..</p></li>
 <li><p><code>...</code>, additional arguments passed to and from other methods.</p></li>
 </ul></div>
     <div id="author">

@@ -171,8 +171,7 @@ the file on the internet.</p>
 <p>The <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>
 package can perfectly well handle HTTPS.</p>
 <p>In this instance, the <code><a href="../reference/iSEEindexResource-generics.html">precache()</a></code> function has no other
-job than to return the URI <em>as is</em>, for the <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>
-package to use during caching.</p>
+job than to cache the file located at the given URI using <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>.</p>
 </div>
 </div>
 <div class="section level3">
@@ -199,8 +198,7 @@ package can perfectly well handle local files, it does not know how to
 deal with the custom scheme <code>localhost</code>.</p>
 <p>In this instance, the <code><a href="../reference/iSEEindexResource-generics.html">precache()</a></code> function has the only
 job to remove the <code>localhost://</code> prefix from the URI, and
-return the remainder of the URI, which the <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>
-package can use for caching.</p>
+cache the file located at the resulting file path using <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>.</p>
 </div>
 </div>
 <div class="section level3">
@@ -230,10 +228,36 @@ Assigned Numbers Authority (IANA)</a>. As such, the <em><a href="https://biocond
 package cannot possibly know how to handle that custom scheme.</p>
 <p>In this instance, the <code><a href="../reference/iSEEindexResource-generics.html">precache()</a></code> function has the job to
 remove the <code>rcall://</code> prefix from the URI, evaluate the
-remainder of the URI as R code, and return the output of the R code,
-which should be a <code>character</code> scalar representing a valid URI
-that the <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>
-package can use for caching.</p>
+remainder of the URI as R code, and cache the file located at the
+resulting file path using <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="iseeindexs3resource">iSEEindexS3Resource<a class="anchor" aria-label="anchor" href="#iseeindexs3resource"></a>
+</h3>
+<div class="section level4">
+<h4 id="structure-3">Structure<a class="anchor" aria-label="anchor" href="#structure-3"></a>
+</h4>
+<p>This type of resource is documented in
+<code><a href="../reference/iSEEindexS3Resource-class.html">help("iSEEindexS3Resource-class")</a></code>.</p>
+<p>Briefly, this class is used to represent files that are accessible
+directly from <a href="https://aws.amazon.com/s3/" class="external-link">Amazon S3</a>.</p>
+<p>The URI must use the custom scheme “s3”, followed by the S3 URI to
+the file.</p>
+<p>This custom scheme was created mainly to dynamically fetch the
+example files distributed and installed with the package.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">s3://bucket/prefix/index.rds</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="caching-3">Caching<a class="anchor" aria-label="anchor" href="#caching-3"></a>
+</h4>
+<p>Now, while the scheme <code>s3</code> is recognised by the <a href="https://aws.amazon.com/cli/" class="external-link">AWS Command Line Interface</a>, the
+<em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>
+package does not know how to deal with it.</p>
+<p>In this instance, the <code><a href="../reference/iSEEindexResource-generics.html">precache()</a></code> function has the job to
+parse the URI for information that is passed to the <em><a href="https://CRAN.R-project.org/package=paws.storage" class="external-link">paws.storage</a></em>
+package to download the file, which is then cached using <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>.</p>
 </div>
 </div>
 </div>
@@ -266,18 +290,18 @@ Chang, and Iannone, 2022)</li>
 </ul>
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.17/biocthis" class="external-link">biocthis</a></em>.</p>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create the vignette</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"iSEEindex.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"resources.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Extract the R code</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"iSEEindex.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"resources.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2022-12-07 14:35:36 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2022-12-07 17:18:58 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 0.603 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 0.747 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
