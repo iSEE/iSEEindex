@@ -90,8 +90,25 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>iSEEindex</code> is to provide an interface to any collection of data sets within an iSEE web-application.</p>
-<p>The main functionality of this package is to define a custom landing page allowing app maintainers to list a custom collection of data sets that users can selected from and directly load objects into an iSEE web-application.</p>
+<p>The goal of <code>iSEEindex</code> is to provide an interface to any collection of data sets hosted anywhere within an iSEE web-application.</p>
+<p>The main functionality of this package is to define a custom landing page for iSEE web-applications where app maintainers can list entirely custom collections of data sets hosted on virtually any locally or remotely accessible network.</p>
+<p>A number of built-in methods are implemented, providing access to common types of resources, e.g.:</p>
+<ul>
+<li>Local filesystem</li>
+<li>HTTPS URIs</li>
+<li>Amazon S3 buckets</li>
+</ul>
+<p>Each type of resource is identified by the scheme component of its URI. Standard schemes can be used alongside custom-made ones, e.g.:</p>
+<ul>
+<li>
+<code>localhost://</code> for local files.</li>
+<li>
+<code>https://</code> for files downloaded over the HTTPS protocol.</li>
+<li>
+<code>s3://</code> for files downloaded from Amazon S3 buckets.</li>
+</ul>
+<p>The <code>iSEEindex</code> framework enables app maintainers to independently define new methods for their own choice of standard and custom-made URI schemes. More information is available in the vignette <em>Implementing custom iSEEindex resources</em>.</p>
+<p>The resulting landing page presents end-users of the web-applications with the predefined choice of data sets and initial configuration states (specific to each data set). After selecting a data set and – optionally – an initial configuration, launching the main app fetches resources from their respective URI and caches them using the <em><a href="https://bioconductor.org/packages/3.16/BiocFileCache" class="external-link">BiocFileCache</a></em> package. Finally, data sets and configurations from the cache into the main <code>iSEE</code> application, for interactive exploration.</p>
 <div class="section level2">
 <h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
