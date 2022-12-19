@@ -34,8 +34,8 @@ test_that(".load_initial works for default choice", {
 
 test_that(".load_initial works for non-default choice", {
     
-    # TODO: replace URI by local path (e.g., inst/) to remove depenency on internet connection for testing
-    out <- iSEEindex:::.load_initial(bfc, "ID1", "config01", "https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_01.R?download=1")
+    config_file <- paste0("localhost://", system.file(package = "iSEEindex", "ReprocessedAllenData_config_01.R"))
+    out <- iSEEindex:::.load_initial(bfc, "ID1", "config01", config_file)
     expect_type(out, "list")
     
 })

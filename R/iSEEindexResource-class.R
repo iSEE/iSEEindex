@@ -224,7 +224,8 @@ setMethod("precache", "iSEEindexRcallResource",
     # which will manage the caching.
     # Use action="copy" to leave the original file untouched.
     call_string <- sub("rcall://", "", x@uri)
-    fpath <- eval(parse(text = call_string))
+    env <- new.env()
+    fpath <- eval(parse(text = call_string), envir = env)
     stopifnot(file.exists(fpath))
     object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "copy", ...)
     return(object_path)
