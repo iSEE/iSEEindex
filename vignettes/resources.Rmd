@@ -57,7 +57,7 @@ bib <- c(
 ## Overview
 
 `r Biocpkg("iSEEindex")` imports data sets and initial app configurations from files.
-Each of those files is represented by a Uniform Resource Identifier (URI) in the metadata returned by the functions supplied to the `FUN.datasets` and `FUN.initial` arguments of the `iSEEindex()` function.
+Each of those files is represented by a Uniform Resource Identifier (URI) in the metadata tables returned by the functions supplied to the `FUN.datasets` and `FUN.initial` arguments of the `iSEEindex()` function.
 
 `r Biocpkg("iSEEindex")` requires each URI to contain a scheme [Wikipedia][scheme-wikipedia] component, to identify the type of resource and invoke the associated method for accessing it.
 
@@ -76,7 +76,7 @@ For instance, the scheme `https` produces an object of class `iSEEindexHttpsReso
 The raw value of the URI (including the scheme component) is stored in the `uri` slot of the `iSEEindexResource` object.
 
 Each `iSEEindexResource` sub-class must define the method `precache()`.
-The method is invoked to process the raw value of the URI, potentially download the resource file locally using custom code, and return the value of a URI that the `r Biocpkg("BiocFileCache")` package is capable of processing.
+The method is invoked to process the raw value of the URI, download the resource file locally using custom code if necessary, cache the file using `r Biocpkg("BiocFileCache")`, and return the path to the cached file.
 
 The `r Biocpkg("BiocFileCache")` package is then used to cache the resource file on first use, and fetch the cached file in subsequent uses.
 
