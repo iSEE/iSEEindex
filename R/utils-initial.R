@@ -67,6 +67,7 @@
             stop("No object named 'initial' was found - this needs to be ",
                  "defined in the config script.")
         }
+        initial <- get("initial", pos = env)
     }
-    get("initial", pos = env)
+    initial
 }
