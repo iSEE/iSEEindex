@@ -59,7 +59,7 @@ bib <- c(
 `r Biocpkg("iSEEindex")` imports data sets and initial app configurations from files.
 Each of those files is represented by a Uniform Resource Identifier (URI) in the metadata tables returned by the functions supplied to the `FUN.datasets` and `FUN.initial` arguments of the `iSEEindex()` function.
 
-`r Biocpkg("iSEEindex")` requires each URI to contain a scheme [Wikipedia][scheme-wikipedia] component, to identify the type of resource and invoke the associated method for accessing it.
+`r Biocpkg("iSEEindex")` requires each URI to contain a scheme ([Wikipedia][scheme-wikipedia] `r fontawesome::fa("external-link")`) component, to identify the type of resource and invoke the associated method for accessing it.
 
 This system allows `r Biocpkg("iSEEindex")` users to use both standard and custom schemes in the URI of their resources, to fetch files from virtually any logical or physical resource, be it local or remote.
 
