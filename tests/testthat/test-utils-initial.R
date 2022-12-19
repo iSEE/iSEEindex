@@ -34,7 +34,7 @@ test_that(".load_initial works for default choice", {
 
 test_that(".load_initial works for non-default choice", {
     
-    config_file <- system.file(package = "iSEEindex", "ReprocessedAllenData_config_01.R")
+    config_file <- paste0("localhost://", system.file(package = "iSEEindex", "ReprocessedAllenData_config_01.R"))
     out <- iSEEindex:::.load_initial(bfc, "ID1", "config01", config_file)
     expect_type(out, "list")
     
