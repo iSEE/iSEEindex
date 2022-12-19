@@ -61,11 +61,12 @@
             script_path <- bfc[[bfc_result$rid]]
         }
         # nocov end
-        source(script_path, local = TRUE)
-        if (!exists("initial")) {
+        env <- new.env()
+        source(script_path, local = env)
+        if (!exists("initial", where = env)) {
             stop("No object named 'initial' was found - this needs to be ",
                  "defined in the config script.")
         }
     }
-    initial
+    get("initial", pos = env)
 }
