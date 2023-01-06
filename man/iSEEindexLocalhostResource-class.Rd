@@ -38,6 +38,10 @@ Refer to the documentation for each method for more details on the remaining arg
 }
 }
 
+\examples{
+new("iSEEindexLocalhostResource", uri = "localhost:///example/absolute/path")
+new("iSEEindexLocalhostResource", uri = "localhost://example/relative/path")
+}
 \author{
 Kevin Rue-Albrecht
 }
