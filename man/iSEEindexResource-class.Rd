@@ -25,6 +25,9 @@ Refer to the documentation for each method for more details on the remaining arg
 }
 }
 
+\examples{
+new("iSEEindexResource", uri = "uri://example")
+}
 \author{
 Kevin Rue-Albrecht
 }

@@ -19,6 +19,13 @@ An overview of the generics for downloading and caching resources.
 }
 }
 
+\examples{
+library(BiocFileCache)
+bfc <- BiocFileCache(cache = tempdir())
+
+x <- new("iSEEindexRcallResource", uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+precache(x, bfc, "ID0")
+}
 \author{
 Kevin Rue-Albrecht
 }

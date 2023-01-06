@@ -75,6 +75,9 @@ aws_secret_access_key=your AWS secret key
 }\if{html}{\out{</div>}}
 }
 
+\examples{
+new("iSEEindexS3Resource", uri = "s3://example/path/to/bucket")
+}
 \author{
 Thomas Sandmann, Kevin Rue-Albrecht
 }

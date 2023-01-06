@@ -22,6 +22,9 @@
 #' @aliases 
 #' show,iSEEindexResource-method
 #' precache,iSEEindexResource-method
+#' 
+#' @examples
+#' new("iSEEindexResource", uri = "uri://example")
 NULL
 
 #' @export
@@ -55,6 +58,13 @@ setMethod("show", "iSEEindexResource",
 #' @docType methods
 #' @aliases precache
 #' @name iSEEindexResource-generics
+#' 
+#' @examples
+#' library(BiocFileCache)
+#' bfc <- BiocFileCache(cache = tempdir())
+#' 
+#' x <- new("iSEEindexRcallResource", uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+#' precache(x, bfc, "ID0")
 NULL
 
 setGeneric("precache", function(x, bfc, id, ...) {
@@ -97,6 +107,9 @@ setMethod("precache", "iSEEindexResource",
 #' @rdname iSEEindexHttpsResource-class
 #' @aliases 
 #' precache,iSEEindexHttpsResource-method
+#' 
+#' @examples
+#' new("iSEEindexHttpsResource", uri = "https://example.com")
 NULL
 
 #' @export
@@ -152,6 +165,10 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' @rdname iSEEindexLocalhostResource-class
 #' @aliases 
 #' precache,iSEEindexLocalhostResource-method
+#' 
+#' @examples
+#' new("iSEEindexLocalhostResource", uri = "localhost:///example/absolute/path")
+#' new("iSEEindexLocalhostResource", uri = "localhost://example/relative/path")
 NULL
 
 #' @export
@@ -210,6 +227,9 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' @rdname iSEEindexRcallResource-class
 #' @aliases 
 #' precache,iSEEindexRcallResource-method
+#' 
+#' @examples
+#' new("iSEEindexRcallResource", uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
 NULL
 
 #' @export
@@ -306,6 +326,9 @@ setMethod("precache", "iSEEindexRcallResource",
 #' @rdname iSEEindexS3Resource-class
 #' @aliases 
 #' precache,iSEEindexS3Resource-method
+#' 
+#' @examples
+#' new("iSEEindexS3Resource", uri = "s3://example/path/to/bucket")
 NULL
 
 #' @export
