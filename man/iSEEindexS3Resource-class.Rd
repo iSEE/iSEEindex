@@ -25,6 +25,11 @@ For instance:
 \section{Slot overview}{
 
 This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+
+Furthermore, this class defines the additional slot(s) below:
+\describe{
+\item{region}{AWS region.}
+}
 }
 
 \section{Supported methods}{
@@ -45,7 +50,6 @@ and caches a copy of the resource located at the resulting file path using
 
 Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
 \describe{
-\item{\code{...}}{Additional arguments passed on to the \code{\link[paws.storage:s3]{paws.storage::s3()}}}
 \item{\code{temp_dir}}{Scalar character, the directory to store the downloaded file
 in before it is handed over to \pkg{BiocFileCache}. This directory will be created
 recursively if it doesn't already exist.}
@@ -59,11 +63,17 @@ For detailed information, please consult the
 
 Currently, you must have the \href{https://aws.amazon.com/cli/}{AWS Command Line Interface} installed to use AWS SSO with \pkg{paws.storage}.
 
-The AWS region can be set in the file \verb{~/.aws/config}.
+A default AWS region can be set in the file \verb{~/.aws/config}.
 For instance:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{[default]
 region=eu-west-2
+}\if{html}{\out{</div>}}
+
+The default AWS region (if any) can be overriden for each individual resource, adding a column named \code{region} in the configuration file, e.g.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{dataset_id,config_id,label,uri,description,region
+...,...,...,...,...,eu-west-2
 }\if{html}{\out{</div>}}
 
 Credentials for all services can be set in the AWS shared credentials file \verb{~/.aws/credentials}.
@@ -76,7 +86,15 @@ aws_secret_access_key=your AWS secret key
 }
 
 \examples{
-new("iSEEindexS3Resource", uri = "s3://example/path/to/bucket")
+# Without region metadata
+metadata <- data.frame(uri = "s3://example/path/to/bucket")
+x <- iSEEindexS3Resource(metadata)
+str(x)
+
+# With region metadata
+metadata <- data.frame(uri = "s3://example/path/to/bucket", region = "eu-west-2")
+x <- iSEEindexS3Resource(metadata)
+str(x)
 }
 \author{
 Thomas Sandmann, Kevin Rue-Albrecht

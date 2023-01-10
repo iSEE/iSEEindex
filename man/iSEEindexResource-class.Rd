@@ -17,7 +17,7 @@ The iSEEindexResource class represents an undefined resource.
 
 \section{Supported methods}{
 
-In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexResource} class.
+In the following code snippets, \code{x} is an instance of a \code{\linkS4class{iSEEindexResource}} class.
 Refer to the documentation for each method for more details on the remaining arguments.
 
 \itemize{

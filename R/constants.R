@@ -26,6 +26,7 @@
 .datasets_uri <- "uri"
 .datasets_label <- "label"
 .datasets_description <- "description"
+.dataset_region <- "region"
 
 .initial_config_id <- "config_id"
 .initial_dataset_id <- "dataset_id"

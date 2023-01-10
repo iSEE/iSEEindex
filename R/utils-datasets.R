@@ -67,9 +67,9 @@
     x
 }
 
-#' Convert URI to Class
+#' Convert Metadata to Class
 #'
-#' @param uri URI to a resource.
+#' @param x Named list of metadata.
 #'
 #' @return An object of a class that matches the URI protocol.
 #' 
@@ -82,19 +82,20 @@
 #' @rdname INTERNAL_uri_to_object
 #' 
 #' @examples
-#' iSEEindex:::.uri_to_object("https://example.org/file.rds")
-#' iSEEindex:::.uri_to_object("localhost:///path/to/file.rds")
-#' iSEEindex:::.uri_to_object(
+#' iSEEindex:::.metadata_to_object(list(uri="https://example.org/file.rds"))
+#' iSEEindex:::.metadata_to_object(list(uri="localhost:///path/to/file.rds"))
+#' iSEEindex:::.metadata_to_object(list(uri=
 #'   "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
-#' )
-#' iSEEindex:::.uri_to_object("s3://your-bucket/your-prefix/file.rds")
-#' iSEEindex:::.uri_to_object("s3://your-bucket/your-prefix/file.rds")
-.uri_to_object <- function(uri) {
-    protocol <- urltools::url_parse(uri)$scheme
+#' ))
+#' iSEEindex:::.metadata_to_object(list(uri="s3://your-bucket/your-prefix/file.rds"))
+#' iSEEindex:::.metadata_to_object(list(uri="s3://your-bucket/your-prefix/file.rds"))
+.metadata_to_object <- function(x) {
+    protocol <- urltools::url_parse(x[[.datasets_uri]])$scheme
     protocol_titled <- str_to_title(protocol)
     target_class <- sprintf("iSEEindex%sResource", protocol_titled)
     object <- try({
-        new(target_class, uri = uri)
+        constructor.FUN <- get(target_class)
+        constructor.FUN(x)
     })
     if (is(object, "try-error")) {
         stop(

@@ -8,7 +8,7 @@
 #' }
 #' 
 #' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexResource} class.
+#' In the following code snippets, \code{x} is an instance of a [`iSEEindexResource-class`] class.
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #' 
 #' \itemize{
@@ -47,8 +47,8 @@ setMethod("show", "iSEEindexResource",
 #' @section Preparing and caching resources:
 #' `precache(x, bfc, id, ...)` potentially downloads a resource from an URI, caches it, and returns the path to the cached file:
 #' \itemize{
-#' \item \code{x}, a character scalar that represents a URI.
-#' \item \code{bfc}, a [BiocFileCache()] object..
+#' \item \code{x}, a [`iSEEindexResource-class`] object.
+#' \item \code{bfc}, a [BiocFileCache()] object.
 #' \item \code{id}, a data set identifier as a character scalar..
 #' \item \code{...}, additional arguments passed to and from other methods.
 #' }
@@ -63,7 +63,8 @@ setMethod("show", "iSEEindexResource",
 #' library(BiocFileCache)
 #' bfc <- BiocFileCache(cache = tempdir())
 #' 
-#' x <- new("iSEEindexRcallResource", uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+#' x <- new("iSEEindexRcallResource",
+#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
 #' precache(x, bfc, "ID0")
 NULL
 
@@ -229,7 +230,8 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' precache,iSEEindexRcallResource-method
 #' 
 #' @examples
-#' new("iSEEindexRcallResource", uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+#' new("iSEEindexRcallResource",
+#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
 NULL
 
 #' @export
@@ -276,6 +278,11 @@ setMethod("precache", "iSEEindexRcallResource",
 #' @section Slot overview:
 #' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
 #' 
+#' Furthermore, this class defines the additional slot(s) below:
+#' \describe{
+#' \item{region}{AWS region.}
+#' }
+#' 
 #' @section Supported methods:
 #' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexS3Resource} class.
 #' Refer to the documentation for each method for more details on the remaining arguments.
@@ -291,7 +298,6 @@ setMethod("precache", "iSEEindexRcallResource",
 #' @section Pre-caching:
 #' Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
 #' \describe{
-#' \item{`...`}{Additional arguments passed on to the [paws.storage::s3()]}
 #' \item{`temp_dir`}{Scalar character, the directory to store the downloaded file
 #' in before it is handed over to \pkg{BiocFileCache}. This directory will be created
 #' recursively if it doesn't already exist.}
@@ -303,12 +309,19 @@ setMethod("precache", "iSEEindexRcallResource",
 #' 
 #' Currently, you must have the [AWS Command Line Interface](https://aws.amazon.com/cli/) installed to use AWS SSO with \pkg{paws.storage}.
 #' 
-#' The AWS region can be set in the file `~/.aws/config`.
+#' A default AWS region can be set in the file `~/.aws/config`.
 #' For instance:
 #' 
 #' ```
 #' [default]
 #' region=eu-west-2
+#' ```
+#' 
+#' The default AWS region (if any) can be overriden for each individual resource, adding a column named `region` in the configuration file, e.g.
+#' 
+#' ```
+#' dataset_id,config_id,label,uri,description,region
+#' ...,...,...,...,...,eu-west-2
 #' ```
 #' 
 #' Credentials for all services can be set in the AWS shared credentials file `~/.aws/credentials`.
@@ -328,11 +341,28 @@ setMethod("precache", "iSEEindexRcallResource",
 #' precache,iSEEindexS3Resource-method
 #' 
 #' @examples
-#' new("iSEEindexS3Resource", uri = "s3://example/path/to/bucket")
+#' # Without region metadata
+#' metadata <- data.frame(uri = "s3://example/path/to/bucket")
+#' x <- iSEEindexS3Resource(metadata)
+#' str(x)
+#' 
+#' # With region metadata
+#' metadata <- data.frame(uri = "s3://example/path/to/bucket", region = "eu-west-2")
+#' x <- iSEEindexS3Resource(metadata)
+#' str(x)
 NULL
 
 #' @export
-setClass("iSEEindexS3Resource", contains="iSEEindexResource")
+setClass("iSEEindexS3Resource", contains="iSEEindexResource", slots = c("region" = "character"))
+
+#' @export
+iSEEindexS3Resource <- function(x) {
+    region <- x[[.dataset_region]]
+    if (is.null(region) || identical(nchar(region), 0L)) {
+        region <- NA_character_
+    }
+    new("iSEEindexS3Resource", uri = x[[.datasets_uri]], region = region)
+}
 
 #' @export
 #' @importFrom urltools url_parse
@@ -349,11 +379,15 @@ setMethod("precache", "iSEEindexS3Resource",
     if(uri$scheme != "s3") stop("URI scheme must be `s3`")
     
     # connect to S3 and download the file
-    svc <- paws.storage::s3(...)
+    aws_config <- list()
+    if (!is.na(x@region)) {
+        aws_config$region <- x@region
+    }
+    print(aws_config)
+    svc <- paws.storage::s3(aws_config)
     dir.create(temp_dir, recursive = TRUE, showWarnings = FALSE)
     fpath <- file.path(temp_dir, basename(uri$path))
-    svc$download_file(Bucket = uri$domain, Key = uri$path,
-        Filename = fpath)
+    svc$download_file(Bucket = uri$domain, Key = uri$path, Filename = fpath)
     stopifnot(file.exists(fpath))
     object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "move", ...)
     return(object_path)
