@@ -34,8 +34,11 @@ test_that(".load_initial works for default choice", {
 
 test_that(".load_initial works for non-default choice", {
     
-    config_file <- paste0("localhost://", system.file(package = "iSEEindex", "ReprocessedAllenData_config_01.R"))
-    out <- iSEEindex:::.load_initial(bfc, "ID1", "config01", config_file)
+    config_file <- paste0(
+        "localhost://",
+        system.file(package = "iSEEindex", "ReprocessedAllenData_config_01.R"))
+    config_metadata <- list(uri = config_file)
+    out <- iSEEindex:::.load_initial(bfc, "ID1", "config01", config_metadata)
     expect_type(out, "list")
     
 })
@@ -44,8 +47,10 @@ test_that(".load_initial detects invalid scripts", {
     
     tf <- tempfile()
     file.create(tf)
-    uri <- paste0("localhost://", tf)
+    metadata <- list(uri = paste0("localhost://", tf))
     	
-    expect_error(iSEEindex:::.load_initial(bfc, "ID0", "config0", uri), "No object named 'initial' was found")
+    expect_error(
+        iSEEindex:::.load_initial(bfc, "ID0", "config0", metadata),
+        "No object named 'initial' was found")
     
 })

@@ -39,14 +39,14 @@
 #' @param bfc A [BiocFileCache()] object.
 #' @param dataset_id Character scalar. Identifier of the data set selected.
 #' @param config_id Character scalar. Identifier of the configuration file to load.
-#' @param uri Character scalar. URI of the configuration file to download, if needed.
+#' @param metadata Named list of metadata. See individual resource classes for required and optional metadata.
 #'
 #' @return A `list` of [Panel-class] objects, representing an initial app state.
 #' 
 #' @author Kevin Rue-Albrecht
 #'
 #' @rdname INTERNAL_load_initial
-.load_initial <- function(bfc, dataset_id, config_id, uri) {
+.load_initial <- function(bfc, dataset_id, config_id, metadata) {
     if (identical(config_id, .initial_default_choice)) {
         initial <- NULL
     } else {
@@ -55,7 +55,7 @@
         bfc_result <- bfcquery(bfc, bfc_config_id, field = "rname", exact = TRUE)
         # nocov start
         if (nrow(bfc_result) == 0) {
-            uri_object <- .uri_to_object(uri)
+            uri_object <- .metadata_to_object(metadata)
             script_path <- precache(uri_object, bfc, bfc_config_id)
         } else {
             script_path <- bfc[[bfc_result$rid]]

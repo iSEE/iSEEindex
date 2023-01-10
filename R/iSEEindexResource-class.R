@@ -117,6 +117,14 @@ NULL
 setClass("iSEEindexHttpsResource", contains="iSEEindexResource")
 
 #' @export
+#' @rdname iSEEindexHttpsResource-class
+#' 
+#' @param x List of metadata.
+iSEEindexHttpsResource <- function(x) {
+    new("iSEEindexHttpsResource", uri = x[[.datasets_uri]])
+}
+
+#' @export
 setMethod("precache", "iSEEindexHttpsResource",
     function(x, bfc, id, ...)
 {
@@ -174,6 +182,14 @@ NULL
 
 #' @export
 setClass("iSEEindexLocalhostResource", contains="iSEEindexResource")
+
+#' @export
+#' @rdname iSEEindexLocalhostResource-class
+#' 
+#' @param x List of metadata.
+iSEEindexLocalhostResource <- function(x) {
+    new("iSEEindexLocalhostResource", uri = x[[.datasets_uri]])
+}
 
 #' @export
 setMethod("precache", "iSEEindexLocalhostResource",
@@ -236,6 +252,14 @@ NULL
 
 #' @export
 setClass("iSEEindexRcallResource", contains="iSEEindexResource")
+
+#' @export
+#' @rdname iSEEindexRcallResource-class
+#' 
+#' @param x List of metadata.
+iSEEindexRcallResource <- function(x) {
+    new("iSEEindexRcallResource", uri = x[[.datasets_uri]])
+}
 
 #' @export
 setMethod("precache", "iSEEindexRcallResource",

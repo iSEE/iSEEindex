@@ -3,7 +3,14 @@
 \name{iSEEindexRcallResource-class}
 \alias{iSEEindexRcallResource-class}
 \alias{precache,iSEEindexRcallResource-method}
+\alias{iSEEindexRcallResource}
 \title{The iSEEindexRcallResource class}
+\usage{
+iSEEindexRcallResource(x)
+}
+\arguments{
+\item{x}{List of metadata.}
+}
 \description{
 The iSEEindexRcallResource class represents a resource accessible through
 the result of an R call.

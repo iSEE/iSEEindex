@@ -117,13 +117,13 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
     dataset_id <- pObjects[[.dataset_selected_id]]
     which_dataset <- which(pObjects$datasets_table[[.datasets_id]] == dataset_id)
     # TODO: refactor as function that takes data set identifier and returns uri
-    dataset_uri <- pObjects$datasets_table[which_dataset, .datasets_uri, drop=TRUE]
+    dataset_metadata <- as.list(pObjects$datasets_table[which_dataset, , drop=FALSE])
     # TODO: refactor as function that takes data set identifier and returns label
     dataset_label <- pObjects$datasets_table[which_dataset, .datasets_label, drop=TRUE]
     withProgress(message = sprintf("Loading '%s'", dataset_label),
         value = 0, max = 2, {
         incProgress(1, detail = "(Down)loading object")
-        se2 <- try(.load_sce(bfc, dataset_id, dataset_uri))
+        se2 <- try(.load_sce(bfc, dataset_id, dataset_metadata))
         incProgress(1, detail = "Launching iSEE app")
         if (is(se2, "try-error")) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")
@@ -133,9 +133,9 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
             } else {
                 initial_id <- pObjects[[.ui_initial]]
                 which_initial <- which(pObjects$initial_table[[.initial_config_id]] == initial_id)
-                initial_uri <- pObjects$initial_table[which_initial, .initial_uri, drop=TRUE]
+                initial_metadata <- as.list(pObjects$initial_table[which_initial, , drop = FALSE])
                 initial_message <- capture.output(
-                    init <- try(.load_initial(bfc, dataset_id, initial_id, initial_uri)),
+                    init <- try(.load_initial(bfc, dataset_id, initial_id, initial_metadata)),
                     type = "message")
             }
             if (is(init, "try-error")) {

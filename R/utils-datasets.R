@@ -7,7 +7,7 @@
 #'
 #' @param bfc A [BiocFileCache()] object.
 #' @param id A data set identifier as a character scalar.
-#' @param uri A URI as a character scalar.
+#' @param metadata Named list of metadata. See individual resource classes for required and optional metadata.
 #'
 #' @return
 #' For `.load_sce()`, a [SingleCellExperiment()] object.
@@ -24,18 +24,18 @@
 #' library(BiocFileCache)
 #' bfc <- BiocFileCache(tempdir())
 #' id <- "demo_load_sce"
-#' uri <- "https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds?download=1"
+#' metadata <- list(uri="https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds")
 #' 
 #' ## Usage ---
 #' 
-#' iSEEindex:::.load_sce(bfc, id, uri)
+#' iSEEindex:::.load_sce(bfc, id, metadata)
 #' 
-.load_sce <- function(bfc, id, uri) {
+.load_sce <- function(bfc, id, metadata) {
     bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
     # nocov start
     if (nrow(bfc_result) == 0) {
         # TODO: refactor to a funtion that is also used by .load_initial
-        uri_object <- .uri_to_object(uri)
+        uri_object <- .metadata_to_object(metadata)
         object_path <- precache(uri_object, bfc, id)
     } else {
         object_path <- bfc[[bfc_result$rid]]
@@ -93,17 +93,15 @@
     protocol <- urltools::url_parse(x[[.datasets_uri]])$scheme
     protocol_titled <- str_to_title(protocol)
     target_class <- sprintf("iSEEindex%sResource", protocol_titled)
-    object <- try({
-        constructor.FUN <- get(target_class)
-        constructor.FUN(x)
-    })
-    if (is(object, "try-error")) {
+    constructor.FUN <- try({
+        get(target_class)
+    }, silent = TRUE)
+    if (is(constructor.FUN, "try-error")) {
         stop(
-            "Failed to convert URI to resource object. ",
-            sprintf("Consider implementing the resource class '%s'.",
+            "Failed to convert metadata to resource object. ",
+            sprintf("Consider implementing the constructor function '%s()'.",
                     target_class)
             )
-    } 
-    
-    object
+    }
+    constructor.FUN(x)
 }
