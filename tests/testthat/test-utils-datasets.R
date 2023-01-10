@@ -4,7 +4,9 @@ test_that(".load_sce works", {
 
     bfc <- BiocFileCache::BiocFileCache()
     id <- "ID1"
-    url <- "https://zenodo.org/record/7186593/files/ReprocessedAllenData.rds?download=1"
+    metadata <- list(
+        uri = "https://zenodo.org/record/7186593/files/ReprocessedAllenData.rds?download=1"
+    )
     
     ## Usage ---
     
