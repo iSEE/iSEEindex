@@ -338,6 +338,7 @@ setMethod("precache", "iSEEindexRcallResource",
 #' @name iSEEindexS3Resource-class
 #' @rdname iSEEindexS3Resource-class
 #' @aliases 
+#' iSEEindexS3Resource
 #' precache,iSEEindexS3Resource-method
 #' 
 #' @examples
@@ -356,6 +357,9 @@ NULL
 setClass("iSEEindexS3Resource", contains="iSEEindexResource", slots = c("region" = "character"))
 
 #' @export
+#' @rdname iSEEindexS3Resource-class
+#' 
+#' @param x List of metadata.
 iSEEindexS3Resource <- function(x) {
     region <- x[[.dataset_region]]
     if (is.null(region) || identical(nchar(region), 0L)) {
@@ -383,8 +387,7 @@ setMethod("precache", "iSEEindexS3Resource",
     if (!is.na(x@region)) {
         aws_config$region <- x@region
     }
-    print(aws_config)
-    svc <- paws.storage::s3(aws_config)
+    svc <- paws.storage::s3(config = aws_config)
     dir.create(temp_dir, recursive = TRUE, showWarnings = FALSE)
     fpath <- file.path(temp_dir, basename(uri$path))
     svc$download_file(Bucket = uri$domain, Key = uri$path, Filename = fpath)

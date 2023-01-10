@@ -2,8 +2,15 @@
 % Please edit documentation in R/iSEEindexResource-class.R
 \name{iSEEindexS3Resource-class}
 \alias{iSEEindexS3Resource-class}
+\alias{iSEEindexS3Resource}
 \alias{precache,iSEEindexS3Resource-method}
 \title{The iSEEindexS3Resource class}
+\usage{
+iSEEindexS3Resource(x)
+}
+\arguments{
+\item{x}{List of metadata.}
+}
 \description{
 The iSEEindexS3Resource class represents a cloud storage resource accessible
 via the
