@@ -66,7 +66,7 @@ dataset_fun <- function() {
 }
 
 initial_fun <- function() {
-    read.csv(system.file(package = "iSEEindex", "initial.csv"))
+    yaml::read_yaml(system.file(package = "iSEEindex", "initial.yaml"))
 }
 
 app <- iSEEindex(bfc, dataset_fun, initial_fun)

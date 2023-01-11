@@ -18,8 +18,14 @@
 #' @rdname INTERNAL_landing_page
 .landing_page <- function(bfc, FUN.datasets, FUN.initial) {
     datasets_available_table <- FUN.datasets()
+    if (is(datasets_available_table, "list")) {
+        datasets_available_table <- .list_to_dataframe(datasets_available_table, id.field = "id")
+    }
     .check_datasets_table(datasets_available_table)
     initial_available_table <- FUN.initial()
+    if (is(initial_available_table, "list")) {
+        initial_available_table <- .list_to_dataframe(initial_available_table, id.field = "config_id")
+    }
     .check_initial_table(initial_available_table)
 
     function (FUN, input, output, session) {

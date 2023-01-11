@@ -1,26 +1,26 @@
 #' iSEEindex App
-#' 
+#'
 #' @description
 #' Generate an \pkg{iSEE} app that includes a landing page enabling
 #' users to choose from a custom set of data sets and initial configuration
 #' states prepared by the app maintainer.
-#' 
+#'
 #' @section Data Sets:
 #' The function passed to the argument `FUN.datasets` must return a `data.frame` that contains the following columns:
-#' 
+#'
 #' \describe{
 #' \item{id}{A unique identifier for the data set.}
 #' \item{label}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
 #' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
 #' \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
 #' }
-#' 
+#'
 #' The `id` is used to identify the data set file in the \pkg{BiocFileCache}.
 #' Thus, we recommend using a dedicated `BiocFileCache()` for the app, using the `BiocFileCache(cache)` to specify an on-disk location (directory path) for the dedicated cache.
-#' 
+#'
 #' @section Initial Configurations:
 #' The function passed to the argument `FUN.initial` must return a `data.frame` that contains the following columns:
-#' 
+#'
 #' \describe{
 #' \item{dataset_id}{The unique identifier of a data set.}
 #' \item{config_id}{A unique identifier for the initial configuration.}
@@ -28,10 +28,10 @@
 #' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
 #' \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
 #' }
-#' 
+#'
 #' The `dataset_id` must match one of the `id` values in the data set metadata.
 #' See section 'Data Sets'.
-#' 
+#'
 #' The same `config_id` may be re-used in combination with different `dataset_id`.
 #' The `dataset_id` and `initial_id` are combined to identify the initial configuration script and the associated data set in the \pkg{BiocFileCache}.
 #'
@@ -42,7 +42,7 @@
 #' available initial configuration states.
 #'
 #' @return An [iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @export
@@ -53,17 +53,17 @@
 #' @examples
 #' library(BiocFileCache)
 #' bfc <- BiocFileCache(cache = tempdir())
-#' 
+#'
 #' dataset_fun <- function() {
 #'     read.csv(system.file(package="iSEEindex", "datasets.csv"))
 #' }
-#' 
+#'
 #' initial_fun <- function() {
-#'     read.csv(system.file(package = "iSEEindex", "initial.csv"))
+#'     yaml::read_yaml(system.file(package = "iSEEindex", "initial.yaml"))
 #' }
-#' 
+#'
 #' app <- iSEEindex(bfc, dataset_fun, initial_fun)
-#' 
+#'
 #' if (interactive()) {
 #'   shiny::runApp(app, port = 1234)
 #' }
@@ -81,7 +81,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
 }
 
 #' Prepare and Launch the Main App.
-#' 
+#'
 #' Invokes a function that replaces the landing page by the \pkg{iSEE}
 #' interactive dashboard.
 #'
@@ -103,7 +103,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
 #' landing page.
 #'
 #' @return A `NULL` value is invisibly returned.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @importFrom utils capture.output
