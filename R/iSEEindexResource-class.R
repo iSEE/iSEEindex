@@ -382,10 +382,10 @@ setMethod("precache", "iSEEindexRcallResource",
 #' str(x)
 #'
 #' # With region metadata (currently ignored)
+#' # NOTE: The @region slot is set to NA pending bugfix (see above).
 #' metadata <- data.frame(uri = "s3://example/path/to/bucket", region = "eu-west-2")
 #' x <- iSEEindexS3Resource(metadata)
 #' str(x)
-#' # @region slot set to NA pending bugfix in upstream dependency.
 NULL
 
 #' @export
