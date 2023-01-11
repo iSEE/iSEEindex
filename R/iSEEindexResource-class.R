@@ -344,13 +344,19 @@ setMethod("precache", "iSEEindexRcallResource",
 #' Optionally, a column named `region` can be added in the resource metadata to set the AWS S3 region for each individual resource, e.g.
 #'
 #' ```
-#' dataset_id,config_id,label,uri,description,region
-#' ...,...,...,...,...,eu-west-2
+#' id,label,uri,description,region
+#' ...,...,...,...,eu-west-2
 #' ```
 #'
 #' Regions set in the metadata override the default AWS region set in `~/.aws/config` (if any).
+#' The region metadata can be left blank for resources that should use the default region,
+#' and resource classes that do not require region information.
+#'
 #' If a default region is NOT set in `~/.aws/config`, then the region MUST be set in the metadata.
-#' **NOTE:** Pending resolution of the issue <https://github.com/paws-r/paws/issues/571>, AWS S3 regions set in the metadata are ignored, the `region` slot is always set to `NA`, and the default region set in `~/.aws/config` is used.
+#'
+#' **IMPORTANT:** Pending resolution of the issue <https://github.com/paws-r/paws/issues/571>, AWS S3 regions set in the metadata are currently ignored,
+#' the `region` slot is always set to `NA`,
+#' and the default region set in `~/.aws/config` is used.
 #'
 #' Credentials for all services can be set in the AWS shared credentials file `~/.aws/credentials`.
 #' For instance:

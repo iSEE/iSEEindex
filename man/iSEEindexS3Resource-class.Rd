@@ -79,13 +79,19 @@ region=eu-west-2
 
 Optionally, a column named \code{region} can be added in the resource metadata to set the AWS S3 region for each individual resource, e.g.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{dataset_id,config_id,label,uri,description,region
-...,...,...,...,...,eu-west-2
+\if{html}{\out{<div class="sourceCode">}}\preformatted{id,label,uri,description,region
+...,...,...,...,eu-west-2
 }\if{html}{\out{</div>}}
 
 Regions set in the metadata override the default AWS region set in \verb{~/.aws/config} (if any).
+The region metadata can be left blank for resources that should use the default region,
+and resource classes that do not require region information.
+
 If a default region is NOT set in \verb{~/.aws/config}, then the region MUST be set in the metadata.
-\strong{NOTE:} Pending resolution of the issue \url{https://github.com/paws-r/paws/issues/571}, AWS S3 regions set in the metadata are ignored, the \code{region} slot is always set to \code{NA}, and the default region set in \verb{~/.aws/config} is used.
+
+\strong{IMPORTANT:} Pending resolution of the issue \url{https://github.com/paws-r/paws/issues/571}, AWS S3 regions set in the metadata are currently ignored,
+the \code{region} slot is always set to \code{NA},
+and the default region set in \verb{~/.aws/config} is used.
 
 Credentials for all services can be set in the AWS shared credentials file \verb{~/.aws/credentials}.
 For instance:
