@@ -33,3 +33,4 @@
 .initial_label <- "label"
 .initial_uri <- "uri"
 .initial_description <- "description"
+.initial_region <- "region"

@@ -1,8 +1,8 @@
 #' Load Object and Coerce to SingleCellExperiment
-#' 
-#' @description 
+#'
+#' @description
 #' `.load_sce()` loads the selected data set.
-#' 
+#'
 #' `.convert_to_sce()` coerces the selected data set to a [SingleCellExperiment-class] object.
 #'
 #' @param bfc A [BiocFileCache()] object.
@@ -11,7 +11,7 @@
 #'
 #' @return
 #' For `.load_sce()`, a [SingleCellExperiment()] object.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @import SingleCellExperiment
@@ -20,21 +20,20 @@
 #' @rdname INTERNAL_load_sce
 #' @examples
 #' ## Setup ----
-#' 
+#'
 #' library(BiocFileCache)
 #' bfc <- BiocFileCache(tempdir())
 #' id <- "demo_load_sce"
 #' metadata <- list(uri="https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds")
-#' 
+#'
 #' ## Usage ---
-#' 
+#'
 #' iSEEindex:::.load_sce(bfc, id, metadata)
-#' 
+#'
 .load_sce <- function(bfc, id, metadata) {
     bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
     # nocov start
     if (nrow(bfc_result) == 0) {
-        # TODO: refactor to a funtion that is also used by .load_initial
         uri_object <- .metadata_to_object(metadata)
         object_path <- precache(uri_object, bfc, id)
     } else {
@@ -50,7 +49,7 @@
 #'
 #' @return
 #' For `.convert_to_sce()`, a [SingleCellExperiment()] object.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @importFrom methods is as
@@ -72,15 +71,15 @@
 #' @param x Named list of metadata.
 #'
 #' @return An object of a class that matches the URI scheme.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
-#' 
+#'
 #' @importFrom methods new
 #' @importFrom urltools url_parse
 #' @importFrom stringr str_to_title
 #'
 #' @rdname INTERNAL_uri_to_object
-#' 
+#'
 #' @examples
 #' iSEEindex:::.metadata_to_object(list(uri="https://example.org/file.rds"))
 #' iSEEindex:::.metadata_to_object(list(uri="localhost:///path/to/file.rds"))
@@ -103,4 +102,47 @@
             )
     }
     constructor.FUN(x)
+}
+
+#' Check Validity of Data Sets Metadata
+#'
+#' @param x `data.frame` of metadata.
+#'
+#' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an error.
+#'
+#' @author Kevin Rue-Albrecht
+#'
+#' @rdname INTERNAL_check_datasets_table
+#'
+#' @examples
+#' x <- data.frame(
+#'   id = "dataset01",
+#'   label = "Data Set 01",
+#'   uri = "https://example.com/dataset01.rds",
+#'   description = "My first data set."
+#' )
+#' iSEEindex:::.check_datasets_table(x)
+.check_datasets_table <- function(x) {
+    # Check that all required column names are present.
+    required_colnames <- c(.datasets_id, .datasets_label, .datasets_uri, .datasets_description)
+    for (column_name in required_colnames) {
+        if (!column_name %in% colnames(x)) {
+            txt <- sprintf("Required column '%s' missing in data set metadata.", column_name)
+            .stop(txt)
+        }
+    }
+    # Check that the table has at least one row.
+    if (identical(nrow(x), 0L)) {
+        txt <- "Data set metadata must have at least one row."
+        .stop(txt)
+    }
+    # https://github.com/iSEE/iSEEindex/issues/23
+    if (.dataset_region %in% colnames(x)) {
+        txt <- paste(
+            "Per-resource AWS S3 regions are ignored pending resolution of https://github.com/paws-r/paws/issues/571.",
+            "The app will use the default region (set in '~/.aws/config') instead.", sep = " "
+        )
+        .warning(txt)
+    }
+    invisible(NULL)
 }
