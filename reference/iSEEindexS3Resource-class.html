@@ -73,7 +73,16 @@ R package.
 A URI for this type of resource uses the prefix “s3://”.</p>
     </div>
 
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">iSEEindexS3Resource</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+    </div>
 
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>x</dt>
+<dd><p>List of metadata.</p></dd>
+
+</dl></div>
     <div id="details">
     <h2>Details</h2>
     <p>The URI must correspond to an existing file in an AWS S3 compatible cloud
@@ -87,7 +96,11 @@ storage system.</p>
     
 
 <p>This class inherits all slots from its parent class <a href="iSEEindexResource-class.html">iSEEindexResource</a>.</p>
-    </div>
+<p>Furthermore, this class defines the additional slot(s) below:</p><dl><dt>region</dt>
+<dd><p>AWS region.</p></dd>
+
+
+</dl></div>
     <div id="supported-methods">
     <h2>Supported methods</h2>
     
@@ -104,10 +117,7 @@ and caches a copy of the resource located at the resulting file path using
     <h2>Pre-caching</h2>
     
 
-<p>Additional arguments to the <code><a href="iSEEindexResource-generics.html">precache</a>(x, ..., temp_dir = tempdir())</code>:</p><dl><dt><code>...</code></dt>
-<dd><p>Additional arguments passed on to the <code><a href="https://rdrr.io/pkg/paws.storage/man/s3.html" class="external-link">paws.storage::s3()</a></code></p></dd>
-
-<dt><code>temp_dir</code></dt>
+<p>Additional arguments to the <code><a href="iSEEindexResource-generics.html">precache</a>(x, ..., temp_dir = tempdir())</code>:</p><dl><dt><code>temp_dir</code></dt>
 <dd><p>Scalar character, the directory to store the downloaded file
 in before it is handed over to <span class="pkg">BiocFileCache</span>. This directory will be created
 recursively if it doesn't already exist.</p></dd>
@@ -121,10 +131,20 @@ recursively if it doesn't already exist.</p></dd>
 <p>For detailed information, please consult the
 <a href="https://github.com/paws-r/paws/blob/main/docs/credentials.md" class="external-link">paws R package documentation</a>.</p>
 <p>Currently, you must have the <a href="https://aws.amazon.com/cli/" class="external-link">AWS Command Line Interface</a> installed to use AWS SSO with <span class="pkg">paws.storage</span>.</p>
-<p>The AWS region can be set in the file <code>~/.aws/config</code>.
+<p>A default AWS region can be set in the file <code>~/.aws/config</code>.
 For instance:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>[default]</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>region<span class="ot">=</span>eu<span class="sc">-</span>west<span class="dv">-2</span></span></code></pre><p></p></div>
+<p>Optionally, a column named <code>region</code> can be added in the resource metadata to set the AWS S3 region for each individual resource, e.g.</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>id,label,uri,description,region</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>...,...,...,...,eu<span class="sc">-</span>west<span class="dv">-2</span></span></code></pre><p></p></div>
+<p>Regions set in the metadata override the default AWS region set in <code>~/.aws/config</code> (if any).
+The region metadata can be left blank for resources that should use the default region,
+and resource classes that do not require region information.</p>
+<p>If a default region is NOT set in <code>~/.aws/config</code>, then the region MUST be set in the metadata.</p>
+<p><strong>IMPORTANT:</strong> Pending resolution of the issue <a href="https://github.com/paws-r/paws/issues/571" class="external-link">https://github.com/paws-r/paws/issues/571</a>, AWS S3 regions set in the metadata are currently ignored,
+the <code>region</code> slot is always set to <code>NA</code>,
+and the default region set in <code>~/.aws/config</code> is used.</p>
 <p>Credentials for all services can be set in the AWS shared credentials file <code>~/.aws/credentials</code>.
 For instance:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>[default]</span>
@@ -138,8 +158,22 @@ For instance:</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">new</span><span class="op">(</span><span class="st">"iSEEindexS3Resource"</span>, uri <span class="op">=</span> <span class="st">"s3://example/path/to/bucket"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class: iSEEindexS3Resource </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Without region metadata</span></span></span>
+<span class="r-in"><span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>uri <span class="op">=</span> <span class="st">"s3://example/path/to/bucket"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">iSEEindexS3Resource</span><span class="op">(</span><span class="va">metadata</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formal class 'iSEEindexS3Resource' [package "iSEEindex"] with 2 slots</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ region: chr NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ uri   : chr "s3://example/path/to/bucket"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># With region metadata (currently ignored)</span></span></span>
+<span class="r-in"><span><span class="co"># NOTE: The @region slot is set to NA pending bugfix (see above).</span></span></span>
+<span class="r-in"><span><span class="va">metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>uri <span class="op">=</span> <span class="st">"s3://example/path/to/bucket"</span>, region <span class="op">=</span> <span class="st">"eu-west-2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">iSEEindexS3Resource</span><span class="op">(</span><span class="va">metadata</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formal class 'iSEEindexS3Resource' [package "iSEEindex"] with 2 slots</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ region: chr NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ uri   : chr "s3://example/path/to/bucket"</span>
 </code></pre></div>
     </div>
   </div>
