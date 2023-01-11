@@ -3,7 +3,14 @@
 \name{iSEEindexHttpsResource-class}
 \alias{iSEEindexHttpsResource-class}
 \alias{precache,iSEEindexHttpsResource-method}
+\alias{iSEEindexHttpsResource}
 \title{The iSEEindexHttpsResource class}
+\usage{
+iSEEindexHttpsResource(x)
+}
+\arguments{
+\item{x}{List of metadata.}
+}
 \description{
 The iSEEindexHttpsResource class represents a resource accessible through
 an HTTPS link.

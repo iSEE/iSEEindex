@@ -1,15 +1,17 @@
 test_that(".load_sce works", {
-    
+
     ## Setup ----
 
     bfc <- BiocFileCache::BiocFileCache()
     id <- "ID1"
-    url <- "https://zenodo.org/record/7186593/files/ReprocessedAllenData.rds?download=1"
-    
+    metadata <- list(
+        uri = "https://zenodo.org/record/7186593/files/ReprocessedAllenData.rds?download=1"
+    )
+
     ## Usage ---
-    
-    out <- iSEEindex:::.load_sce(bfc, id, url)
-    
+
+    out <- iSEEindex:::.load_sce(bfc, id, metadata)
+
     expect_s4_class(out, "SummarizedExperiment")
 })
 
@@ -29,17 +31,81 @@ test_that(".convert_to_sce works for SummarizedExperiment", {
 
 })
 
-# .uri_to_object ----
+# .metadata_to_object ----
 
-test_that(".uri_to_object works for https uri", {
-    
-    out <- iSEEindex:::.uri_to_object("https://test.com")
+test_that(".metadata_to_object works for https uri", {
+
+    out <- iSEEindex:::.metadata_to_object(list(uri = "https://test.com"))
     expect_s4_class(out, "iSEEindexHttpsResource")
-    
+
 })
 
-test_that(".uri_to_object throws an error for undefined protocols", {
-    
-    expect_error(iSEEindex:::.uri_to_object("ftp://test.com"), "Failed to convert URI to resource object.")
-    
+test_that(".metadata_to_object throws an error for undefined protocols", {
+
+    expect_error(iSEEindex:::.metadata_to_object(list(uri = "ftp://test.com")), "No constructor function available for scheme 'ftp'.", fixed = TRUE)
+
+})
+
+# .check_datasets_table ----
+
+test_that(".check_datasets_table works for valid metadata", {
+
+    x <- data.frame(
+        id = "dataset01",
+        label = "Data Set 01",
+        uri = "https://example.com/dataset01.rds",
+        description = "My first data set."
+    )
+
+    out <- iSEEindex:::.check_datasets_table(x)
+    expect_null(out)
+
+})
+
+test_that(".check_datasets_table throw error for missing column", {
+
+    x <- data.frame(
+        id = "dataset01",
+        label = "Data Set 01",
+        uri = "https://example.com/dataset01.rds"
+    )
+
+    expect_error(
+        iSEEindex:::.check_datasets_table(x),
+        "Required column 'description' missing in data set metadata."
+    )
+
+})
+
+test_that(".check_datasets_table throw error for zero rows", {
+
+    x <- data.frame(
+        id = character(0),
+        label = character(0),
+        uri = character(0),
+        description = character(0)
+    )
+
+    expect_error(
+        iSEEindex:::.check_datasets_table(x),
+        "Data set metadata must have at least one row."
+    )
+
+})
+
+test_that(".check_datasets_table throw warning when region column is preent", {
+
+    x <- data.frame(
+        id = "dataset01",
+        label = "Data Set 01",
+        uri = "https://example.com/dataset01.rds",
+        description = "My first data set.",
+        region = "eu-west-2"
+    )
+
+    expect_warning(
+        iSEEindex:::.check_datasets_table(x),
+        "https://github.com/paws-r/paws/issues/571."
+    )
+
 })

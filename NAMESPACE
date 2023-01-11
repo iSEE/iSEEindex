@@ -2,6 +2,10 @@
 
 export(.initial_choices)
 export(iSEEindex)
+export(iSEEindexHttpsResource)
+export(iSEEindexLocalhostResource)
+export(iSEEindexRcallResource)
+export(iSEEindexS3Resource)
 exportClasses(iSEEindexHttpsResource)
 exportClasses(iSEEindexLocalhostResource)
 exportClasses(iSEEindexRcallResource)

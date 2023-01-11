@@ -3,7 +3,14 @@
 \name{iSEEindexRcallResource-class}
 \alias{iSEEindexRcallResource-class}
 \alias{precache,iSEEindexRcallResource-method}
+\alias{iSEEindexRcallResource}
 \title{The iSEEindexRcallResource class}
+\usage{
+iSEEindexRcallResource(x)
+}
+\arguments{
+\item{x}{List of metadata.}
+}
 \description{
 The iSEEindexRcallResource class represents a resource accessible through
 the result of an R call.
@@ -39,7 +46,8 @@ before returning the file path to the cached file.
 }
 
 \examples{
-new("iSEEindexRcallResource", uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+new("iSEEindexRcallResource",
+  uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
 }
 \author{
 Kevin Rue-Albrecht

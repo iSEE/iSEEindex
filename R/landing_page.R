@@ -6,7 +6,7 @@
 #'
 #' @return A `function` that defines UI elements and observers for the
 #' landing page of the app.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny actionButton br column fluidRow reactiveValues
@@ -18,7 +18,9 @@
 #' @rdname INTERNAL_landing_page
 .landing_page <- function(bfc, FUN.datasets, FUN.initial) {
     datasets_available_table <- FUN.datasets()
+    .check_datasets_table(datasets_available_table)
     initial_available_table <- FUN.initial()
+    .check_initial_table(initial_available_table)
 
     function (FUN, input, output, session) {
         # nocov start
@@ -97,7 +99,7 @@
 #' @param initial_table A `data.frame` of metadata for all available initial configuration scripts.
 #'
 #' @return An environment containing several global variables for use throughout the application.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @rdname INTERNAL_create_persistent_objects

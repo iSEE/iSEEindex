@@ -2,8 +2,15 @@
 % Please edit documentation in R/iSEEindexResource-class.R
 \name{iSEEindexS3Resource-class}
 \alias{iSEEindexS3Resource-class}
+\alias{iSEEindexS3Resource}
 \alias{precache,iSEEindexS3Resource-method}
 \title{The iSEEindexS3Resource class}
+\usage{
+iSEEindexS3Resource(x)
+}
+\arguments{
+\item{x}{List of metadata.}
+}
 \description{
 The iSEEindexS3Resource class represents a cloud storage resource accessible
 via the
@@ -25,6 +32,11 @@ For instance:
 \section{Slot overview}{
 
 This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+
+Furthermore, this class defines the additional slot(s) below:
+\describe{
+\item{region}{AWS region.}
+}
 }
 
 \section{Supported methods}{
@@ -45,7 +57,6 @@ and caches a copy of the resource located at the resulting file path using
 
 Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
 \describe{
-\item{\code{...}}{Additional arguments passed on to the \code{\link[paws.storage:s3]{paws.storage::s3()}}}
 \item{\code{temp_dir}}{Scalar character, the directory to store the downloaded file
 in before it is handed over to \pkg{BiocFileCache}. This directory will be created
 recursively if it doesn't already exist.}
@@ -59,12 +70,28 @@ For detailed information, please consult the
 
 Currently, you must have the \href{https://aws.amazon.com/cli/}{AWS Command Line Interface} installed to use AWS SSO with \pkg{paws.storage}.
 
-The AWS region can be set in the file \verb{~/.aws/config}.
+A default AWS region can be set in the file \verb{~/.aws/config}.
 For instance:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{[default]
 region=eu-west-2
 }\if{html}{\out{</div>}}
+
+Optionally, a column named \code{region} can be added in the resource metadata to set the AWS S3 region for each individual resource, e.g.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{id,label,uri,description,region
+...,...,...,...,eu-west-2
+}\if{html}{\out{</div>}}
+
+Regions set in the metadata override the default AWS region set in \verb{~/.aws/config} (if any).
+The region metadata can be left blank for resources that should use the default region,
+and resource classes that do not require region information.
+
+If a default region is NOT set in \verb{~/.aws/config}, then the region MUST be set in the metadata.
+
+\strong{IMPORTANT:} Pending resolution of the issue \url{https://github.com/paws-r/paws/issues/571}, AWS S3 regions set in the metadata are currently ignored,
+the \code{region} slot is always set to \code{NA},
+and the default region set in \verb{~/.aws/config} is used.
 
 Credentials for all services can be set in the AWS shared credentials file \verb{~/.aws/credentials}.
 For instance:
@@ -76,7 +103,16 @@ aws_secret_access_key=your AWS secret key
 }
 
 \examples{
-new("iSEEindexS3Resource", uri = "s3://example/path/to/bucket")
+# Without region metadata
+metadata <- data.frame(uri = "s3://example/path/to/bucket")
+x <- iSEEindexS3Resource(metadata)
+str(x)
+
+# With region metadata (currently ignored)
+# NOTE: The @region slot is set to NA pending bugfix (see above).
+metadata <- data.frame(uri = "s3://example/path/to/bucket", region = "eu-west-2")
+x <- iSEEindexS3Resource(metadata)
+str(x)
 }
 \author{
 Thomas Sandmann, Kevin Rue-Albrecht

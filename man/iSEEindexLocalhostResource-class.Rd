@@ -3,7 +3,14 @@
 \name{iSEEindexLocalhostResource-class}
 \alias{iSEEindexLocalhostResource-class}
 \alias{precache,iSEEindexLocalhostResource-method}
+\alias{iSEEindexLocalhostResource}
 \title{The iSEEindexLocalhostResource class}
+\usage{
+iSEEindexLocalhostResource(x)
+}
+\arguments{
+\item{x}{List of metadata.}
+}
 \description{
 The iSEEindexLocalhostResource class represents a resource accessible through
 a local filepath.
