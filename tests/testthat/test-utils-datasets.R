@@ -42,6 +42,6 @@ test_that(".metadata_to_object works for https uri", {
 
 test_that(".metadata_to_object throws an error for undefined protocols", {
     
-    expect_error(iSEEindex:::.metadata_to_object(list(uri = "ftp://test.com")), "Failed to convert metadata to resource object. ")
+    expect_error(iSEEindex:::.metadata_to_object(list(uri = "ftp://test.com")), "No constructor function available for scheme 'ftp'.", fixed = TRUE)
     
 })

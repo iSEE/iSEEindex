@@ -71,7 +71,7 @@
 #'
 #' @param x Named list of metadata.
 #'
-#' @return An object of a class that matches the URI protocol.
+#' @return An object of a class that matches the URI scheme.
 #' 
 #' @author Kevin Rue-Albrecht
 #' 
@@ -90,17 +90,16 @@
 #' iSEEindex:::.metadata_to_object(list(uri="s3://your-bucket/your-prefix/file.rds"))
 #' iSEEindex:::.metadata_to_object(list(uri="s3://your-bucket/your-prefix/file.rds"))
 .metadata_to_object <- function(x) {
-    protocol <- urltools::url_parse(x[[.datasets_uri]])$scheme
-    protocol_titled <- str_to_title(protocol)
-    target_class <- sprintf("iSEEindex%sResource", protocol_titled)
+    scheme <- urltools::url_parse(x[[.datasets_uri]])$scheme
+    scheme_titled <- str_to_title(scheme)
+    target_class <- sprintf("iSEEindex%sResource", scheme_titled)
     constructor.FUN <- try({
         get(target_class)
     }, silent = TRUE)
     if (is(constructor.FUN, "try-error")) {
         stop(
-            "Failed to convert metadata to resource object. ",
-            sprintf("Consider implementing the constructor function '%s()'.",
-                    target_class)
+            sprintf("No constructor function available for scheme '%s'. ", scheme),
+            sprintf("Consider implementing the constructor function '%s()'.", target_class)
             )
     }
     constructor.FUN(x)
