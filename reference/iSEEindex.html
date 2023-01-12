@@ -99,7 +99,8 @@ available initial configuration states.</p></dd>
     <h2>Data Sets</h2>
     
 
-<p>The function passed to the argument <code>FUN.datasets</code> must return a <code>data.frame</code> that contains the following columns:</p>
+<p>The function passed to the argument <code>FUN.datasets</code> must return either a <code>data.frame</code> or a <code>list</code> that contains metadata about the available data sets.</p>
+<p>Required metadata are:</p>
 <dl><dt>id</dt>
 <dd><p>A unique identifier for the data set.</p></dd>
 
@@ -113,14 +114,40 @@ available initial configuration states.</p></dd>
 <dd><p>A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.</p></dd>
 
 
-</dl><p>The <code>id</code> is used to identify the data set file in the <span class="pkg">BiocFileCache</span>.
-Thus, we recommend using a dedicated <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache()</a></code> for the app, using the <code>BiocFileCache(cache)</code> to specify an on-disk location (directory path) for the dedicated cache.</p>
+</dl><p><strong>Important:</strong> The <code>id</code> value is used to identify the data set file in the <span class="pkg">BiocFileCache</span>.
+Thus, we recommend using a dedicated <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache()</a></code> for the app, using the <code>BiocFileCache(cache)</code> argument to specify an on-disk location (directory path) for the dedicated cache.</p>
+<p>Example <code>data.frame</code>:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="st">"ID1"</span>, <span class="st">"ID2"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"Dataset 01"</span>, <span class="st">"Dataset 02"</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">uri =</span> <span class="fu">c</span>(<span class="st">"https://example.com/1.rds"</span>, <span class="st">"https://example.com/2.rds"</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">description =</span> <span class="fu">c</span>(<span class="st">"My first data set."</span>, <span class="st">"My second data set."</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre><p></p></div>
+<p>The <code>data.frame</code> may also contain optional columns of metadata specific to individual <code><a href="iSEEindexResource-class.html">iSEEindexResource</a></code> classes (refer to the help page of those classes for details).
+The value in optional columns can be left empty (<code>""</code>) for resource classes that do not require that information.</p>
+<p>Example <code>list</code>:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">id =</span> <span class="st">"ID1"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">label =</span> <span class="st">"Dataset 01"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">uri =</span> <span class="st">"https://example.com/1.rds"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">description =</span> <span class="st">"My first data set."</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">id =</span> <span class="st">"ID2"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">label =</span> <span class="st">"Dataset 02"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">uri =</span> <span class="st">"https://example.com/1.rds"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">description =</span> <span class="st">"My second data set."</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre><p></p></div>
+<p>The individual sub-lists may also contain optional named metadata specific to individual <code><a href="iSEEindexResource-class.html">iSEEindexResource</a></code> classes (refer to the help page of those classes for details).</p>
     </div>
     <div id="initial-configurations">
     <h2>Initial Configurations</h2>
     
 
-<p>The function passed to the argument <code>FUN.initial</code> must return a <code>data.frame</code> that contains the following columns:</p>
+<p>The function passed to the argument <code>FUN.initial</code> must return either a <code>data.frame</code> or a <code>list</code> that contains metadata about the available initial configurations, or <code>NULL</code> in the absence of any custom initial configuration (default settings will be applied to all data sets.).</p>
+<p>Required metadata are:</p>
 <dl><dt>dataset_id</dt>
 <dd><p>The unique identifier of a data set.</p></dd>
 
@@ -139,8 +166,36 @@ Thus, we recommend using a dedicated <code><a href="https://rdrr.io/pkg/BiocFile
 
 </dl><p>The <code>dataset_id</code> must match one of the <code>id</code> values in the data set metadata.
 See section 'Data Sets'.</p>
-<p>The same <code>config_id</code> may be re-used in combination with different <code>dataset_id</code>.
-The <code>dataset_id</code> and <code>initial_id</code> are combined to identify the initial configuration script and the associated data set in the <span class="pkg">BiocFileCache</span>.</p>
+<p>The same <code>config_id</code> may be re-used in combination with different <code>dataset_id</code>.</p>
+<p><strong>Important:</strong> The <code>dataset_id</code> and <code>config_id</code> are combined to identify the initial configuration script and the associated data set in the <span class="pkg">BiocFileCache</span>.</p>
+<p>Example <code>data.frame</code>:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataset_id =</span> <span class="fu">c</span>(<span class="st">"ID1"</span>, <span class="st">"ID1"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">config_id =</span> <span class="fu">c</span>(<span class="st">"config01"</span>, config02<span class="st">"),</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">  label = c("</span>Configuration <span class="dv">01</span><span class="st">", "</span>Configuration <span class="dv">02</span><span class="st">"),</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">  uri = c("</span>https<span class="sc">:</span><span class="er">//</span>example.com<span class="sc">/</span><span class="fl">1.</span>R<span class="st">", "</span>https<span class="sc">:</span><span class="er">//</span>example.com<span class="sc">/</span><span class="fl">2.</span>R<span class="st">"),</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">  description = c("</span>My first configuration.<span class="st">", "</span>My second configuration.<span class="st">")</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">)</span></span></code></pre><p></p></div>
+<p>The <code>data.frame</code> may also contain optional columns of metadata specific to individual <code><a href="iSEEindexResource-class.html">iSEEindexResource</a></code> classes (refer to the help page of those classes for details).
+The value in optional columns can be left empty (<code>""</code>) for resource classes that do not require that information.</p>
+<p>Example <code>list</code>:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">dataset_id =</span> <span class="st">"ID1"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">config_id =</span> <span class="st">"config01"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">label =</span> <span class="st">"Configuration 01"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">uri =</span> <span class="st">"https://example.com/1.R"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">description =</span> <span class="st">"My first configuration."</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">dataset_id =</span> <span class="st">"ID1"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">config_id =</span> <span class="st">"config02"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">label =</span> <span class="st">"Configuration 02"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">uri =</span> <span class="st">"https://example.com/2.R"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">description =</span> <span class="st">"My second configuration."</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre><p></p></div>
+<p>The individual sub-lists may also contain optional named metadata specific to individual <code><a href="iSEEindexResource-class.html">iSEEindexResource</a></code> classes (refer to the help page of those classes for details).</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -153,12 +208,16 @@ The <code>dataset_id</code> and <code>initial_id</code> are combined to identify
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: dbplyr</span>
 <span class="r-in"><span><span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span>cache <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Using YAML ----</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dataset_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"iSEEindex"</span>, <span class="st">"datasets.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"iSEEindex"</span>, <span class="st">"example.yaml"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span><span class="op">$</span><span class="va">datasets</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">initial_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"iSEEindex"</span>, <span class="st">"initial.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"iSEEindex"</span>, <span class="st">"example.yaml"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span><span class="op">$</span><span class="va">initial</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu">iSEEindex</span><span class="op">(</span><span class="va">bfc</span>, <span class="va">dataset_fun</span>, <span class="va">initial_fun</span><span class="op">)</span></span></span>
@@ -173,8 +232,36 @@ The <code>dataset_id</code> and <code>initial_id</code> are combined to identify
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, port <span class="op">=</span> <span class="fl">1234</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, port <span class="op">=</span> <span class="fl">1234</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Using CSV ---</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dataset_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"iSEEindex"</span>, <span class="st">"datasets.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span><span class="op">$</span><span class="va">datasets</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">initial_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu">read.csv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"iSEEindex"</span>, <span class="st">"initial.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span><span class="op">$</span><span class="va">initial</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu">iSEEindex</span><span class="op">(</span><span class="va">bfc</span>, <span class="va">dataset_fun</span>, <span class="va">initial_fun</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The `name` provided ('') does not correspond to a known icon</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, port <span class="op">=</span> <span class="fl">1234</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
