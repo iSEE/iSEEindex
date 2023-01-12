@@ -88,9 +88,10 @@ test_that(".check_initial_table throws an error for missing required column", {
         uri = "https://example.com/dataset01_config01.R"
     )
 
+    txt <- "Required column 'description' missing in initial configurations metadata."
     expect_error(
         iSEEindex:::.check_initial_table(x),
-        "Required column 'description' missing in initial configurations metadata."
+        paste(strwrap(txt, exdent = 2), collapse = "\n")
     )
 
 })
@@ -105,9 +106,10 @@ test_that(".check_initial_table throws an error for zero rows", {
         description = character(0)
     )
 
+    txt <- "If not NULL, initial configurations metadata must have at least one row."
     expect_error(
         iSEEindex:::.check_initial_table(x),
-        "If not NULL, initial configurations metadata must have at least one row."
+        paste(strwrap(txt, exdent = 2), collapse = "\n")
     )
 
 })
