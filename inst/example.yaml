@@ -1,4 +1,17 @@
-config01rcall:
+datasets:
+  - id: ID1
+    label: ReprocessedAllenData.rds
+    uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds
+    description: |
+        Reprocessed Allen Data.
+  - id: ID2
+    label: ReprocessedAllenData.rds
+    uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds
+    description: |
+        Reprocessed Allen Data (copy).
+
+initial:
+  - config_id: config01rcall
     dataset_id: ID1
     label: Configuration 1 (R call)
     uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
@@ -9,7 +22,7 @@ config01rcall:
 
       <Source: YAML>
     region: ""
-config02rcall:
+  - config_id: config02rcall
     dataset_id: ID1
     label: Configuration 2 (R call)
     uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_02.R')
@@ -20,7 +33,7 @@ config02rcall:
 
       <Source: YAML>
     region: ""
-config01zenodo:
+  - config_id: config01zenodo
     dataset_id: ID1
     label: Configuration 1 (zenodo.org)
     uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_01.R
@@ -31,7 +44,7 @@ config01zenodo:
 
       <Source: YAML>
     region: ""
-config02zenodo:
+  - config_id: config02zenodo
     dataset_id: ID1
     label: Configuration 2 (zenodo.org)
     uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_02.R

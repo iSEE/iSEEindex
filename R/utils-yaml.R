@@ -7,19 +7,22 @@
 #' @rdname INTERNAL_list_to_dataframe
 #'
 #' @examples
-#' datasets_file <- system.file(package="iSEEindex", "datasets.yaml")
-#' iSEEindex:::.list_to_dataframe(datasets_file, id.field = "id")
+#' library(yaml)
 #'
-#' config_file <- system.file(package="iSEEindex", "initial.yaml")
-#' iSEEindex:::.list_to_dataframe(config_file, id.field = "config_id")
-.list_to_dataframe <- function(x, id.field) {
+#' datasets_file <- system.file(package="iSEEindex", "example.yaml")
+#' yaml_data <- read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+#'
+#' # Data sets ----
+#'
+#' iSEEindex:::.list_to_dataframe(yaml_data$datasets)
+#'
+#' # Initial configurations ----
+#'
+#' iSEEindex:::.list_to_dataframe(yaml_data$initial)
+.list_to_dataframe <- function(x) {
     # Convert list to a list of data.frames
     list_of_df <- lapply(x, as.data.frame)
     # rbind into a single data.frame
     df <- do.call("rbind", list_of_df)
-    # cbind the identifier column before all other columns
-    df_id <- data.frame(id_placeholder = row.names(df))
-    colnames(df_id) <- id.field
-    res <- cbind(df_id, df)
-    res
+    df
 }

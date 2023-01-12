@@ -110,6 +110,13 @@
             .stop(txt)
         }
     }
+    # Check that config identifiers are unique
+    which_dup <- duplicated(x[[.initial_config_id]])
+    if (any(which_dup)) {
+        first_dup <- which(which_dup)[1]
+        txt <- sprintf("duplicate config_id: %s", x[[.initial_config_id]][first_dup])
+        .stop(txt)
+    }
     # https://github.com/iSEE/iSEEindex/issues/23
     if (.dataset_region %in% colnames(x)) {
         txt <- paste(

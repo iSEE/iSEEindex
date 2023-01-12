@@ -61,19 +61,42 @@ The \code{dataset_id} and \code{initial_id} are combined to identify the initial
 library(BiocFileCache)
 bfc <- BiocFileCache(cache = tempdir())
 
+# Using YAML ----
+
 dataset_fun <- function() {
-    read.csv(system.file(package="iSEEindex", "datasets.csv"))
+    x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+    x$datasets
 }
 
 initial_fun <- function() {
-    yaml::read_yaml(system.file(package = "iSEEindex", "initial.yaml"))
+    x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+    x$initial
 }
 
 app <- iSEEindex(bfc, dataset_fun, initial_fun)
 
 if (interactive()) {
-  shiny::runApp(app, port = 1234)
+    shiny::runApp(app, port = 1234)
 }
+
+# Using CSV ---
+
+dataset_fun <- function() {
+    x <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+    x$datasets
+}
+
+initial_fun <- function() {
+    x <- yaml::read.csv(system.file(package = "iSEEindex", "initial.csv"))
+    x$initial
+}
+
+app <- iSEEindex(bfc, dataset_fun, initial_fun)
+
+if (interactive()) {
+    shiny::runApp(app, port = 1234)
+}
+
 }
 \author{
 Kevin Rue-Albrecht

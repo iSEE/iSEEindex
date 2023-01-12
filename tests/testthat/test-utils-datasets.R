@@ -62,7 +62,7 @@ test_that(".check_datasets_table works for valid metadata", {
 
 })
 
-test_that(".check_datasets_table throw error for missing column", {
+test_that(".check_datasets_table throws an error for missing required column", {
 
     x <- data.frame(
         id = "dataset01",
@@ -77,7 +77,7 @@ test_that(".check_datasets_table throw error for missing column", {
 
 })
 
-test_that(".check_datasets_table throw error for zero rows", {
+test_that(".check_datasets_table throws an error for zero rows", {
 
     x <- data.frame(
         id = character(0),
@@ -93,7 +93,7 @@ test_that(".check_datasets_table throw error for zero rows", {
 
 })
 
-test_that(".check_datasets_table throw warning when region column is preent", {
+test_that(".check_datasets_table throws a warning when region column is present", {
 
     x <- data.frame(
         id = "dataset01",
@@ -106,6 +106,23 @@ test_that(".check_datasets_table throw warning when region column is preent", {
     expect_warning(
         iSEEindex:::.check_datasets_table(x),
         "https://github.com/paws-r/paws/issues/571."
+    )
+
+})
+
+test_that(".check_datasets_table throws an error when duplicate id is present", {
+
+    x <- data.frame(
+        id = "dataset01",
+        label = "Data Set 01",
+        uri = "https://example.com/dataset01.rds",
+        description = "My first data set."
+    )
+    x <- rbind(x, x)
+
+    expect_error(
+        iSEEindex:::.check_datasets_table(x),
+        "duplicate id: dataset01"
     )
 
 })
