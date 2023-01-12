@@ -136,6 +136,13 @@
         txt <- "Data set metadata must have at least one row."
         .stop(txt)
     }
+    # Check that config identifiers are unique
+    which_dup <- duplicated(x[[.datasets_id]])
+    if (any(which_dup)) {
+        first_dup <- which(which_dup)[1]
+        txt <- sprintf("duplicate id: %s", x[[.datasets_id]][first_dup])
+        .stop(txt)
+    }
     # https://github.com/iSEE/iSEEindex/issues/23
     if (.dataset_region %in% colnames(x)) {
         txt <- paste(
