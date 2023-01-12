@@ -6,7 +6,9 @@
 #' states prepared by the app maintainer.
 #'
 #' @section Data Sets:
-#' The function passed to the argument `FUN.datasets` must return a `data.frame` that contains the following columns:
+#' The function passed to the argument `FUN.datasets` must return either a `data.frame` or a `list` that contains metadata about the available data sets.
+#'
+#' Required metadata are:
 #'
 #' \describe{
 #' \item{id}{A unique identifier for the data set.}
@@ -15,11 +17,48 @@
 #' \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
 #' }
 #'
-#' The `id` is used to identify the data set file in the \pkg{BiocFileCache}.
-#' Thus, we recommend using a dedicated `BiocFileCache()` for the app, using the `BiocFileCache(cache)` to specify an on-disk location (directory path) for the dedicated cache.
+#' **Important:** The `id` value is used to identify the data set file in the \pkg{BiocFileCache}.
+#' Thus, we recommend using a dedicated `BiocFileCache()` for the app, using the `BiocFileCache(cache)` argument to specify an on-disk location (directory path) for the dedicated cache.
+#'
+#' Example `data.frame`:
+#'
+#' ```
+#' data.frame(
+#'   id = c("ID1", "ID2"),
+#'   label = c("Dataset 01", "Dataset 02"),
+#'   uri = c("https://example.com/1.rds", "https://example.com/2.rds"),
+#'   description = c("My first data set.", "My second data set.")
+#' )
+#' ```
+#'
+#' The `data.frame` may also contain optional columns of metadata specific to individual [`iSEEindexResource-class`] classes (refer to the help page of those classes for details).
+#' The value in optional columns can be left empty (`""`) for resource classes that do not require that information.
+#'
+#' Example `list`:
+#'
+#' ```
+#' list(
+#'   list(
+#'      id = "ID1",
+#'      label = "Dataset 01",
+#'      uri = "https://example.com/1.rds",
+#'      description = "My first data set."
+#'   ),
+#'   list(
+#'      id = "ID2",
+#'      label = "Dataset 02",
+#'      uri = "https://example.com/1.rds",
+#'      description = "My second data set."
+#'   )
+#' )
+#' ```
+#'
+#' The individual sub-lists may also contain optional named metadata specific to individual [`iSEEindexResource-class`] classes (refer to the help page of those classes for details).
 #'
 #' @section Initial Configurations:
-#' The function passed to the argument `FUN.initial` must return a `data.frame` that contains the following columns:
+#' The function passed to the argument `FUN.initial` must return either a `data.frame` or a `list` that contains metadata about the available initial configurations, or `NULL` in the absence of any custom initial configuration (default settings will be applied to all data sets.).
+#'
+#' Required metadata are:
 #'
 #' \describe{
 #' \item{dataset_id}{The unique identifier of a data set.}
@@ -33,7 +72,46 @@
 #' See section 'Data Sets'.
 #'
 #' The same `config_id` may be re-used in combination with different `dataset_id`.
-#' The `dataset_id` and `initial_id` are combined to identify the initial configuration script and the associated data set in the \pkg{BiocFileCache}.
+#'
+#' **Important:** The `dataset_id` and `config_id` are combined to identify the initial configuration script and the associated data set in the \pkg{BiocFileCache}.
+#'
+#' Example `data.frame`:
+#'
+#' ```
+#' data.frame(
+#'   dataset_id = c("ID1", "ID1"),
+#'   config_id = c("config01", config02"),
+#'   label = c("Configuration 01", "Configuration 02"),
+#'   uri = c("https://example.com/1.R", "https://example.com/2.R"),
+#'   description = c("My first configuration.", "My second configuration.")
+#' )
+#' ```
+#'
+#' The `data.frame` may also contain optional columns of metadata specific to individual [`iSEEindexResource-class`] classes (refer to the help page of those classes for details).
+#' The value in optional columns can be left empty (`""`) for resource classes that do not require that information.
+#'
+#' Example `list`:
+#'
+#' ```
+#' list(
+#'   list(
+#'      dataset_id = "ID1",
+#'      config_id = "config01",
+#'      label = "Configuration 01",
+#'      uri = "https://example.com/1.R",
+#'      description = "My first configuration."
+#'   ),
+#'   list(
+#'      dataset_id = "ID1",
+#'      config_id = "config02",
+#'      label = "Configuration 02",
+#'      uri = "https://example.com/2.R",
+#'      description = "My second configuration."
+#'   )
+#' )
+#' ```
+#'
+#' The individual sub-lists may also contain optional named metadata specific to individual [`iSEEindexResource-class`] classes (refer to the help page of those classes for details).
 #'
 #' @param bfc An [BiocFileCache()] object.
 #' @param FUN.datasets A function that returns a `data.frame` of metadata for

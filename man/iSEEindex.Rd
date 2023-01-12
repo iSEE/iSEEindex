@@ -25,7 +25,9 @@ states prepared by the app maintainer.
 }
 \section{Data Sets}{
 
-The function passed to the argument \code{FUN.datasets} must return a \code{data.frame} that contains the following columns:
+The function passed to the argument \code{FUN.datasets} must return either a \code{data.frame} or a \code{list} that contains metadata about the available data sets.
+
+Required metadata are:
 
 \describe{
 \item{id}{A unique identifier for the data set.}
@@ -34,13 +36,48 @@ The function passed to the argument \code{FUN.datasets} must return a \code{data
 \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
 }
 
-The \code{id} is used to identify the data set file in the \pkg{BiocFileCache}.
-Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the \code{BiocFileCache(cache)} to specify an on-disk location (directory path) for the dedicated cache.
+\strong{Important:} The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
+Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the \code{BiocFileCache(cache)} argument to specify an on-disk location (directory path) for the dedicated cache.
+
+Example \code{data.frame}:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{data.frame(
+  id = c("ID1", "ID2"),
+  label = c("Dataset 01", "Dataset 02"),
+  uri = c("https://example.com/1.rds", "https://example.com/2.rds"),
+  description = c("My first data set.", "My second data set.")
+)
+}\if{html}{\out{</div>}}
+
+The \code{data.frame} may also contain optional columns of metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
+The value in optional columns can be left empty (\code{""}) for resource classes that do not require that information.
+
+Example \code{list}:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{list(
+  list(
+     id = "ID1",
+     label = "Dataset 01",
+     uri = "https://example.com/1.rds",
+     description = "My first data set."
+  ),
+  list(
+     id = "ID2",
+     label = "Dataset 02",
+     uri = "https://example.com/1.rds",
+     description = "My second data set."
+  )
+)
+}\if{html}{\out{</div>}}
+
+The individual sub-lists may also contain optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
 }
 
 \section{Initial Configurations}{
 
-The function passed to the argument \code{FUN.initial} must return a \code{data.frame} that contains the following columns:
+The function passed to the argument \code{FUN.initial} must return either a \code{data.frame} or a \code{list} that contains metadata about the available initial configurations, or \code{NULL} in the absence of any custom initial configuration (default settings will be applied to all data sets.).
+
+Required metadata are:
 
 \describe{
 \item{dataset_id}{The unique identifier of a data set.}
@@ -54,7 +91,44 @@ The \code{dataset_id} must match one of the \code{id} values in the data set met
 See section 'Data Sets'.
 
 The same \code{config_id} may be re-used in combination with different \code{dataset_id}.
-The \code{dataset_id} and \code{initial_id} are combined to identify the initial configuration script and the associated data set in the \pkg{BiocFileCache}.
+
+\strong{Important:} The \code{dataset_id} and \code{config_id} are combined to identify the initial configuration script and the associated data set in the \pkg{BiocFileCache}.
+
+Example \code{data.frame}:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{data.frame(
+  dataset_id = c("ID1", "ID1"),
+  config_id = c("config01", config02"),
+  label = c("Configuration 01", "Configuration 02"),
+  uri = c("https://example.com/1.R", "https://example.com/2.R"),
+  description = c("My first configuration.", "My second configuration.")
+)
+}\if{html}{\out{</div>}}
+
+The \code{data.frame} may also contain optional columns of metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
+The value in optional columns can be left empty (\code{""}) for resource classes that do not require that information.
+
+Example \code{list}:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{list(
+  list(
+     dataset_id = "ID1",
+     config_id = "config01",
+     label = "Configuration 01",
+     uri = "https://example.com/1.R",
+     description = "My first configuration."
+  ),
+  list(
+     dataset_id = "ID1",
+     config_id = "config02",
+     label = "Configuration 02",
+     uri = "https://example.com/2.R",
+     description = "My second configuration."
+  )
+)
+}\if{html}{\out{</div>}}
+
+The individual sub-lists may also contain optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
 }
 
 \examples{

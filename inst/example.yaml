@@ -21,7 +21,6 @@ initial:
       File distributed with the `iSEEindex` package.
 
       <Source: YAML>
-    region: ""
   - config_id: config02rcall
     dataset_id: ID1
     label: Configuration 2 (R call)
@@ -32,7 +31,6 @@ initial:
       File distributed with the `iSEEindex` package.
 
       <Source: YAML>
-    region: ""
   - config_id: config01zenodo
     dataset_id: ID1
     label: Configuration 1 (zenodo.org)
@@ -43,7 +41,6 @@ initial:
       File downloaded from <https://zenodo.org/record/7304331>.
 
       <Source: YAML>
-    region: ""
   - config_id: config02zenodo
     dataset_id: ID1
     label: Configuration 2 (zenodo.org)
@@ -54,4 +51,3 @@ initial:
       File downloaded from <https://zenodo.org/record/7304331>.
 
       <Source: YAML>
-    region: ""
