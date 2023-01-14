@@ -1,6 +1,6 @@
 #' Import Resource Metadata from YAML
 #'
-#' @param file Path to a suitable YAML file.
+#' @param x A `list` of resource metadata.
 #'
 #' @return A `data.frame`
 #'
