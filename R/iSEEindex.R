@@ -12,7 +12,7 @@
 #'
 #' \describe{
 #' \item{id}{A unique identifier for the data set.}
-#' \item{label}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
+#' \item{title}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
 #' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
 #' \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
 #' }
@@ -25,7 +25,7 @@
 #' ```
 #' data.frame(
 #'   id = c("ID1", "ID2"),
-#'   label = c("Dataset 01", "Dataset 02"),
+#'   title = c("Dataset 01", "Dataset 02"),
 #'   uri = c("https://example.com/1.rds", "https://example.com/2.rds"),
 #'   description = c("My first data set.", "My second data set.")
 #' )
@@ -40,13 +40,13 @@
 #' list(
 #'   list(
 #'      id = "ID1",
-#'      label = "Dataset 01",
+#'      title = "Dataset 01",
 #'      uri = "https://example.com/1.rds",
 #'      description = "My first data set."
 #'   ),
 #'   list(
 #'      id = "ID2",
-#'      label = "Dataset 02",
+#'      title = "Dataset 02",
 #'      uri = "https://example.com/1.rds",
 #'      description = "My second data set."
 #'   )
@@ -63,7 +63,7 @@
 #' \describe{
 #' \item{dataset_id}{The unique identifier of a data set.}
 #' \item{config_id}{A unique identifier for the initial configuration.}
-#' \item{label}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
+#' \item{title}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
 #' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
 #' \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
 #' }
@@ -81,7 +81,7 @@
 #' data.frame(
 #'   dataset_id = c("ID1", "ID1"),
 #'   config_id = c("config01", config02"),
-#'   label = c("Configuration 01", "Configuration 02"),
+#'   title = c("Configuration 01", "Configuration 02"),
 #'   uri = c("https://example.com/1.R", "https://example.com/2.R"),
 #'   description = c("My first configuration.", "My second configuration.")
 #' )
@@ -97,14 +97,14 @@
 #'   list(
 #'      dataset_id = "ID1",
 #'      config_id = "config01",
-#'      label = "Configuration 01",
+#'      title = "Configuration 01",
 #'      uri = "https://example.com/1.R",
 #'      description = "My first configuration."
 #'   ),
 #'   list(
 #'      dataset_id = "ID1",
 #'      config_id = "config02",
-#'      label = "Configuration 02",
+#'      title = "Configuration 02",
 #'      uri = "https://example.com/2.R",
 #'      description = "My second configuration."
 #'   )
@@ -219,9 +219,9 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
     which_dataset <- which(pObjects$datasets_table[[.datasets_id]] == dataset_id)
     # TODO: refactor as function that takes data set identifier and returns uri
     dataset_metadata <- as.list(pObjects$datasets_table[which_dataset, , drop=FALSE])
-    # TODO: refactor as function that takes data set identifier and returns label
-    dataset_label <- pObjects$datasets_table[which_dataset, .datasets_label, drop=TRUE]
-    withProgress(message = sprintf("Loading '%s'", dataset_label),
+    # TODO: refactor as function that takes data set identifier and returns title
+    dataset_title <- pObjects$datasets_table[which_dataset, .datasets_title, drop=TRUE]
+    withProgress(message = sprintf("Loading '%s'", dataset_title),
         value = 0, max = 2, {
         incProgress(1, detail = "(Down)loading object")
         se2 <- try(.load_sce(bfc, dataset_id, dataset_metadata))

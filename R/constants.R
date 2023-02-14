@@ -24,13 +24,13 @@
 
 .datasets_id <- "id"
 .datasets_uri <- "uri"
-.datasets_label <- "label"
+.datasets_title <- "title"
 .datasets_description <- "description"
 .dataset_region <- "region"
 
 .initial_config_id <- "config_id"
 .initial_dataset_id <- "dataset_id"
-.initial_label <- "label"
+.initial_title <- "title"
 .initial_uri <- "uri"
 .initial_description <- "description"
 .initial_region <- "region"

@@ -69,7 +69,7 @@
             which_dataset <- which(pObjects$datasets_table[[.datasets_id]] == dataset_selected_id)
             dataset_info <- pObjects$datasets_table[which_dataset, , drop=FALSE]
             contents <- markdown(paste0(
-                "# ", sprintf("%s", dataset_info[[.datasets_label]]), "\n\n",
+                "# ", sprintf("%s", dataset_info[[.datasets_title]]), "\n\n",
                 sprintf("%s", dataset_info[[.datasets_description]]), "\n\n"
             ))
         }

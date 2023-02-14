@@ -52,7 +52,7 @@ test_that(".check_datasets_table works for valid metadata", {
 
     x <- data.frame(
         id = "dataset01",
-        label = "Data Set 01",
+        title = "Data Set 01",
         uri = "https://example.com/dataset01.rds",
         description = "My first data set."
     )
@@ -66,7 +66,7 @@ test_that(".check_datasets_table throws an error for missing required column", {
 
     x <- data.frame(
         id = "dataset01",
-        label = "Data Set 01",
+        title = "Data Set 01",
         uri = "https://example.com/dataset01.rds"
     )
 
@@ -81,7 +81,7 @@ test_that(".check_datasets_table throws an error for zero rows", {
 
     x <- data.frame(
         id = character(0),
-        label = character(0),
+        title = character(0),
         uri = character(0),
         description = character(0)
     )
@@ -97,7 +97,7 @@ test_that(".check_datasets_table throws a warning when region column is present"
 
     x <- data.frame(
         id = "dataset01",
-        label = "Data Set 01",
+        title = "Data Set 01",
         uri = "https://example.com/dataset01.rds",
         description = "My first data set.",
         region = "eu-west-2"
@@ -114,7 +114,7 @@ test_that(".check_datasets_table throws an error when duplicate id is present", 
 
     x <- data.frame(
         id = "dataset01",
-        label = "Data Set 01",
+        title = "Data Set 01",
         uri = "https://example.com/dataset01.rds",
         description = "My first data set."
     )
