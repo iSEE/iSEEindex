@@ -25,7 +25,7 @@
     which_initial <- available[[.initial_dataset_id]] == id
     config_subset_table <- available[which_initial, , drop=FALSE]
     initial_choices <- config_subset_table$config_id
-    names(initial_choices) <- config_subset_table[[.initial_label]]
+    names(initial_choices) <- config_subset_table[[.initial_title]]
     choices <- c(choices, initial_choices)
     choices
 }
@@ -86,7 +86,7 @@
 #' x <- data.frame(
 #'   dataset_id = "dataset01",
 #'   config_id = "dataset01_config01",
-#'   label = "Initial configuration 01",
+#'   title = "Initial configuration 01",
 #'   uri = "https://example.com/dataset01_config01.R",
 #'   description = "Initial configuration 01 for data set 01."
 #' )
@@ -103,7 +103,7 @@
     }
     # Check that all required column names are present.
     required_colnames <- c(.initial_dataset_id, .initial_config_id,
-        .initial_label, .initial_uri, .initial_description)
+        .initial_title, .initial_uri, .initial_description)
     for (column_name in required_colnames) {
         if (!column_name %in% colnames(x)) {
             txt <- sprintf("Required column '%s' missing in initial configurations metadata.", column_name)

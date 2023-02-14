@@ -117,14 +117,14 @@
 #' @examples
 #' x <- data.frame(
 #'   id = "dataset01",
-#'   label = "Data Set 01",
+#'   title = "Data Set 01",
 #'   uri = "https://example.com/dataset01.rds",
 #'   description = "My first data set."
 #' )
 #' iSEEindex:::.check_datasets_table(x)
 .check_datasets_table <- function(x) {
     # Check that all required column names are present.
-    required_colnames <- c(.datasets_id, .datasets_label, .datasets_uri, .datasets_description)
+    required_colnames <- c(.datasets_id, .datasets_title, .datasets_uri, .datasets_description)
     for (column_name in required_colnames) {
         if (!column_name %in% colnames(x)) {
             txt <- sprintf("Required column '%s' missing in data set metadata.", column_name)

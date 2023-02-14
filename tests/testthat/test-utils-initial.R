@@ -3,9 +3,9 @@
 test_that(".initial_choices works ", {
 
     initial_table <- data.frame(
-        dataset_id="ID1",
-        config_id="config01",
-        label="Configuration 01")
+        dataset_id = "ID1",
+        config_id = "config01",
+        title = "Configuration 01")
     out <- iSEEindex:::.initial_choices("dummy_id", initial_table)
 
     expect_identical(out, c("Default" = "(Default)"))
@@ -14,9 +14,9 @@ test_that(".initial_choices works ", {
 test_that(".initial_choices works ", {
 
     initial_table <- data.frame(
-        dataset_id="ID1",
-        config_id="config01",
-        label="Configuration 01")
+        dataset_id = "ID1",
+        config_id = "config01",
+        title = "Configuration 01")
 
     out <- iSEEindex:::.initial_choices("ID1", initial_table)
 
@@ -69,7 +69,7 @@ test_that(".check_initial_table works for valid metadata", {
     x <- data.frame(
         config_id = "dataset01_config01",
         dataset_id = "dataset01",
-        label = "Data Set 01",
+        title = "Data Set 01",
         uri = "https://example.com/dataset01_config01.R",
         description = "Configuration 01 for data set 01."
     )
@@ -84,7 +84,7 @@ test_that(".check_initial_table throws an error for missing required column", {
     x <- data.frame(
         config_id = "dataset01_config01",
         dataset_id = "dataset01",
-        label = "Data Set 01",
+        title = "Data Set 01",
         uri = "https://example.com/dataset01_config01.R"
     )
 
@@ -101,7 +101,7 @@ test_that(".check_initial_table throws an error for zero rows", {
     x <- data.frame(
         dataset_id = character(0),
         config_id = character(0),
-        label = character(0),
+        title = character(0),
         uri = character(0),
         description = character(0)
     )
@@ -119,7 +119,7 @@ test_that(".check_initial_table throws a warning when region column is present",
     x <- data.frame(
         config_id = "dataset01_config01",
         dataset_id = "dataset01",
-        label = "Data Set 01",
+        title = "Data Set 01",
         uri = "https://example.com/dataset01_config01.R",
         description = "Configuration 01 for data set 01.",
         region = "eu-west-2"
@@ -137,7 +137,7 @@ test_that(".check_initial_table throws an error when duplicate config_id is pres
     x <- data.frame(
         config_id = "dataset01_config01",
         dataset_id = "dataset01",
-        label = "Data Set 01",
+        title = "Data Set 01",
         uri = "https://example.com/dataset01_config01.R",
         description = "Configuration 01 for data set 01."
     )
