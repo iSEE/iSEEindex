@@ -93,23 +93,6 @@ test_that(".check_datasets_table throws an error for zero rows", {
 
 })
 
-test_that(".check_datasets_table throws a warning when region column is present", {
-
-    x <- data.frame(
-        id = "dataset01",
-        title = "Data Set 01",
-        uri = "https://example.com/dataset01.rds",
-        description = "My first data set.",
-        region = "eu-west-2"
-    )
-
-    expect_warning(
-        iSEEindex:::.check_datasets_table(x),
-        "https://github.com/paws-r/paws/issues/571."
-    )
-
-})
-
 test_that(".check_datasets_table throws an error when duplicate id is present", {
 
     x <- data.frame(

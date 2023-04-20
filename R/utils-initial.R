@@ -117,13 +117,5 @@
         txt <- sprintf("duplicate config_id: %s", x[[.initial_config_id]][first_dup])
         .stop(txt)
     }
-    # https://github.com/iSEE/iSEEindex/issues/23
-    if (.dataset_region %in% colnames(x)) {
-        txt <- paste(
-            "Per-resource AWS S3 regions are ignored pending resolution of https://github.com/paws-r/paws/issues/571.",
-            "The app will use the default region (set in '~/.aws/config') instead.", sep = " "
-        )
-        .warning(txt)
-    }
     invisible(NULL)
 }

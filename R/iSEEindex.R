@@ -154,12 +154,12 @@
 #'
 #' dataset_fun <- function() {
 #'     x <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
-#'     x$datasets
+#'     x
 #' }
 #'
 #' initial_fun <- function() {
-#'     x <- yaml::read.csv(system.file(package = "iSEEindex", "initial.csv"))
-#'     x$initial
+#'     x <- read.csv(system.file(package = "iSEEindex", "initial.csv"))
+#'     x
 #' }
 #'
 #' app <- iSEEindex(bfc, dataset_fun, initial_fun)

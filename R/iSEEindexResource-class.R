@@ -396,14 +396,11 @@ setClass("iSEEindexS3Resource", contains="iSEEindexResource", slots = c("region"
 #'
 #' @param x List of metadata.
 iSEEindexS3Resource <- function(x) {
-    # https://github.com/paws-r/paws/issues/571
-    # TODO: uncomment the code below when the issue is resolved
-    # region <- x[[.dataset_region]]
-    # if (is.null(region) || identical(nchar(region), 0L)) {
-    #     region <- NA_character_
-    # }
-    # new("iSEEindexS3Resource", uri = x[[.datasets_uri]], region = region)
-    new("iSEEindexS3Resource", uri = x[[.datasets_uri]], region = NA_character_)
+    region <- x[[.dataset_region]]
+    if (is.null(region) || identical(nchar(region), 0L)) {
+        region <- NA_character_
+    }
+    new("iSEEindexS3Resource", uri = x[[.datasets_uri]], region = region)
 }
 
 #' @export
