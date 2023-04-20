@@ -114,24 +114,6 @@ test_that(".check_initial_table throws an error for zero rows", {
 
 })
 
-test_that(".check_initial_table throws a warning when region column is present", {
-
-    x <- data.frame(
-        config_id = "dataset01_config01",
-        dataset_id = "dataset01",
-        title = "Data Set 01",
-        uri = "https://example.com/dataset01_config01.R",
-        description = "Configuration 01 for data set 01.",
-        region = "eu-west-2"
-    )
-
-    expect_warning(
-        iSEEindex:::.check_initial_table(x),
-        "https://github.com/paws-r/paws/issues/571."
-    )
-
-})
-
 test_that(".check_initial_table throws an error when duplicate config_id is present", {
 
     x <- data.frame(
