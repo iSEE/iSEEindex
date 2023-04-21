@@ -132,10 +132,16 @@ The individual sub-lists may also contain optional named metadata specific to in
 }
 
 \examples{
+##
+# BiocFileCache ----
+##
+
 library(BiocFileCache)
 bfc <- BiocFileCache(cache = tempdir())
 
-# Using YAML ----
+##
+# iSEEindex ----
+##
 
 dataset_fun <- function() {
     x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
@@ -152,25 +158,6 @@ app <- iSEEindex(bfc, dataset_fun, initial_fun)
 if (interactive()) {
     shiny::runApp(app, port = 1234)
 }
-
-# Using CSV ---
-
-dataset_fun <- function() {
-    x <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
-    x
-}
-
-initial_fun <- function() {
-    x <- read.csv(system.file(package = "iSEEindex", "initial.csv"))
-    x
-}
-
-app <- iSEEindex(bfc, dataset_fun, initial_fun)
-
-if (interactive()) {
-    shiny::runApp(app, port = 1234)
-}
-
 }
 \author{
 Kevin Rue-Albrecht
