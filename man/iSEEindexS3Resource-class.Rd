@@ -77,21 +77,20 @@ For instance:
 region=eu-west-2
 }\if{html}{\out{</div>}}
 
-Optionally, a column named \code{region} can be added in the resource metadata to set the AWS S3 region for each individual resource, e.g.
+Optionally, a field named \code{region} can be added in the list of resource metadata to set the AWS S3 region for each individual resource, e.g.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{id,label,uri,description,region
-...,...,...,...,eu-west-2
+\if{html}{\out{<div class="sourceCode">}}\preformatted{- id: ID1
+  title: ReprocessedAllenData
+  uri: s3://example/ReprocessedAllenData.rds
+  description: |
+    Reprocessed Allen Data.
+  region: eu-west-2
 }\if{html}{\out{</div>}}
 
-Regions set in the metadata override the default AWS region set in \verb{~/.aws/config} (if any).
-The region metadata can be left blank for resources that should use the default region,
-and resource classes that do not require region information.
+Regions set in individual resource metadata override the default AWS region set in \verb{~/.aws/config} (if any).
+The region metadata does not need to be set for resources that should use the default region, and resource classes that do not require region information.
 
 If a default region is NOT set in \verb{~/.aws/config}, then the region MUST be set in the metadata.
-
-\strong{IMPORTANT:} Pending resolution of the issue \url{https://github.com/paws-r/paws/issues/571}, AWS S3 regions set in the metadata are currently ignored,
-the \code{region} slot is always set to \code{NA},
-and the default region set in \verb{~/.aws/config} is used.
 
 Credentials for all services can be set in the AWS shared credentials file \verb{~/.aws/credentials}.
 For instance:
@@ -104,13 +103,13 @@ aws_secret_access_key=your AWS secret key
 
 \examples{
 # Without region metadata
-metadata <- data.frame(uri = "s3://example/path/to/bucket")
+metadata <- list(uri = "s3://example/path/to/bucket")
 x <- iSEEindexS3Resource(metadata)
 str(x)
 
-# With region metadata (currently ignored)
+# With region metadata
 # NOTE: The @region slot is set to NA pending bugfix (see above).
-metadata <- data.frame(uri = "s3://example/path/to/bucket", region = "eu-west-2")
+metadata <- list(uri = "s3://example/path/to/bucket", region = "eu-west-2")
 x <- iSEEindexS3Resource(metadata)
 str(x)
 }
