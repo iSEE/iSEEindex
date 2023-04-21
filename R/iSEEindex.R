@@ -129,10 +129,16 @@
 #' @importFrom utils packageVersion
 #'
 #' @examples
+#' ##
+#' # BiocFileCache ----
+#' ##
+#' 
 #' library(BiocFileCache)
 #' bfc <- BiocFileCache(cache = tempdir())
 #'
-#' # Using YAML ----
+#' ##
+#' # iSEEindex ----
+#' ##
 #'
 #' dataset_fun <- function() {
 #'     x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
@@ -149,25 +155,6 @@
 #' if (interactive()) {
 #'     shiny::runApp(app, port = 1234)
 #' }
-#'
-#' # Using CSV ---
-#'
-#' dataset_fun <- function() {
-#'     x <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
-#'     x
-#' }
-#'
-#' initial_fun <- function() {
-#'     x <- read.csv(system.file(package = "iSEEindex", "initial.csv"))
-#'     x
-#' }
-#'
-#' app <- iSEEindex(bfc, dataset_fun, initial_fun)
-#'
-#' if (interactive()) {
-#'     shiny::runApp(app, port = 1234)
-#' }
-#'
 iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
     stopifnot(is(bfc, "BiocFileCache"))
     if (is.null(FUN.initial)) {

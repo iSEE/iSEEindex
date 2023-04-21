@@ -86,11 +86,13 @@ library("BiocFileCache")
 bfc <- BiocFileCache(cache = tempdir())
 
 dataset_fun <- function() {
-    read.csv(system.file(package="iSEEindex", "datasets.csv"))
+    x <- yaml::read_yaml(system.file(package="iSEEindex", "example.yaml"))
+    x$datasets
 }
 
 initial_fun <- function() {
-    read.csv(system.file(package = "iSEEindex", "initial.csv"))
+    x <- yaml::read_yaml(system.file(package="iSEEindex", "example.yaml"))
+    x$initial
 }
 
 app <- iSEEindex(bfc, dataset_fun, initial_fun)
@@ -111,9 +113,9 @@ print(citation('iSEEindex'), bibtex = TRUE)
 #> 
 #> To cite package 'iSEEindex' in publications use:
 #> 
-#>   Kevin Rue-Albrecht (2022). iSEEindex: iSEE extension for a landing
-#>   page to a custom collection of data sets. R package version 0.99.0.
-#>   https://github.com/iSEE/iSEEindex
+#>   Rue-Albrecht K (2022). _iSEEindex: iSEE extension for a landing page
+#>   to a custom collection of data sets_. R package version 0.99.0,
+#>   <https://github.com/iSEE/iSEEindex>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -162,11 +164,5 @@ For more details, check the `dev` directory.
 
 This package was developed using
 *[biocthis](https://bioconductor.org/packages/3.16/biocthis)*.
-
-## Code of Conduct
-
-Please note that the iSEEindex project is released with a [Contributor
-Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By
-contributing to this project, you agree to abide by its terms.
 
 <!-- Links -->

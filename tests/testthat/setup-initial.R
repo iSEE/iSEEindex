@@ -1,4 +1,5 @@
 
 initial_fun <- function() {
-    read.csv(system.file(package = "iSEEindex", "initial.csv"))
+    x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+    x$initial
 }

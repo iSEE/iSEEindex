@@ -76,11 +76,13 @@ library("BiocFileCache")
 bfc <- BiocFileCache(cache = tempdir())
 
 dataset_fun <- function() {
-    read.csv(system.file(package="iSEEindex", "datasets.csv"))
+    x <- yaml::read_yaml(system.file(package="iSEEindex", "example.yaml"))
+    x$datasets
 }
 
 initial_fun <- function() {
-    read.csv(system.file(package = "iSEEindex", "initial.csv"))
+    x <- yaml::read_yaml(system.file(package="iSEEindex", "example.yaml"))
+    x$initial
 }
 
 app <- iSEEindex(bfc, dataset_fun, initial_fun)
