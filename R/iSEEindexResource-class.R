@@ -63,8 +63,9 @@ setMethod("show", "iSEEindexResource",
 #' library(BiocFileCache)
 #' bfc <- BiocFileCache(cache = tempdir())
 #'
-#' x <- new("iSEEindexRcallResource",
-#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+#' x <- iSEEindexRcallResource(list(
+#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
+#' ))
 #' precache(x, bfc, "ID0")
 NULL
 
@@ -246,8 +247,9 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' precache,iSEEindexRcallResource-method
 #'
 #' @examples
-#' new("iSEEindexRcallResource",
-#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+#' iSEEindexRcallResource(list(
+#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
+#' ))
 NULL
 
 #' @export

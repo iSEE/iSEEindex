@@ -3,8 +3,8 @@
 test_that(".initial_choices works ", {
 
     initial_table <- data.frame(
-        dataset_id = "ID1",
-        config_id = "config01",
+        id = "config01",
+        datasets = "ID1",
         title = "Configuration 01")
     out <- iSEEindex:::.initial_choices("dummy_id", initial_table)
 
@@ -14,8 +14,8 @@ test_that(".initial_choices works ", {
 test_that(".initial_choices works ", {
 
     initial_table <- data.frame(
-        dataset_id = "ID1",
-        config_id = "config01",
+        id = "config01",
+        datasets = "ID1",
         title = "Configuration 01")
 
     out <- iSEEindex:::.initial_choices("ID1", initial_table)
@@ -27,7 +27,7 @@ test_that(".initial_choices works ", {
 
 test_that(".load_initial works for default choice", {
 
-    out <- iSEEindex:::.load_initial(bfc, "dummy", "(Default)", "dummy")
+    out <- iSEEindex:::.load_initial(bfc, dataset_id = "dummy", config_id = "(Default)", metadata = "dummy")
     expect_null(out)
 
 })
@@ -57,77 +57,71 @@ test_that(".load_initial detects invalid scripts", {
 
 # .check_initial_table ----
 
-test_that(".check_initial_table works for NULL metadata", {
+test_that(".check_initial_list works for NULL metadata", {
 
-    out <- iSEEindex:::.check_initial_table(NULL)
+    out <- iSEEindex:::.check_initial_list(NULL)
     expect_null(out)
 
 })
 
-test_that(".check_initial_table works for valid metadata", {
+test_that(".check_initial_list works for valid metadata", {
 
-    x <- data.frame(
-        config_id = "dataset01_config01",
-        dataset_id = "dataset01",
+    x <- list(list(
+        id = "config01",
+        datasets = "dataset01",
         title = "Data Set 01",
-        uri = "https://example.com/dataset01_config01.R",
-        description = "Configuration 01 for data set 01."
-    )
+        uri = "https://example.com/config01.R",
+        description = "Long description of configuration 01."
+    ))
 
-    out <- iSEEindex:::.check_initial_table(x)
+    out <- iSEEindex:::.check_initial_list(x)
     expect_null(out)
 
 })
 
-test_that(".check_initial_table throws an error for missing required column", {
+test_that(".check_initial_list throws an error for missing required metadata", {
 
-    x <- data.frame(
-        config_id = "dataset01_config01",
-        dataset_id = "dataset01",
+    x <- list(list(
+        id = "config01",
+        datasets = "dataset01",
         title = "Data Set 01",
         uri = "https://example.com/dataset01_config01.R"
-    )
+    ))
 
-    txt <- "Required column 'description' missing in initial configurations metadata."
+    txt <- "Required metadata 'description' missing in initial configurations metadata"
     expect_error(
-        iSEEindex:::.check_initial_table(x),
+        iSEEindex:::.check_initial_list(x),
         paste(strwrap(txt, exdent = 2), collapse = "\n")
     )
 
 })
 
-test_that(".check_initial_table throws an error for zero rows", {
+test_that(".check_initial_list throws an error for zero item", {
 
-    x <- data.frame(
-        dataset_id = character(0),
-        config_id = character(0),
-        title = character(0),
-        uri = character(0),
-        description = character(0)
-    )
+    x <- list()
 
-    txt <- "If not NULL, initial configurations metadata must have at least one row."
+    txt <- "If not NULL, initial configurations metadata must have at least one item."
     expect_error(
-        iSEEindex:::.check_initial_table(x),
+        iSEEindex:::.check_initial_list(x),
         paste(strwrap(txt, exdent = 2), collapse = "\n")
     )
 
 })
 
-test_that(".check_initial_table throws an error when duplicate config_id is present", {
+test_that(".check_initial_list throws an error when duplicate config_id is present", {
 
-    x <- data.frame(
-        config_id = "dataset01_config01",
-        dataset_id = "dataset01",
+    x <- list(list(
+        id = "config01",
+        datasets = "dataset01",
         title = "Data Set 01",
-        uri = "https://example.com/dataset01_config01.R",
-        description = "Configuration 01 for data set 01."
-    )
-    x <- rbind(x, x)
+        uri = "https://example.com/config01.R",
+        description = "Long description of configuration 01."
+    ))
+    x <- append(x, x)
 
     expect_error(
-        iSEEindex:::.check_initial_table(x),
-        "duplicate config_id: dataset01_config01"
+        iSEEindex:::.check_initial_list(x),
+        "duplicate config_id: config01"
     )
 
 })

@@ -5,7 +5,7 @@
 #' meant to populate a Shiny [selectizeInput()].
 #'
 #' @param id Data set identifier, as a character scalar.
-#' @param available Table of metadata for available initial configurations, as a `data.frame`.
+#' @param available Metadata for available initial configurations, as `data.frame`.
 #'
 #' @details
 #' A default option is automatically prepended to the choices for all data sets.
@@ -20,11 +20,10 @@
 #' @export
 #' @rdname INTERNAL_initial_choices
 .initial_choices <- function(id, available) {
-    # x: URI of the data set
     choices <- c("Default" = .initial_default_choice)
-    which_initial <- available[[.initial_dataset_id]] == id
+    which_initial <- available[[.initial_datasets_id]] == id
     config_subset_table <- available[which_initial, , drop=FALSE]
-    initial_choices <- config_subset_table$config_id
+    initial_choices <- config_subset_table[[.initial_config_id]]
     names(initial_choices) <- config_subset_table[[.initial_title]]
     choices <- c(choices, initial_choices)
     choices
@@ -74,7 +73,7 @@
 
 #' Check Validity of Initial Configurations Metadata
 #'
-#' @param x `data.frame` of metadata.
+#' @param x `list` of lists of metadata.
 #'
 #' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an error.
 #'
@@ -83,38 +82,42 @@
 #' @rdname INTERNAL_check_initial_table
 #'
 #' @examples
-#' x <- data.frame(
-#'   dataset_id = "dataset01",
-#'   config_id = "dataset01_config01",
-#'   title = "Initial configuration 01",
-#'   uri = "https://example.com/dataset01_config01.R",
-#'   description = "Initial configuration 01 for data set 01."
+#' x <- list(
+#'   list(
+#'     id = "dataset01_config01",
+#'     datasets = c("dataset01"),
+#'     title = "Initial configuration 01",
+#'     uri = "https://example.com/dataset01_config01.R",
+#'     description = "Initial configuration 01 for data set 01."
+#'   )
 #' )
-#' iSEEindex:::.check_initial_table(x)
-.check_initial_table <- function(x) {
+#' iSEEindex:::.check_initial_list(x)
+.check_initial_list <- function(x) {
     # If x is NULL, it is valid without further checks.
     if (is.null(x)) {
         return(invisible(NULL))
     }
     # If x is not null it must have at least one row.
-    if (identical(nrow(x), 0L)) {
-        txt <- "If not NULL, initial configurations metadata must have at least one row."
+    if (identical(length(x), 0L)) {
+        txt <- "If not NULL, initial configurations metadata must have at least one item."
         .stop(txt)
     }
     # Check that all required column names are present.
-    required_colnames <- c(.initial_dataset_id, .initial_config_id,
+    required_metadata <- c(.initial_config_id,
         .initial_title, .initial_uri, .initial_description)
-    for (column_name in required_colnames) {
-        if (!column_name %in% colnames(x)) {
-            txt <- sprintf("Required column '%s' missing in initial configurations metadata.", column_name)
-            .stop(txt)
+    for (metadata_name in required_metadata) {
+        for (config_index in seq_along(x)) {
+            if (!metadata_name %in% names(x[[config_index]])) {
+                txt <- sprintf("Required metadata '%s' missing in initial configurations metadata #%i.", metadata_name, config_index)
+                .stop(txt)
+            }
         }
     }
     # Check that config identifiers are unique
-    which_dup <- duplicated(x[[.initial_config_id]])
+    which_dup <- duplicated(vapply(x, function(x) x[[.initial_config_id]], character(1)))
     if (any(which_dup)) {
         first_dup <- which(which_dup)[1]
-        txt <- sprintf("duplicate config_id: %s", x[[.initial_config_id]][first_dup])
+        txt <- sprintf("duplicate config_id: %s", x[[first_dup]][[.initial_config_id]])
         .stop(txt)
     }
     invisible(NULL)
