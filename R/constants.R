@@ -28,8 +28,8 @@
 .datasets_description <- "description"
 .dataset_region <- "region"
 
-.initial_config_id <- "config_id"
-.initial_dataset_id <- "dataset_id"
+.initial_config_id <- "id"
+.initial_datasets_id <- "datasets"
 .initial_title <- "title"
 .initial_uri <- "uri"
 .initial_description <- "description"
