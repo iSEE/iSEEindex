@@ -127,12 +127,12 @@ First, we load the `r Biocpkg("iSEEindex")` and `r Biocpkg("BiocFileCache")` pac
 Next, we use the `BiocFileCache::BiocFileCache()` function, to create a persistent on-disk cache of files that the app can use for adding and retrieving data files between sessions.
 This is particularly useful in this example, as we demonstrate the hosting of data sets and configuration scripts in RDS files and R scripts remotely, in a [zenodo.org repository][zenodo-repository].
 
-Next, we define a function -- in this example, named `dataset_fun` -- that returns a `data.frame` of metadata for available data sets.
+Next, we define a function -- in this example, named `dataset_fun` -- that returns a `list` of metadata for available data sets.
 In this example, the information is parsed from an example file distributed in the `inst/` directory of the package.
 However, users may define a function that fetches that information in any way they see fit, e.g. authenticating and accessing data from privately accessible sources.
 Requirements for that function are detailed in the help page `?iSEEindex`, for the argument `FUN.datasets`.
 
-Next, we define another function -- in this example, named `initial_fun` -- that returns a `data.frame` of metadata for available initial configurations of the application state, for each individual data set.
+Next, we define another function -- in this example, named `initial_fun` -- that returns a `list` of metadata for available initial configurations of the application state, for each individual data set.
 In this example, the information is parsed from an example file distributed in the `inst/` directory of the package.
 However, similarly to the previous function, users may define a function that fetches that information in any way they see fit.
 Requirements for that function are detailed in the help page `?iSEEindex`, for the argument `FUN.initial`.
