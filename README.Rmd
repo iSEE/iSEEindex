@@ -5,6 +5,7 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
+library(BiocStyle)
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
@@ -76,13 +77,13 @@ library("BiocFileCache")
 bfc <- BiocFileCache(cache = tempdir())
 
 dataset_fun <- function() {
-    x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
-    x$datasets
+  x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+  x$datasets
 }
 
 initial_fun <- function() {
-    x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
-    x$initial
+  x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+  x$initial
 }
 
 app <- iSEEindex(bfc, dataset_fun, initial_fun)
