@@ -55,9 +55,8 @@ Example:
 }\if{html}{\out{</div>}}
 
 The individual sub-lists may also contain optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
-}
 
-\strong{Important:} The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
+\strong{Important}: The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
 Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the \code{BiocFileCache(cache)} argument to specify an on-disk location (directory path) for the dedicated cache.
 }
 
@@ -72,7 +71,7 @@ For each initial configuration, required metadata are:
 \item{title}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
 \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
 \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
-}.
+}
 
 For each initial configuration, optional metadata are:
 \describe{
