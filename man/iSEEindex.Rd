@@ -16,7 +16,7 @@ available data sets.}
 available initial configuration states.}
 }
 \value{
-An \code{\link[=iSEE]{iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
+An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
 }
 \description{
 Generate an \pkg{iSEE} app that includes a landing page enabling
@@ -27,13 +27,14 @@ states prepared by the app maintainer.
 
 The function passed to the argument \code{FUN.datasets} must return a \code{list} that contains metadata about the available data sets.
 
-Required metadata are:
+For each data set, required metadata are:
 
 \describe{
 \item{id}{A unique identifier for the data set.}
 \item{title}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
 \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
 \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
+}
 
 Example:
 
@@ -54,9 +55,8 @@ Example:
 }\if{html}{\out{</div>}}
 
 The individual sub-lists may also contain optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
-}
 
-\strong{Important:} The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
+\strong{Important}: The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
 Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the \code{BiocFileCache(cache)} argument to specify an on-disk location (directory path) for the dedicated cache.
 }
 
@@ -64,16 +64,16 @@ Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using t
 
 The function passed to the argument \code{FUN.initial} must return a \code{list} that contains metadata about the available initial configurations, or \code{NULL} in the absence of any custom initial configuration (default settings will be applied to all data sets.).
 
-Required metadata are:
+For each initial configuration, required metadata are:
 
 \describe{
 \item{id}{A unique identifier for the initial configuration.}
 \item{title}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
 \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
 \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
-}.
+}
 
-Optional metadata are:
+For each initial configuration, optional metadata are:
 \describe{
 \item{datasets}{A series of data set identifiers for which the configuration should be made available. If missing, the configuration will be available for all data sets.}
 }

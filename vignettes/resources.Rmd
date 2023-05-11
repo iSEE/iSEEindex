@@ -57,9 +57,9 @@ bib <- c(
 ## Overview
 
 `r Biocpkg("iSEEindex")` imports data sets and initial app configurations from files.
-Each of those files is represented by a Uniform Resource Identifier (URI) in the metadata tables returned by the functions supplied to the `FUN.datasets` and `FUN.initial` arguments of `iSEEindex()`.
+Each of those files is represented by a Uniform Resource Identifier (URI) in the lists of metadata returned by the functions supplied to the `FUN.datasets` and `FUN.initial` arguments of `iSEEindex()`.
 
-`r Biocpkg("iSEEindex")` requires each URI to contain a scheme ([Wikipedia][scheme-wikipedia] `r fontawesome::fa("external-link")`) component, to identify the type of resource and invoke the associated method for accessing it.
+`r Biocpkg("iSEEindex")` requires each URI to contain a scheme component ([Wikipedia][scheme-wikipedia] `r fontawesome::fa("external-link")`), to identify the type of resource and invoke the associated method for accessing it.
 
 This system allows `r Biocpkg("iSEEindex")` users to use both standard and custom schemes in the URI of their resources, to fetch files from virtually any logical or physical resource, local or remote.
 
@@ -77,7 +77,7 @@ The raw value of the URI (including the scheme component) is always stored in th
 
 Each `iSEEindexResource` sub-class must define the method `precache()`.
 
-On first use, `precache()` processes the raw value of the URI, download the resource file locally using custom code if necessary, cache the file using `r Biocpkg("BiocFileCache")`, and return the path to the cached file.
+On first use, `precache()` processes the raw value of the URI, downloads the resource file locally using custom code if necessary, caches the file using `r Biocpkg("BiocFileCache")`, and returns the path to the cached file.
 
 In subsequent uses, `r Biocpkg("BiocFileCache")` is used to fetch the cached file directly.
 
@@ -102,7 +102,7 @@ https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds?download=1
 
 ### Caching
 
-The `r Biocpkg("BiocFileCache")` package can perfectly well handle HTTPS.
+The `r Biocpkg("BiocFileCache")` package can handle HTTPS perfectly well.
 
 In this instance, the `precache()` function has no other job than to cache the file located at the given URI using `r Biocpkg("BiocFileCache")`.
 
@@ -113,7 +113,7 @@ In this instance, the `precache()` function has no other job than to cache the f
 
 This type of resource is documented in `help("iSEEindexLocalhostResource-class")`.
 
-Briefly, this class is used to represent files that are already present on the machine that runs the application.
+Briefly, this class is used to represent files that are already present on the filesystem of the machine that runs the application.
 
 The URI must use the custom scheme "localhost", followed by the path -- absolute or relative -- to the file on disk.
 
@@ -163,14 +163,14 @@ In this instance, the `precache()` function has the job to remove the `rcall://`
 
 This type of resource is documented in `help("iSEEindexS3Resource-class")`.
 
-Briefly, this class is used to represent files that are accessible directly from [Amazon S3][amazon-s3].
+Briefly, this class is used to represent files that are accessible from [Amazon S3][amazon-s3].
 
 The URI must use the custom scheme "s3", followed by the S3 URI to the file.
 
 Example:
 
 ```bash
-s3://bucket/prefix/index.rds
+s3://bucket/prefix/file
 ```
 
 ### Caching

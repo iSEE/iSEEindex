@@ -16,8 +16,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/iSEE/iSEEindex/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEindex?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEindex` is to provide an interface to any collection of
-data sets hosted anywhere within an iSEE web-application.
+The goal of
+*[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)* is to
+provide an interface to any collection of data sets, hosted anywhere,
+within a single iSEE web-application.
 
 The main functionality of this package is to define a custom landing
 page for iSEE web-applications where app maintainers can list entirely
@@ -38,10 +40,11 @@ Standard schemes can be used alongside custom-made ones, e.g.:
 - `https://` for files downloaded over the HTTPS protocol.
 - `s3://` for files downloaded from Amazon S3 buckets.
 
-The `iSEEindex` framework enables app maintainers to independently
-define new methods for their own choice of standard and custom-made URI
-schemes. More information is available in the vignette *Implementing
-custom iSEEindex resources*.
+The *[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)*
+framework enables app maintainers to independently define new methods
+for their own choice of standard and custom-made URI schemes. More
+information is available in the vignette *Implementing custom iSEEindex
+resources*.
 
 The resulting landing page presents end-users of the web-applications
 with the predefined choice of data sets and initial configuration states
@@ -49,13 +52,14 @@ with the predefined choice of data sets and initial configuration states
 – an initial configuration, launching the main app fetches resources
 from their respective URI and caches them using the
 *[BiocFileCache](https://bioconductor.org/packages/3.16/BiocFileCache)*
-package. Finally, data sets and configurations from the cache into the
-main `iSEE` application, for interactive exploration.
+package. Finally, data sets and configurations are loaded from the cache
+into the main `iSEE` application, for interactive exploration.
 
 ## Installation instructions
 
 Get the latest stable `R` release from
-[CRAN](http://cran.r-project.org/). Then install `iSEEindex` from
+[CRAN](http://cran.r-project.org/). Then install
+*[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)* from
 [Bioconductor](http://bioconductor.org/) using the following code:
 
 ``` r
@@ -86,19 +90,19 @@ library("BiocFileCache")
 bfc <- BiocFileCache(cache = tempdir())
 
 dataset_fun <- function() {
-    x <- yaml::read_yaml(system.file(package="iSEEindex", "example.yaml"))
-    x$datasets
+  x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+  x$datasets
 }
 
 initial_fun <- function() {
-    x <- yaml::read_yaml(system.file(package="iSEEindex", "example.yaml"))
-    x$initial
+  x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+  x$initial
 }
 
 app <- iSEEindex(bfc, dataset_fun, initial_fun)
 
 if (interactive()) {
-  shiny::runApp(app, port = 1234)
+    shiny::runApp(app, port = 1234)
 }
 ```
 
@@ -128,14 +132,18 @@ print(citation('iSEEindex'), bibtex = TRUE)
 #>   }
 ```
 
-Please note that the `iSEEindex` was only made possible thanks to many
-other R and bioinformatics software authors, which are cited either in
-the vignettes and/or the paper(s) describing this package.
+Please note that the
+*[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)* was only
+made possible thanks to many other R and bioinformatics software
+authors, which are cited either in the vignettes and/or the paper(s)
+describing this package.
 
 ## Code of Conduct
 
-Please note that the `iSEEindex` project is released with a [Contributor
-Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By
+Please note that the
+*[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)* project
+is released with a [Contributor Code of
+Conduct](http://bioconductor.org/about/code-of-conduct/). By
 contributing to this project, you agree to abide by its terms.
 
 ## Development tools

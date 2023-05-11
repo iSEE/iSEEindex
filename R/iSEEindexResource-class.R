@@ -4,7 +4,7 @@
 #'
 #' @section Slot overview:
 #' \itemize{
-#' \item \code{uri}, a character scalar specifying the URI to a resource.
+#' \item \code{uri}, a character scalar specifying the URI of a resource.
 #' }
 #'
 #' @section Supported methods:
@@ -47,7 +47,7 @@ setMethod("show", "iSEEindexResource",
 #' @section Preparing and caching resources:
 #' `precache(x, bfc, id, ...)` potentially downloads a resource from an URI, caches it, and returns the path to the cached file:
 #' \itemize{
-#' \item \code{x}, a [`iSEEindexResource-class`] object.
+#' \item \code{x}, an [`iSEEindexResource-class`] object.
 #' \item \code{bfc}, a [BiocFileCache()] object.
 #' \item \code{id}, a data set identifier as a character scalar..
 #' \item \code{...}, additional arguments passed to and from other methods.
@@ -91,6 +91,13 @@ setMethod("precache", "iSEEindexResource",
 #' The iSEEindexHttpsResource class represents a resource accessible through
 #' an HTTPS link.
 #' A URI for this type of resource uses the prefix \dQuote{https://}.
+#' 
+#' @details
+#' Required metadata:
+#' 
+#' \describe{
+#' \item{uri}{Character scalar. URI of the resource.}
+#' }
 #'
 #' @section Slot overview:
 #' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
@@ -111,7 +118,7 @@ setMethod("precache", "iSEEindexResource",
 #' precache,iSEEindexHttpsResource-method
 #'
 #' @examples
-#' new("iSEEindexHttpsResource", uri = "https://example.com")
+#' iSEEindexHttpsResource(list(uri = "https://example.com"))
 NULL
 
 #' @export
@@ -120,7 +127,7 @@ setClass("iSEEindexHttpsResource", contains="iSEEindexResource")
 #' @export
 #' @rdname iSEEindexHttpsResource-class
 #'
-#' @param x List of metadata.
+#' @param x List of metadata. See Details.
 iSEEindexHttpsResource <- function(x) {
     new("iSEEindexHttpsResource", uri = x[[.datasets_uri]])
 }
@@ -145,6 +152,25 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' A URI for this type of resource uses the prefix \dQuote{localhost://}.
 #'
 #' @details
+#' Required metadata:
+#' 
+#' \describe{
+#' \item{uri}{Character scalar. URI of the resource.}
+#' }
+#'
+#' @section Slot overview:
+#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+#'
+#' @section Supported methods:
+#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexLocalhostResource} class.
+#' Refer to the documentation for each method for more details on the remaining arguments.
+#'
+#' \itemize{
+#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
+#' }
+#' 
+#' @section Absolute and relative paths:
+#' 
 #' Absolute and relative paths are both supported.
 #'
 #' Absolute paths require an additional `/` (forward slash)
@@ -158,17 +184,6 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' \item `localhost:///path/to/file` refers to the absolute path `/path/to/file`.
 #' }
 #'
-#' @section Slot overview:
-#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
-#'
-#' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexLocalhostResource} class.
-#' Refer to the documentation for each method for more details on the remaining arguments.
-#'
-#' \itemize{
-#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
-#' }
-#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @name iSEEindexLocalhostResource-class
@@ -177,8 +192,8 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' precache,iSEEindexLocalhostResource-method
 #'
 #' @examples
-#' new("iSEEindexLocalhostResource", uri = "localhost:///example/absolute/path")
-#' new("iSEEindexLocalhostResource", uri = "localhost://example/relative/path")
+#' iSEEindexLocalhostResource(list(uri = "localhost:///example/absolute/path"))
+#' iSEEindexLocalhostResource(list(uri = "localhost://example/relative/path"))
 NULL
 
 #' @export
@@ -187,7 +202,7 @@ setClass("iSEEindexLocalhostResource", contains="iSEEindexResource")
 #' @export
 #' @rdname iSEEindexLocalhostResource-class
 #'
-#' @param x List of metadata.
+#' @param x List of metadata. See Details.
 iSEEindexLocalhostResource <- function(x) {
     new("iSEEindexLocalhostResource", uri = x[[.datasets_uri]])
 }
@@ -212,12 +227,17 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' The iSEEindexRcallResource class represents a resource accessible through
 #' the result of an R call.
 #' A URI for this type of resource uses the prefix \dQuote{rcall://}.
-#'
+#' 
 #' @details
+#' Required metadata:
+#' 
+#' \describe{
+#' \item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
+#' }
+#'
+#' @section URI format: 
 #' The URI must contain valid R code, once the prefix `rcall://` is removed.
-#' The code must return the file path to an existing R script
-#' that produces an object called `initial` that contains a valid configuration
-#' for an \pkg{iSEE} app.
+#' The code must return the path to an existing file on the local filesystem.
 #'
 #' For instance:
 #'
@@ -258,7 +278,7 @@ setClass("iSEEindexRcallResource", contains="iSEEindexResource")
 #' @export
 #' @rdname iSEEindexRcallResource-class
 #'
-#' @param x List of metadata.
+#' @param x List of metadata. See Details.
 iSEEindexRcallResource <- function(x) {
     new("iSEEindexRcallResource", uri = x[[.datasets_uri]])
 }
@@ -288,18 +308,13 @@ setMethod("precache", "iSEEindexRcallResource",
 #' [paws.storage](https://cran.r-project.org/package=paws.storage)
 #' R package.
 #' A URI for this type of resource uses the prefix \dQuote{s3://}.
-#'
+#' 
 #' @details
-#' The URI must correspond to an existing file in an AWS S3 compatible cloud
-#' storage system.
-#'
-#' For details about authentication, see section \dQuote{AWS Credentials} below.
-#'
-#' For instance:
-#'
-#' ```
-#' s3://bucket/prefix/index.rds
-#' ```
+#' Required metadata:
+#' 
+#' \describe{
+#' \item{uri}{Character scalar. URI of the resource.}
+#' }
 #'
 #' @section Slot overview:
 #' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
@@ -321,8 +336,21 @@ setMethod("precache", "iSEEindexRcallResource",
 #' \pkg{BiocFileCache}, before returning the file path to the cached file.
 #' }
 #'
+#' @section URI format: 
+#' The URI must correspond to an existing file in an AWS S3 compatible cloud
+#' storage system.
+#'
+#' For instance:
+#'
+#' ```
+#' s3://bucket/prefix/index.rds
+#' ```
+#'
+#' For details about authentication, see section \dQuote{AWS Credentials} below.
+#'
 #' @section Pre-caching:
 #' Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
+#' 
 #' \describe{
 #' \item{`temp_dir`}{Scalar character, the directory to store the downloaded file
 #' in before it is handed over to \pkg{BiocFileCache}. This directory will be created
@@ -395,7 +423,7 @@ setClass("iSEEindexS3Resource", contains="iSEEindexResource", slots = c("region"
 #' @export
 #' @rdname iSEEindexS3Resource-class
 #'
-#' @param x List of metadata.
+#' @param x List of metadata. See Details.
 iSEEindexS3Resource <- function(x) {
     region <- x[[.dataset_region]]
     if (is.null(region) || identical(nchar(region), 0L)) {

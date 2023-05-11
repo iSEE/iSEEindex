@@ -8,13 +8,14 @@
 #' @section Data Sets:
 #' The function passed to the argument `FUN.datasets` must return a `list` that contains metadata about the available data sets.
 #'
-#' Required metadata are:
+#' For each data set, required metadata are:
 #'
 #' \describe{
 #' \item{id}{A unique identifier for the data set.}
 #' \item{title}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
 #' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
 #' \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
+#' }
 #'
 #' Example:
 #'
@@ -36,24 +37,23 @@
 #' ```
 #'
 #' The individual sub-lists may also contain optional named metadata specific to individual [`iSEEindexResource-class`] classes (refer to the help page of those classes for details).
-#' }
 #'
-#' **Important:** The `id` value is used to identify the data set file in the \pkg{BiocFileCache}.
+#' **Important**: The `id` value is used to identify the data set file in the \pkg{BiocFileCache}.
 #' Thus, we recommend using a dedicated `BiocFileCache()` for the app, using the `BiocFileCache(cache)` argument to specify an on-disk location (directory path) for the dedicated cache.
 #'
 #' @section Initial Configurations:
 #' The function passed to the argument `FUN.initial` must return a `list` that contains metadata about the available initial configurations, or `NULL` in the absence of any custom initial configuration (default settings will be applied to all data sets.).
 #'
-#' Required metadata are:
+#' For each initial configuration, required metadata are:
 #'
 #' \describe{
 #' \item{id}{A unique identifier for the initial configuration.}
 #' \item{title}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
 #' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
 #' \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
-#' }.
+#' }
 #' 
-#' Optional metadata are:
+#' For each initial configuration, optional metadata are:
 #' \describe{
 #' \item{datasets}{A series of data set identifiers for which the configuration should be made available. If missing, the configuration will be available for all data sets.}
 #' }
@@ -86,7 +86,7 @@
 #' @param FUN.initial A function that returns a `list` of metadata for
 #' available initial configuration states.
 #'
-#' @return An [iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
+#' @return An [iSEE::iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
 #'
 #' @author Kevin Rue-Albrecht
 #'

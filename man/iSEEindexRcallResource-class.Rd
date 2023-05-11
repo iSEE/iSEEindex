@@ -9,7 +9,7 @@
 iSEEindexRcallResource(x)
 }
 \arguments{
-\item{x}{List of metadata.}
+\item{x}{List of metadata. See Details.}
 }
 \description{
 The iSEEindexRcallResource class represents a resource accessible through
@@ -17,16 +17,23 @@ the result of an R call.
 A URI for this type of resource uses the prefix \dQuote{rcall://}.
 }
 \details{
+Required metadata:
+
+\describe{
+\item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
+}
+}
+\section{URI format}{
+
 The URI must contain valid R code, once the prefix \verb{rcall://} is removed.
-The code must return the file path to an existing R script
-that produces an object called \code{initial} that contains a valid configuration
-for an \pkg{iSEE} app.
+The code must return the path to an existing file on the local filesystem.
 
 For instance:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
 }\if{html}{\out{</div>}}
 }
+
 \section{Slot overview}{
 
 This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.

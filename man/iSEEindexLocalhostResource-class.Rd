@@ -9,7 +9,7 @@
 iSEEindexLocalhostResource(x)
 }
 \arguments{
-\item{x}{List of metadata.}
+\item{x}{List of metadata. See Details.}
 }
 \description{
 The iSEEindexLocalhostResource class represents a resource accessible through
@@ -17,17 +17,10 @@ a local filepath.
 A URI for this type of resource uses the prefix \dQuote{localhost://}.
 }
 \details{
-Absolute and relative paths are both supported.
+Required metadata:
 
-Absolute paths require an additional \code{/} (forward slash)
-following the double forward slash \verb{//} separating the scheme component of the URI.
-
-For instance:
-
-\itemize{
-\item \verb{localhost://path/to/file} refers to the relative path \code{path/to/file}
-(relative to the working directory when the Shiny application is launched).
-\item \verb{localhost:///path/to/file} refers to the absolute path \verb{/path/to/file}.
+\describe{
+\item{uri}{Character scalar. URI of the resource.}
 }
 }
 \section{Slot overview}{
@@ -45,9 +38,26 @@ Refer to the documentation for each method for more details on the remaining arg
 }
 }
 
+\section{Absolute and relative paths}{
+
+
+Absolute and relative paths are both supported.
+
+Absolute paths require an additional \code{/} (forward slash)
+following the double forward slash \verb{//} separating the scheme component of the URI.
+
+For instance:
+
+\itemize{
+\item \verb{localhost://path/to/file} refers to the relative path \code{path/to/file}
+(relative to the working directory when the Shiny application is launched).
+\item \verb{localhost:///path/to/file} refers to the absolute path \verb{/path/to/file}.
+}
+}
+
 \examples{
-new("iSEEindexLocalhostResource", uri = "localhost:///example/absolute/path")
-new("iSEEindexLocalhostResource", uri = "localhost://example/relative/path")
+iSEEindexLocalhostResource(list(uri = "localhost:///example/absolute/path"))
+iSEEindexLocalhostResource(list(uri = "localhost://example/relative/path"))
 }
 \author{
 Kevin Rue-Albrecht

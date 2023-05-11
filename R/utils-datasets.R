@@ -112,7 +112,7 @@
 #'
 #' @author Kevin Rue-Albrecht
 #'
-#' @rdname INTERNAL_check_datasets_table
+#' @rdname INTERNAL_check_datasets_list
 #'
 #' @examples
 #' x <- list(
