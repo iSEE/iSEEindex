@@ -227,12 +227,17 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' The iSEEindexRcallResource class represents a resource accessible through
 #' the result of an R call.
 #' A URI for this type of resource uses the prefix \dQuote{rcall://}.
-#'
+#' 
 #' @details
+#' Required metadata:
+#' 
+#' \describe{
+#' \item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
+#' }
+#'
+#' @section URI formatting: 
 #' The URI must contain valid R code, once the prefix `rcall://` is removed.
-#' The code must return the file path to an existing R script
-#' that produces an object called `initial` that contains a valid configuration
-#' for an \pkg{iSEE} app.
+#' The code must return the path to an existing file on the local filesystem.
 #'
 #' For instance:
 #'
@@ -273,7 +278,7 @@ setClass("iSEEindexRcallResource", contains="iSEEindexResource")
 #' @export
 #' @rdname iSEEindexRcallResource-class
 #'
-#' @param x List of metadata.
+#' @param x List of metadata. See Details.
 iSEEindexRcallResource <- function(x) {
     new("iSEEindexRcallResource", uri = x[[.datasets_uri]])
 }
