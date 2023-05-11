@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/iSEE/iSEEindex/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEindex?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEindex` is to provide an interface to any collection of data sets hosted anywhere within an iSEE web-application.
+The goal of `iSEEindex` is to provide an interface to any collection of data sets, hosted anywhere, within a single iSEE web-application.
 
 The main functionality of this package is to define a custom landing page for iSEE web-applications where app maintainers can list entirely custom collections of data sets hosted on virtually any locally or remotely accessible network.
 
@@ -45,7 +45,7 @@ More information is available in the vignette *Implementing custom iSEEindex res
 
 The resulting landing page presents end-users of the web-applications with the predefined choice of data sets and initial configuration states (specific to each data set).
 After selecting a data set and -- optionally -- an initial configuration, launching the main app fetches resources from their respective URI and caches them using the `r BiocStyle::Biocpkg("BiocFileCache")` package.
-Finally, data sets and configurations from the cache into the main `iSEE` application, for interactive exploration.
+Finally, data sets and configurations are loaded from the cache into the main `iSEE` application, for interactive exploration.
 
 ## Installation instructions
 
