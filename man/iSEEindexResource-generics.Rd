@@ -12,7 +12,7 @@ An overview of the generics for downloading and caching resources.
 
 \code{precache(x, bfc, id, ...)} potentially downloads a resource from an URI, caches it, and returns the path to the cached file:
 \itemize{
-\item \code{x}, a \code{\linkS4class{iSEEindexResource}} object.
+\item \code{x}, an \code{\linkS4class{iSEEindexResource}} object.
 \item \code{bfc}, a \code{\link[=BiocFileCache]{BiocFileCache()}} object.
 \item \code{id}, a data set identifier as a character scalar..
 \item \code{...}, additional arguments passed to and from other methods.

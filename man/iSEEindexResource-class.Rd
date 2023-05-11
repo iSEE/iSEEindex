@@ -11,7 +11,7 @@ The iSEEindexResource class represents an undefined resource.
 \section{Slot overview}{
 
 \itemize{
-\item \code{uri}, a character scalar specifying the URI to a resource.
+\item \code{uri}, a character scalar specifying the URI of a resource.
 }
 }
 

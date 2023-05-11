@@ -4,7 +4,7 @@
 #'
 #' @section Slot overview:
 #' \itemize{
-#' \item \code{uri}, a character scalar specifying the URI to a resource.
+#' \item \code{uri}, a character scalar specifying the URI of a resource.
 #' }
 #'
 #' @section Supported methods:
@@ -47,7 +47,7 @@ setMethod("show", "iSEEindexResource",
 #' @section Preparing and caching resources:
 #' `precache(x, bfc, id, ...)` potentially downloads a resource from an URI, caches it, and returns the path to the cached file:
 #' \itemize{
-#' \item \code{x}, a [`iSEEindexResource-class`] object.
+#' \item \code{x}, an [`iSEEindexResource-class`] object.
 #' \item \code{bfc}, a [BiocFileCache()] object.
 #' \item \code{id}, a data set identifier as a character scalar..
 #' \item \code{...}, additional arguments passed to and from other methods.
