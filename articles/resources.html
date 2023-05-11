@@ -90,7 +90,7 @@ Rue-Albrecht</h4>
 Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-albrecht@imm.ox.ac.uk" class="email">kevin.rue-albrecht@imm.ox.ac.uk</a>
       </address>
                   
-            <h4 data-toc-skip class="date">24 April 2023</h4>
+            <h4 data-toc-skip class="date">11 May 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEindex/blob/HEAD/vignettes/resources.Rmd" class="external-link"><code>vignettes/resources.Rmd</code></a></small>
       <div class="hidden name"><code>resources.Rmd</code></div>
@@ -108,14 +108,14 @@ Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-
 <p><em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
 imports data sets and initial app configurations from files. Each of
 those files is represented by a Uniform Resource Identifier (URI) in the
-metadata tables returned by the functions supplied to the
+lists of metadata returned by the functions supplied to the
 <code>FUN.datasets</code> and <code>FUN.initial</code> arguments of
 <code><a href="../reference/iSEEindex.html">iSEEindex()</a></code>.</p>
 <p><em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
-requires each URI to contain a scheme (<a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax" class="external-link">Wikipedia</a>
-<svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"></path></svg>)
-component, to identify the type of resource and invoke the associated
-method for accessing it.</p>
+requires each URI to contain a scheme component (<a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax" class="external-link">Wikipedia</a>
+<svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"></path></svg>),
+to identify the type of resource and invoke the associated method for
+accessing it.</p>
 <p>This system allows <em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
 users to use both standard and custom schemes in the URI of their
 resources, to fetch files from virtually any logical or physical
@@ -141,9 +141,9 @@ stored in the <code>uri</code> slot of the
 <p>Each <code>iSEEindexResource</code> sub-class must define the method
 <code><a href="../reference/iSEEindexResource-generics.html">precache()</a></code>.</p>
 <p>On first use, <code><a href="../reference/iSEEindexResource-generics.html">precache()</a></code> processes the raw value of the
-URI, download the resource file locally using custom code if necessary,
-cache the file using <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>,
-and return the path to the cached file.</p>
+URI, downloads the resource file locally using custom code if necessary,
+caches the file using <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>,
+and returns the path to the cached file.</p>
 <p>In subsequent uses, <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>
 is used to fetch the cached file directly.</p>
 </div>
@@ -170,7 +170,7 @@ the file on the internet.</p>
 <h4 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a>
 </h4>
 <p>The <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>
-package can perfectly well handle HTTPS.</p>
+package can handle HTTPS perfectly well.</p>
 <p>In this instance, the <code><a href="../reference/iSEEindexResource-generics.html">precache()</a></code> function has no other
 job than to cache the file located at the given URI using <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>.</p>
 </div>
@@ -184,7 +184,7 @@ job than to cache the file located at the given URI using <em><a href="https://b
 <p>This type of resource is documented in
 <code><a href="../reference/iSEEindexLocalhostResource-class.html">help("iSEEindexLocalhostResource-class")</a></code>.</p>
 <p>Briefly, this class is used to represent files that are already
-present on the machine that runs the application.</p>
+present on the filesystem of the machine that runs the application.</p>
 <p>The URI must use the custom scheme “localhost”, followed by the path
 – absolute or relative – to the file on disk.</p>
 <p>Example:</p>
@@ -242,11 +242,11 @@ resulting file path using <em><a href="https://bioconductor.org/packages/3.17/Bi
 <p>This type of resource is documented in
 <code><a href="../reference/iSEEindexS3Resource-class.html">help("iSEEindexS3Resource-class")</a></code>.</p>
 <p>Briefly, this class is used to represent files that are accessible
-directly from <a href="https://aws.amazon.com/s3/" class="external-link">Amazon S3</a>.</p>
+from <a href="https://aws.amazon.com/s3/" class="external-link">Amazon S3</a>.</p>
 <p>The URI must use the custom scheme “s3”, followed by the S3 URI to
 the file.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">s3://bucket/prefix/index.rds</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">s3://bucket/prefix/file</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="caching-3">Caching<a class="anchor" aria-label="anchor" href="#caching-3"></a>
@@ -298,13 +298,13 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"resources.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-04-24 16:57:38 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-05-11 16:58:09 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 0.798 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 0.693 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
-<span><span class="co">#&gt;  version  R version 4.3.0 Patched (2023-04-21 r84297)</span></span>
+<span><span class="co">#&gt;  version  R version 4.3.0 (2023-04-21)</span></span>
 <span><span class="co">#&gt;  os       Ubuntu 22.04.2 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
@@ -312,7 +312,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-04-24</span></span>
+<span><span class="co">#&gt;  date     2023-05-11</span></span>
 <span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -320,21 +320,21 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  backports     1.4.1   <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  bibtex        0.5.1   <span style="color: #555555;">2023-01-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  BiocManager   1.30.20 <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  BiocStyle   * 2.27.2  <span style="color: #555555;">2023-04-14</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  bookdown      0.33    <span style="color: #555555;">2023-03-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  BiocStyle   * 2.28.0  <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  bookdown      0.34    <span style="color: #555555;">2023-05-09</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  bslib         0.4.2   <span style="color: #555555;">2022-12-16</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  cachem        1.0.7   <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  cachem        1.0.8   <span style="color: #555555;">2023-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  cli           3.6.1   <span style="color: #555555;">2023-03-23</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  desc          1.4.2   <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  digest        0.6.31  <span style="color: #555555;">2022-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  evaluate      0.20    <span style="color: #555555;">2023-01-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  evaluate      0.21    <span style="color: #555555;">2023-05-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  fastmap       1.1.1   <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  fontawesome   0.5.1   <span style="color: #555555;">2023-04-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  fs            1.6.1   <span style="color: #555555;">2023-02-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  fs            1.6.2   <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  generics      0.1.3   <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  glue          1.6.2   <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  htmltools     0.5.5   <span style="color: #555555;">2023-03-23</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  httr          1.4.5   <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  httr          1.4.6   <span style="color: #555555;">2023-05-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  jquerylib     0.1.4   <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  jsonlite      1.8.4   <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  knitr         1.42    <span style="color: #555555;">2023-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
@@ -349,10 +349,10 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  ragg          1.2.5   <span style="color: #555555;">2023-01-12</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  Rcpp          1.0.10  <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  RefManageR  * 1.4.0   <span style="color: #555555;">2022-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  rlang         1.1.0   <span style="color: #555555;">2023-03-14</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  rlang         1.1.1   <span style="color: #555555;">2023-04-28</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  rmarkdown     2.21    <span style="color: #555555;">2023-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  rprojroot     2.0.3   <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  sass          0.4.5   <span style="color: #555555;">2023-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  sass          0.4.6   <span style="color: #555555;">2023-05-03</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  sessioninfo * 1.2.2   <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringi       1.7.12  <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  stringr       1.5.0   <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
@@ -361,7 +361,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  timechange    0.2.0   <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  vctrs         0.6.2   <span style="color: #555555;">2023-04-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  xfun          0.39    <span style="color: #555555;">2023-04-20</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
-<span><span class="co">#&gt;  xml2          1.3.3   <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
+<span><span class="co">#&gt;  xml2          1.3.4   <span style="color: #555555;">2023-04-27</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt;  yaml          2.3.7   <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.0)</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span></span>
@@ -395,7 +395,7 @@ References in R”. In: <em>The Journal of Open Source Software</em>
 <p>
 <a id="bib-ole2023biocstyle"></a><a href="#cite-ole2023biocstyle">[3]</a><cite>
 A. Oleś. <em>BiocStyle: Standard styles for vignettes and other
-Bioconductor documents</em>. R package version 2.27.2. 2023. DOI:
+Bioconductor documents</em>. R package version 2.28.0. 2023. DOI:
 <a href="https://doi.org/10.18129/B9.bioc.BiocStyle" class="external-link">10.18129/B9.bioc.BiocStyle</a>.
 URL:
 <a href="https://bioconductor.org/packages/BiocStyle" class="external-link">https://bioconductor.org/packages/BiocStyle</a>.</cite>

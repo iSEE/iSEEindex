@@ -70,7 +70,7 @@
     <h2>Preparing and caching resources</h2>
     
 
-<p><code>precache(x, bfc, id, ...)</code> potentially downloads a resource from an URI, caches it, and returns the path to the cached file:</p><ul><li><p><code>x</code>, a <code><a href="iSEEindexResource-class.html">iSEEindexResource</a></code> object.</p></li>
+<p><code>precache(x, bfc, id, ...)</code> potentially downloads a resource from an URI, caches it, and returns the path to the cached file:</p><ul><li><p><code>x</code>, an <code><a href="iSEEindexResource-class.html">iSEEindexResource</a></code> object.</p></li>
 <li><p><code>bfc</code>, a <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache()</a></code> object.</p></li>
 <li><p><code>id</code>, a data set identifier as a character scalar..</p></li>
 <li><p><code>...</code>, additional arguments passed to and from other methods.</p></li>
@@ -89,8 +89,8 @@
 <span class="r-in"><span>  uri <span class="op">=</span> <span class="st">"rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"</span></span></span>
 <span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">precache</span><span class="op">(</span><span class="va">x</span>, <span class="va">bfc</span>, <span class="st">"ID0"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                           BFC1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "/tmp/Rtmpz0MGLv/85c5d7612cc_ReprocessedAllenData_config_01.R" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            BFC1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "/tmp/Rtmp7dJzrg/8187219f2a34_ReprocessedAllenData_config_01.R" </span>
 </code></pre></div>
     </div>
   </div>

@@ -80,12 +80,22 @@ A URI for this type of resource uses the prefix “s3://”.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p>List of metadata.</p></dd>
+<dd><p>List of metadata. See Details.</p></dd>
 
 </dl></div>
     <div id="details">
     <h2>Details</h2>
-    <p>The URI must correspond to an existing file in an AWS S3 compatible cloud
+    <p>Required metadata:</p>
+<dl><dt>uri</dt>
+<dd><p>Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.</p></dd>
+
+
+</dl></div>
+    <div id="uri-format">
+    <h2>URI format</h2>
+    
+
+<p>The URI must correspond to an existing file in an AWS S3 compatible cloud
 storage system.</p>
 <p>For details about authentication, see section “AWS Credentials” below.</p>
 <p>For instance:</p>
