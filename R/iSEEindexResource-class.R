@@ -63,8 +63,9 @@ setMethod("show", "iSEEindexResource",
 #' library(BiocFileCache)
 #' bfc <- BiocFileCache(cache = tempdir())
 #'
-#' x <- new("iSEEindexRcallResource",
-#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+#' x <- iSEEindexRcallResource(list(
+#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
+#' ))
 #' precache(x, bfc, "ID0")
 NULL
 
@@ -246,8 +247,9 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' precache,iSEEindexRcallResource-method
 #'
 #' @examples
-#' new("iSEEindexRcallResource",
-#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+#' iSEEindexRcallResource(list(
+#'   uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
+#' ))
 NULL
 
 #' @export
@@ -341,22 +343,21 @@ setMethod("precache", "iSEEindexRcallResource",
 #' region=eu-west-2
 #' ```
 #'
-#' Optionally, a column named `region` can be added in the resource metadata to set the AWS S3 region for each individual resource, e.g.
+#' Optionally, a field named `region` can be added in the list of resource metadata to set the AWS S3 region for each individual resource, e.g.
 #'
 #' ```
-#' id,label,uri,description,region
-#' ...,...,...,...,eu-west-2
+#' - id: ID1
+#'   title: ReprocessedAllenData
+#'   uri: s3://example/ReprocessedAllenData.rds
+#'   description: |
+#'     Reprocessed Allen Data.
+#'   region: eu-west-2
 #' ```
 #'
-#' Regions set in the metadata override the default AWS region set in `~/.aws/config` (if any).
-#' The region metadata can be left blank for resources that should use the default region,
-#' and resource classes that do not require region information.
+#' Regions set in individual resource metadata override the default AWS region set in `~/.aws/config` (if any).
+#' The region metadata does not need to be set for resources that should use the default region, and resource classes that do not require region information.
 #'
 #' If a default region is NOT set in `~/.aws/config`, then the region MUST be set in the metadata.
-#'
-#' **IMPORTANT:** Pending resolution of the issue <https://github.com/paws-r/paws/issues/571>, AWS S3 regions set in the metadata are currently ignored,
-#' the `region` slot is always set to `NA`,
-#' and the default region set in `~/.aws/config` is used.
 #'
 #' Credentials for all services can be set in the AWS shared credentials file `~/.aws/credentials`.
 #' For instance:
@@ -377,13 +378,13 @@ setMethod("precache", "iSEEindexRcallResource",
 #'
 #' @examples
 #' # Without region metadata
-#' metadata <- data.frame(uri = "s3://example/path/to/bucket")
+#' metadata <- list(uri = "s3://example/path/to/bucket")
 #' x <- iSEEindexS3Resource(metadata)
 #' str(x)
 #'
-#' # With region metadata (currently ignored)
+#' # With region metadata
 #' # NOTE: The @region slot is set to NA pending bugfix (see above).
-#' metadata <- data.frame(uri = "s3://example/path/to/bucket", region = "eu-west-2")
+#' metadata <- list(uri = "s3://example/path/to/bucket", region = "eu-west-2")
 #' x <- iSEEindexS3Resource(metadata)
 #' str(x)
 NULL

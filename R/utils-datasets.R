@@ -106,7 +106,7 @@
 
 #' Check Validity of Data Sets Metadata
 #'
-#' @param x `data.frame` of metadata.
+#' @param x `list` of of lists of metadata.
 #'
 #' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an error.
 #'
@@ -115,32 +115,36 @@
 #' @rdname INTERNAL_check_datasets_table
 #'
 #' @examples
-#' x <- data.frame(
-#'   id = "dataset01",
-#'   title = "Data Set 01",
-#'   uri = "https://example.com/dataset01.rds",
-#'   description = "My first data set."
+#' x <- list(
+#'   list(
+#'     id = "dataset01",
+#'     title = "Data Set 01",
+#'     uri = "https://example.com/dataset01.rds",
+#'     description = "My first data set."
+#'   )
 #' )
-#' iSEEindex:::.check_datasets_table(x)
-.check_datasets_table <- function(x) {
+#' iSEEindex:::.check_datasets_list(x)
+.check_datasets_list <- function(x) {
     # Check that all required column names are present.
-    required_colnames <- c(.datasets_id, .datasets_title, .datasets_uri, .datasets_description)
-    for (column_name in required_colnames) {
-        if (!column_name %in% colnames(x)) {
-            txt <- sprintf("Required column '%s' missing in data set metadata.", column_name)
-            .stop(txt)
+    required_metadata <- c(.datasets_id, .datasets_title, .datasets_uri, .datasets_description)
+    for (metadata_name in required_metadata) {
+        for (dataset_index in seq_along(x)){
+            if (!metadata_name %in% names(x[[dataset_index]])) {
+                txt <- sprintf("Required metadata '%s' missing in data set metadata #%i.", metadata_name, dataset_index)
+                .stop(txt)
+            }
         }
     }
-    # Check that the table has at least one row.
-    if (identical(nrow(x), 0L)) {
-        txt <- "Data set metadata must have at least one row."
+    # Check that the list has at least one item.
+    if (identical(length(x), 0L)) {
+        txt <- "Data set metadata must have at least one item."
         .stop(txt)
     }
-    # Check that config identifiers are unique
-    which_dup <- duplicated(x[[.datasets_id]])
+    # Check that data set identifiers are unique
+    which_dup <- duplicated(vapply(x, function(x) x[[.datasets_id]], character(1)))
     if (any(which_dup)) {
         first_dup <- which(which_dup)[1]
-        txt <- sprintf("duplicate id: %s", x[[.datasets_id]][first_dup])
+        txt <- sprintf("duplicate data set identifier: %s", x[[first_dup]][[.datasets_id]])
         .stop(txt)
     }
     invisible(NULL)

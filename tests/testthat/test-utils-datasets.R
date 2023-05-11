@@ -48,64 +48,59 @@ test_that(".metadata_to_object throws an error for undefined protocols", {
 
 # .check_datasets_table ----
 
-test_that(".check_datasets_table works for valid metadata", {
+test_that(".check_datasets_list works for valid metadata", {
 
-    x <- data.frame(
+    x <- list(list(
         id = "dataset01",
         title = "Data Set 01",
         uri = "https://example.com/dataset01.rds",
         description = "My first data set."
-    )
+    ))
 
-    out <- iSEEindex:::.check_datasets_table(x)
+    out <- iSEEindex:::.check_datasets_list(x)
     expect_null(out)
 
 })
 
-test_that(".check_datasets_table throws an error for missing required column", {
+test_that(".check_datasets_list throws an error for missing required metadata", {
 
-    x <- data.frame(
+    x <- list(list(
         id = "dataset01",
         title = "Data Set 01",
         uri = "https://example.com/dataset01.rds"
-    )
+    ))
 
     expect_error(
-        iSEEindex:::.check_datasets_table(x),
-        "Required column 'description' missing in data set metadata."
+        iSEEindex:::.check_datasets_list(x),
+        "Required metadata 'description' missing in data set metadata"
     )
 
 })
 
-test_that(".check_datasets_table throws an error for zero rows", {
+test_that(".check_datasets_list throws an error for zero item", {
 
-    x <- data.frame(
-        id = character(0),
-        title = character(0),
-        uri = character(0),
-        description = character(0)
-    )
+    x <- list()
 
     expect_error(
-        iSEEindex:::.check_datasets_table(x),
-        "Data set metadata must have at least one row."
+        iSEEindex:::.check_datasets_list(x),
+        "Data set metadata must have at least one item."
     )
 
 })
 
-test_that(".check_datasets_table throws an error when duplicate id is present", {
+test_that(".check_datasets_list throws an error when duplicate id is present", {
 
-    x <- data.frame(
+    x <- list(list(
         id = "dataset01",
         title = "Data Set 01",
         uri = "https://example.com/dataset01.rds",
         description = "My first data set."
-    )
-    x <- rbind(x, x)
+    ))
+    x <- append(x, x)
 
     expect_error(
-        iSEEindex:::.check_datasets_table(x),
-        "duplicate id: dataset01"
+        iSEEindex:::.check_datasets_list(x),
+        "duplicate data set identifier: dataset01"
     )
 
 })

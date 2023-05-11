@@ -1,4 +1,5 @@
 
 dataset_fun <- function() {
-    read.csv(system.file(package = "iSEEindex", "datasets.csv"))
+    x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
+    x$datasets
 }

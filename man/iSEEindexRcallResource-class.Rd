@@ -46,8 +46,9 @@ before returning the file path to the cached file.
 }
 
 \examples{
-new("iSEEindexRcallResource",
-  uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')")
+iSEEindexRcallResource(list(
+  uri = "rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')"
+))
 }
 \author{
 Kevin Rue-Albrecht

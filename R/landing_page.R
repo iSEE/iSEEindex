@@ -18,17 +18,13 @@
 #' @rdname INTERNAL_landing_page
 .landing_page <- function(bfc, FUN.datasets, FUN.initial) {
     # datasets
-    datasets_available_table <- FUN.datasets()
-    if (is(datasets_available_table, "list")) {
-        datasets_available_table <- .list_to_dataframe(datasets_available_table)
-    }
-    .check_datasets_table(datasets_available_table)
+    datasets_available_list <- FUN.datasets()
+    .check_datasets_list(datasets_available_list)
+    datasets_available_table <- .datasets_to_dataframe(datasets_available_list)
     # initial configurations
-    initial_available_table <- FUN.initial()
-    if (is(initial_available_table, "list")) {
-        initial_available_table <- .list_to_dataframe(initial_available_table)
-    }
-    .check_initial_table(initial_available_table)
+    initial_available_list <- FUN.initial()
+    .check_initial_list(initial_available_list)
+    initial_available_table <- .initial_to_dataframe(initial_available_list, datasets_available_table[[.datasets_id]])
     # landing page function (return value)
     function (FUN, input, output, session) {
         # nocov start

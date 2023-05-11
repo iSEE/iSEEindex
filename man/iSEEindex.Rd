@@ -9,10 +9,10 @@ iSEEindex(bfc, FUN.datasets, FUN.initial = NULL)
 \arguments{
 \item{bfc}{An \code{\link[=BiocFileCache]{BiocFileCache()}} object.}
 
-\item{FUN.datasets}{A function that returns a \code{data.frame} of metadata for
+\item{FUN.datasets}{A function that returns a \code{list} of metadata for
 available data sets.}
 
-\item{FUN.initial}{A function that returns a \code{data.frame} of metadata for
+\item{FUN.initial}{A function that returns a \code{list} of metadata for
 available initial configuration states.}
 }
 \value{
@@ -25,7 +25,7 @@ states prepared by the app maintainer.
 }
 \section{Data Sets}{
 
-The function passed to the argument \code{FUN.datasets} must return either a \code{data.frame} or a \code{list} that contains metadata about the available data sets.
+The function passed to the argument \code{FUN.datasets} must return a \code{list} that contains metadata about the available data sets.
 
 Required metadata are:
 
@@ -34,35 +34,18 @@ Required metadata are:
 \item{title}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
 \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
 \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
-}
 
-\strong{Important:} The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
-Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the \code{BiocFileCache(cache)} argument to specify an on-disk location (directory path) for the dedicated cache.
-
-Example \code{data.frame}:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{data.frame(
-  id = c("ID1", "ID2"),
-  title = c("Dataset 01", "Dataset 02"),
-  uri = c("https://example.com/1.rds", "https://example.com/2.rds"),
-  description = c("My first data set.", "My second data set.")
-)
-}\if{html}{\out{</div>}}
-
-The \code{data.frame} may also contain optional columns of metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
-The value in optional columns can be left empty (\code{""}) for resource classes that do not require that information.
-
-Example \code{list}:
+Example:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{list(
   list(
-     id = "ID1",
+     id = "dataset01",
      title = "Dataset 01",
      uri = "https://example.com/1.rds",
      description = "My first data set."
   ),
   list(
-     id = "ID2",
+     id = "dataset02",
      title = "Dataset 02",
      uri = "https://example.com/1.rds",
      description = "My second data set."
@@ -73,54 +56,40 @@ Example \code{list}:
 The individual sub-lists may also contain optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
 }
 
+\strong{Important:} The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
+Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the \code{BiocFileCache(cache)} argument to specify an on-disk location (directory path) for the dedicated cache.
+}
+
 \section{Initial Configurations}{
 
-The function passed to the argument \code{FUN.initial} must return either a \code{data.frame} or a \code{list} that contains metadata about the available initial configurations, or \code{NULL} in the absence of any custom initial configuration (default settings will be applied to all data sets.).
+The function passed to the argument \code{FUN.initial} must return a \code{list} that contains metadata about the available initial configurations, or \code{NULL} in the absence of any custom initial configuration (default settings will be applied to all data sets.).
 
 Required metadata are:
 
 \describe{
-\item{dataset_id}{The unique identifier of a data set.}
-\item{config_id}{A unique identifier for the initial configuration.}
+\item{id}{A unique identifier for the initial configuration.}
 \item{title}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
 \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
 \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
+}.
+
+Optional metadata are:
+\describe{
+\item{datasets}{A series of data set identifiers for which the configuration should be made available. If missing, the configuration will be available for all data sets.}
 }
 
-The \code{dataset_id} must match one of the \code{id} values in the data set metadata.
-See section 'Data Sets'.
-
-The same \code{config_id} may be re-used in combination with different \code{dataset_id}.
-
-\strong{Important:} The \code{dataset_id} and \code{config_id} are combined to identify the initial configuration script and the associated data set in the \pkg{BiocFileCache}.
-
-Example \code{data.frame}:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{data.frame(
-  dataset_id = c("ID1", "ID1"),
-  config_id = c("config01", config02"),
-  title = c("Configuration 01", "Configuration 02"),
-  uri = c("https://example.com/1.R", "https://example.com/2.R"),
-  description = c("My first configuration.", "My second configuration.")
-)
-}\if{html}{\out{</div>}}
-
-The \code{data.frame} may also contain optional columns of metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
-The value in optional columns can be left empty (\code{""}) for resource classes that do not require that information.
-
-Example \code{list}:
+Example:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{list(
   list(
-     dataset_id = "ID1",
-     config_id = "config01",
+     id = "config01",
+     datasets = c("dataset01")
      title = "Configuration 01",
      uri = "https://example.com/1.R",
      description = "My first configuration."
   ),
   list(
-     dataset_id = "ID1",
-     config_id = "config02",
+     id = "config02",
      title = "Configuration 02",
      uri = "https://example.com/2.R",
      description = "My second configuration."
@@ -128,14 +97,20 @@ Example \code{list}:
 )
 }\if{html}{\out{</div>}}
 
-The individual sub-lists may also contain optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
+The individual sub-lists may also contain additional optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
 }
 
 \examples{
+##
+# BiocFileCache ----
+##
+
 library(BiocFileCache)
 bfc <- BiocFileCache(cache = tempdir())
 
-# Using YAML ----
+##
+# iSEEindex ----
+##
 
 dataset_fun <- function() {
     x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
@@ -152,25 +127,6 @@ app <- iSEEindex(bfc, dataset_fun, initial_fun)
 if (interactive()) {
     shiny::runApp(app, port = 1234)
 }
-
-# Using CSV ---
-
-dataset_fun <- function() {
-    x <- read.csv(system.file(package = "iSEEindex", "datasets.csv"))
-    x
-}
-
-initial_fun <- function() {
-    x <- read.csv(system.file(package = "iSEEindex", "initial.csv"))
-    x
-}
-
-app <- iSEEindex(bfc, dataset_fun, initial_fun)
-
-if (interactive()) {
-    shiny::runApp(app, port = 1234)
-}
-
 }
 \author{
 Kevin Rue-Albrecht
