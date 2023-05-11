@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/iSEE/iSEEindex/branch/main/graph/badge.svg)](https://app.codecov.io/gh/iSEE/iSEEindex?branch=main)
 <!-- badges: end -->
 
-The goal of `iSEEindex` is to provide an interface to any collection of data sets, hosted anywhere, within a single iSEE web-application.
+The goal of `r Biocpkg("iSEEindex")` is to provide an interface to any collection of data sets, hosted anywhere, within a single iSEE web-application.
 
 The main functionality of this package is to define a custom landing page for iSEE web-applications where app maintainers can list entirely custom collections of data sets hosted on virtually any locally or remotely accessible network.
 
@@ -40,7 +40,7 @@ Standard schemes can be used alongside custom-made ones, e.g.:
 - `https://` for files downloaded over the HTTPS protocol.
 - `s3://` for files downloaded from Amazon S3 buckets.
 
-The `iSEEindex` framework enables app maintainers to independently define new methods for their own choice of standard and custom-made URI schemes.
+The `r Biocpkg("iSEEindex")` framework enables app maintainers to independently define new methods for their own choice of standard and custom-made URI schemes.
 More information is available in the vignette *Implementing custom iSEEindex resources*.
 
 The resulting landing page presents end-users of the web-applications with the predefined choice of data sets and initial configuration states (specific to each data set).
@@ -49,7 +49,7 @@ Finally, data sets and configurations are loaded from the cache into the main `i
 
 ## Installation instructions
 
-Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `iSEEindex` from [Bioconductor](http://bioconductor.org/) using the following code:
+Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `r Biocpkg("iSEEindex")` from [Bioconductor](http://bioconductor.org/) using the following code:
 
 ```{r 'install', eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
@@ -101,11 +101,11 @@ run this yourself to check for any updates on how to cite __iSEEindex__.
 print(citation('iSEEindex'), bibtex = TRUE)
 ```
 
-Please note that the `iSEEindex` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.
+Please note that the `r Biocpkg("iSEEindex")` was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.
 
 ## Code of Conduct
 
-Please note that the `iSEEindex` project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+Please note that the `r Biocpkg("iSEEindex")` project is released with a [Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
 
 ## Development tools
 
