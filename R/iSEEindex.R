@@ -8,7 +8,7 @@
 #' @section Data Sets:
 #' The function passed to the argument `FUN.datasets` must return a `list` that contains metadata about the available data sets.
 #'
-#' Required metadata are:
+#' For each data set, required metadata are:
 #'
 #' \describe{
 #' \item{id}{A unique identifier for the data set.}
@@ -86,7 +86,7 @@
 #' @param FUN.initial A function that returns a `list` of metadata for
 #' available initial configuration states.
 #'
-#' @return An [iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
+#' @return An [iSEE::iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
 #'
 #' @author Kevin Rue-Albrecht
 #'

@@ -16,7 +16,7 @@ available data sets.}
 available initial configuration states.}
 }
 \value{
-An \code{\link[=iSEE]{iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
+An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
 }
 \description{
 Generate an \pkg{iSEE} app that includes a landing page enabling
@@ -27,7 +27,7 @@ states prepared by the app maintainer.
 
 The function passed to the argument \code{FUN.datasets} must return a \code{list} that contains metadata about the available data sets.
 
-Required metadata are:
+For each data set, required metadata are:
 
 \describe{
 \item{id}{A unique identifier for the data set.}
