@@ -9,12 +9,19 @@
 iSEEindexHttpsResource(x)
 }
 \arguments{
-\item{x}{List of metadata.}
+\item{x}{List of metadata. See Details.}
 }
 \description{
 The iSEEindexHttpsResource class represents a resource accessible through
 an HTTPS link.
 A URI for this type of resource uses the prefix \dQuote{https://}.
+}
+\details{
+Required metadata:
+
+\describe{
+\item{uri}{Character scalar. URI of the resource.}
+}
 }
 \section{Slot overview}{
 
@@ -32,7 +39,7 @@ Refer to the documentation for each method for more details on the remaining arg
 }
 
 \examples{
-new("iSEEindexHttpsResource", uri = "https://example.com")
+iSEEindexHttpsResource(list(uri = "https://example.com"))
 }
 \author{
 Kevin Rue-Albrecht

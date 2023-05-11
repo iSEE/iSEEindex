@@ -91,6 +91,13 @@ setMethod("precache", "iSEEindexResource",
 #' The iSEEindexHttpsResource class represents a resource accessible through
 #' an HTTPS link.
 #' A URI for this type of resource uses the prefix \dQuote{https://}.
+#' 
+#' @details
+#' Required metadata:
+#' 
+#' \describe{
+#' \item{uri}{Character scalar. URI of the resource.}
+#' }
 #'
 #' @section Slot overview:
 #' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
@@ -111,7 +118,7 @@ setMethod("precache", "iSEEindexResource",
 #' precache,iSEEindexHttpsResource-method
 #'
 #' @examples
-#' new("iSEEindexHttpsResource", uri = "https://example.com")
+#' iSEEindexHttpsResource(list(uri = "https://example.com"))
 NULL
 
 #' @export
@@ -120,7 +127,7 @@ setClass("iSEEindexHttpsResource", contains="iSEEindexResource")
 #' @export
 #' @rdname iSEEindexHttpsResource-class
 #'
-#' @param x List of metadata.
+#' @param x List of metadata. See Details.
 iSEEindexHttpsResource <- function(x) {
     new("iSEEindexHttpsResource", uri = x[[.datasets_uri]])
 }
