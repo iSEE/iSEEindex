@@ -15,6 +15,7 @@
 #' \item{title}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
 #' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
 #' \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
+#' }
 #'
 #' Example:
 #'
@@ -44,7 +45,7 @@
 #' @section Initial Configurations:
 #' The function passed to the argument `FUN.initial` must return a `list` that contains metadata about the available initial configurations, or `NULL` in the absence of any custom initial configuration (default settings will be applied to all data sets.).
 #'
-#' Required metadata are:
+#' For each initial configuration, required metadata are:
 #'
 #' \describe{
 #' \item{id}{A unique identifier for the initial configuration.}
@@ -53,7 +54,7 @@
 #' \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
 #' }.
 #' 
-#' Optional metadata are:
+#' For each initial configuration, optional metadata are:
 #' \describe{
 #' \item{datasets}{A series of data set identifiers for which the configuration should be made available. If missing, the configuration will be available for all data sets.}
 #' }
