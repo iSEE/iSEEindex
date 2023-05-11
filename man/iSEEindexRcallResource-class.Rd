@@ -23,7 +23,7 @@ Required metadata:
 \item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
 }
 }
-\section{URI formatting}{
+\section{URI format}{
 
 The URI must contain valid R code, once the prefix \verb{rcall://} is removed.
 The code must return the path to an existing file on the local filesystem.

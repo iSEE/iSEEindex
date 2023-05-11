@@ -9,7 +9,7 @@
 iSEEindexS3Resource(x)
 }
 \arguments{
-\item{x}{List of metadata.}
+\item{x}{List of metadata. See Details.}
 }
 \description{
 The iSEEindexS3Resource class represents a cloud storage resource accessible
@@ -19,6 +19,14 @@ R package.
 A URI for this type of resource uses the prefix \dQuote{s3://}.
 }
 \details{
+Required metadata:
+
+\describe{
+\item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
+}
+}
+\section{URI format}{
+
 The URI must correspond to an existing file in an AWS S3 compatible cloud
 storage system.
 
@@ -29,6 +37,7 @@ For instance:
 \if{html}{\out{<div class="sourceCode">}}\preformatted{s3://bucket/prefix/index.rds
 }\if{html}{\out{</div>}}
 }
+
 \section{Slot overview}{
 
 This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.

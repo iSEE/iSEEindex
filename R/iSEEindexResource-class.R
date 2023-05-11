@@ -235,7 +235,7 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' \item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
 #' }
 #'
-#' @section URI formatting: 
+#' @section URI format: 
 #' The URI must contain valid R code, once the prefix `rcall://` is removed.
 #' The code must return the path to an existing file on the local filesystem.
 #'
@@ -308,18 +308,13 @@ setMethod("precache", "iSEEindexRcallResource",
 #' [paws.storage](https://cran.r-project.org/package=paws.storage)
 #' R package.
 #' A URI for this type of resource uses the prefix \dQuote{s3://}.
-#'
+#' 
 #' @details
-#' The URI must correspond to an existing file in an AWS S3 compatible cloud
-#' storage system.
-#'
-#' For details about authentication, see section \dQuote{AWS Credentials} below.
-#'
-#' For instance:
-#'
-#' ```
-#' s3://bucket/prefix/index.rds
-#' ```
+#' Required metadata:
+#' 
+#' \describe{
+#' \item{uri}{Character scalar. URI of the resource.}
+#' }
 #'
 #' @section Slot overview:
 #' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
@@ -341,8 +336,21 @@ setMethod("precache", "iSEEindexRcallResource",
 #' \pkg{BiocFileCache}, before returning the file path to the cached file.
 #' }
 #'
+#' @section URI format: 
+#' The URI must correspond to an existing file in an AWS S3 compatible cloud
+#' storage system.
+#'
+#' For instance:
+#'
+#' ```
+#' s3://bucket/prefix/index.rds
+#' ```
+#'
+#' For details about authentication, see section \dQuote{AWS Credentials} below.
+#'
 #' @section Pre-caching:
 #' Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
+#' 
 #' \describe{
 #' \item{`temp_dir`}{Scalar character, the directory to store the downloaded file
 #' in before it is handed over to \pkg{BiocFileCache}. This directory will be created
@@ -415,7 +423,7 @@ setClass("iSEEindexS3Resource", contains="iSEEindexResource", slots = c("region"
 #' @export
 #' @rdname iSEEindexS3Resource-class
 #'
-#' @param x List of metadata.
+#' @param x List of metadata. See Details.
 iSEEindexS3Resource <- function(x) {
     region <- x[[.dataset_region]]
     if (is.null(region) || identical(nchar(region), 0L)) {
