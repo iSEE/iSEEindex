@@ -152,6 +152,25 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' A URI for this type of resource uses the prefix \dQuote{localhost://}.
 #'
 #' @details
+#' Required metadata:
+#' 
+#' \describe{
+#' \item{uri}{Character scalar. URI of the resource.}
+#' }
+#'
+#' @section Slot overview:
+#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+#'
+#' @section Supported methods:
+#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexLocalhostResource} class.
+#' Refer to the documentation for each method for more details on the remaining arguments.
+#'
+#' \itemize{
+#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
+#' }
+#' 
+#' @section Absolute and relative paths:
+#' 
 #' Absolute and relative paths are both supported.
 #'
 #' Absolute paths require an additional `/` (forward slash)
@@ -165,17 +184,6 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' \item `localhost:///path/to/file` refers to the absolute path `/path/to/file`.
 #' }
 #'
-#' @section Slot overview:
-#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
-#'
-#' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexLocalhostResource} class.
-#' Refer to the documentation for each method for more details on the remaining arguments.
-#'
-#' \itemize{
-#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
-#' }
-#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @name iSEEindexLocalhostResource-class
@@ -184,8 +192,8 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' precache,iSEEindexLocalhostResource-method
 #'
 #' @examples
-#' new("iSEEindexLocalhostResource", uri = "localhost:///example/absolute/path")
-#' new("iSEEindexLocalhostResource", uri = "localhost://example/relative/path")
+#' iSEEindexLocalhostResource(list(uri = "localhost:///example/absolute/path"))
+#' iSEEindexLocalhostResource(list(uri = "localhost://example/relative/path"))
 NULL
 
 #' @export
@@ -194,7 +202,7 @@ setClass("iSEEindexLocalhostResource", contains="iSEEindexResource")
 #' @export
 #' @rdname iSEEindexLocalhostResource-class
 #'
-#' @param x List of metadata.
+#' @param x List of metadata. See Details.
 iSEEindexLocalhostResource <- function(x) {
     new("iSEEindexLocalhostResource", uri = x[[.datasets_uri]])
 }
