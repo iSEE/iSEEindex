@@ -1,6 +1,8 @@
+# iSEEindexResource ----
+
 #' The iSEEindexResource class
 #'
-#' The iSEEindexResource class represents an undefined resource.
+#' The iSEEindexResource class is a virtual class from which classes of supported resource must be derived.
 #'
 #' @section Slot overview:
 #' \itemize{
@@ -12,7 +14,7 @@
 #' Refer to the documentation for each method for more details on the remaining arguments.
 #'
 #' \itemize{
-#' \item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging users to develop a method for derived classes that are not suported yet.
+#' \item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging users to develop a method for derived classes that are not supported yet.
 #' }
 #'
 #' @author Kevin Rue-Albrecht
@@ -20,11 +22,11 @@
 #' @name iSEEindexResource-class
 #' @rdname iSEEindexResource-class
 #' @aliases
-#' show,iSEEindexResource-method
 #' precache,iSEEindexResource-method
+#' show,iSEEindexResource-method
 #'
 #' @examples
-#' new("iSEEindexResource", uri = "uri://example")
+#' showClass("iSEEindexResource")
 NULL
 
 #' @export
@@ -34,24 +36,29 @@ setClass("iSEEindexResource",
     ))
 
 #' @export
+#' @rdname iSEEindexResource-class
+#' 
+#' @param object An `iSEEindexResource` object.
+#' 
+#' @return `show()` returns `NULL` after displaying a summary of the object.
 setMethod("show", "iSEEindexResource",
     function(object)
 {
     cat("class:", class(object), "\n")
+    cat("- uri:", object@uri, "\n")
 })
 
-#' Download and Cache Resources
+#' Generics for iSEEindexResources Objects
 #'
-#' An overview of the generics for downloading and caching resources.
+#' An overview of the generics for `iSEEindexResources` objects.
+#' 
+#' @param x An [`iSEEindexResource-class`] object.
+#' @param bfc A [BiocFileCache()] object.
+#' @param id A data set identifier as a character scalar.
+#' @param ... additional arguments passed to and from other methods.
 #'
 #' @section Preparing and caching resources:
-#' `precache(x, bfc, id, ...)` potentially downloads a resource from an URI, caches it, and returns the path to the cached file:
-#' \itemize{
-#' \item \code{x}, an [`iSEEindexResource-class`] object.
-#' \item \code{bfc}, a [BiocFileCache()] object.
-#' \item \code{id}, a data set identifier as a character scalar..
-#' \item \code{...}, additional arguments passed to and from other methods.
-#' }
+#' `precache(x, bfc, id, ...)` retrieves and caches a resource from an URI, caches it, and returns the path to the cached file.
 #'
 #' @author Kevin Rue-Albrecht
 #'
@@ -69,12 +76,24 @@ setMethod("show", "iSEEindexResource",
 #' precache(x, bfc, "ID0")
 NULL
 
+#' @export
+#' @rdname iSEEindexResource-generics
+#' 
+#' @return `precache()` returns the file path to the cached copy of a resource fetched from a given URI.
 setGeneric("precache", function(x, bfc, id, ...) {
     stopifnot(is(x, "iSEEindexResource"), length(x) == 1L)
     standardGeneric("precache")
 })
 
 #' @export
+#' @rdname iSEEindexResource-class
+#' 
+#' @param x An [`iSEEindexResource-class`] object.
+#' @param bfc A [BiocFileCache()] object.
+#' @param id A data set identifier as a character scalar.
+#' @param ... additional arguments passed to and from other methods.
+#' 
+#' @return `precache()` throws an error if no method is found for the derived class.
 setMethod("precache", "iSEEindexResource",
     function(x, bfc, id, ...)
 {
@@ -128,6 +147,8 @@ setClass("iSEEindexHttpsResource", contains="iSEEindexResource")
 #' @rdname iSEEindexHttpsResource-class
 #'
 #' @param x List of metadata. See Details.
+#' 
+#' @return The constructor function `iSEEindexHttpsResource()` returns an object of object of class `iSEEindexHttpsResource`.
 iSEEindexHttpsResource <- function(x) {
     new("iSEEindexHttpsResource", uri = x[[.datasets_uri]])
 }
@@ -203,6 +224,8 @@ setClass("iSEEindexLocalhostResource", contains="iSEEindexResource")
 #' @rdname iSEEindexLocalhostResource-class
 #'
 #' @param x List of metadata. See Details.
+#' 
+#' @return The constructor function `iSEEindexLocalhostResource()` returns an object of object of class `iSEEindexLocalhostResource`.
 iSEEindexLocalhostResource <- function(x) {
     new("iSEEindexLocalhostResource", uri = x[[.datasets_uri]])
 }
@@ -279,6 +302,8 @@ setClass("iSEEindexRcallResource", contains="iSEEindexResource")
 #' @rdname iSEEindexRcallResource-class
 #'
 #' @param x List of metadata. See Details.
+#' 
+#' @return The constructor function `iSEEindexRcallResource()` returns an object of object of class `iSEEindexRcallResource`.
 iSEEindexRcallResource <- function(x) {
     new("iSEEindexRcallResource", uri = x[[.datasets_uri]])
 }
@@ -424,6 +449,8 @@ setClass("iSEEindexS3Resource", contains="iSEEindexResource", slots = c("region"
 #' @rdname iSEEindexS3Resource-class
 #'
 #' @param x List of metadata. See Details.
+#' 
+#' @return The constructor function `iSEEindexS3Resource()` returns an object of object of class `iSEEindexS3Resource`.
 iSEEindexS3Resource <- function(x) {
     region <- x[[.dataset_region]]
     if (is.null(region) || identical(nchar(region), 0L)) {

@@ -4,19 +4,28 @@
 \name{iSEEindexResource-generics}
 \alias{iSEEindexResource-generics}
 \alias{precache}
-\title{Download and Cache Resources}
+\title{Generics for iSEEindexResources Objects}
+\usage{
+precache(x, bfc, id, ...)
+}
+\arguments{
+\item{x}{An \code{\linkS4class{iSEEindexResource}} object.}
+
+\item{bfc}{A \code{\link[=BiocFileCache]{BiocFileCache()}} object.}
+
+\item{id}{A data set identifier as a character scalar.}
+
+\item{...}{additional arguments passed to and from other methods.}
+}
+\value{
+\code{precache()} returns the file path to the cached copy of a resource fetched from a given URI.
+}
 \description{
-An overview of the generics for downloading and caching resources.
+An overview of the generics for \code{iSEEindexResources} objects.
 }
 \section{Preparing and caching resources}{
 
-\code{precache(x, bfc, id, ...)} potentially downloads a resource from an URI, caches it, and returns the path to the cached file:
-\itemize{
-\item \code{x}, an \code{\linkS4class{iSEEindexResource}} object.
-\item \code{bfc}, a \code{\link[=BiocFileCache]{BiocFileCache()}} object.
-\item \code{id}, a data set identifier as a character scalar..
-\item \code{...}, additional arguments passed to and from other methods.
-}
+\code{precache(x, bfc, id, ...)} retrieves and caches a resource from an URI, caches it, and returns the path to the cached file.
 }
 
 \examples{

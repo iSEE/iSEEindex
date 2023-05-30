@@ -11,6 +11,9 @@ iSEEindexLocalhostResource(x)
 \arguments{
 \item{x}{List of metadata. See Details.}
 }
+\value{
+The constructor function \code{iSEEindexLocalhostResource()} returns an object of object of class \code{iSEEindexLocalhostResource}.
+}
 \description{
 The iSEEindexLocalhostResource class represents a resource accessible through
 a local filepath.

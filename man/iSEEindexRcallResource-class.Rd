@@ -11,6 +11,9 @@ iSEEindexRcallResource(x)
 \arguments{
 \item{x}{List of metadata. See Details.}
 }
+\value{
+The constructor function \code{iSEEindexRcallResource()} returns an object of object of class \code{iSEEindexRcallResource}.
+}
 \description{
 The iSEEindexRcallResource class represents a resource accessible through
 the result of an R call.

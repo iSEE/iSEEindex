@@ -2,11 +2,32 @@
 % Please edit documentation in R/iSEEindexResource-class.R
 \name{iSEEindexResource-class}
 \alias{iSEEindexResource-class}
-\alias{show,iSEEindexResource-method}
 \alias{precache,iSEEindexResource-method}
+\alias{show,iSEEindexResource-method}
 \title{The iSEEindexResource class}
+\usage{
+\S4method{show}{iSEEindexResource}(object)
+
+\S4method{precache}{iSEEindexResource}(x, bfc, id, ...)
+}
+\arguments{
+\item{object}{An \code{iSEEindexResource} object.}
+
+\item{x}{An \code{\linkS4class{iSEEindexResource}} object.}
+
+\item{bfc}{A \code{\link[=BiocFileCache]{BiocFileCache()}} object.}
+
+\item{id}{A data set identifier as a character scalar.}
+
+\item{...}{additional arguments passed to and from other methods.}
+}
+\value{
+\code{show()} returns \code{NULL} after displaying a summary of the object.
+
+\code{precache()} throws an error if no method is found for the derived class.
+}
 \description{
-The iSEEindexResource class represents an undefined resource.
+The iSEEindexResource class is a virtual class from which classes of supported resource must be derived.
 }
 \section{Slot overview}{
 
@@ -21,12 +42,12 @@ In the following code snippets, \code{x} is an instance of a \code{\linkS4class{
 Refer to the documentation for each method for more details on the remaining arguments.
 
 \itemize{
-\item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging users to develop a method for derived classes that are not suported yet.
+\item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging users to develop a method for derived classes that are not supported yet.
 }
 }
 
 \examples{
-new("iSEEindexResource", uri = "uri://example")
+showClass("iSEEindexResource")
 }
 \author{
 Kevin Rue-Albrecht
