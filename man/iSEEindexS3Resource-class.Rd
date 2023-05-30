@@ -11,6 +11,9 @@ iSEEindexS3Resource(x)
 \arguments{
 \item{x}{List of metadata. See Details.}
 }
+\value{
+The constructor function \code{iSEEindexS3Resource()} returns an object of object of class \code{iSEEindexS3Resource}.
+}
 \description{
 The iSEEindexS3Resource class represents a cloud storage resource accessible
 via the
@@ -22,22 +25,9 @@ A URI for this type of resource uses the prefix \dQuote{s3://}.
 Required metadata:
 
 \describe{
-\item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
+\item{uri}{Character scalar. URI of the resource.}
 }
 }
-\section{URI format}{
-
-The URI must correspond to an existing file in an AWS S3 compatible cloud
-storage system.
-
-For details about authentication, see section \dQuote{AWS Credentials} below.
-
-For instance:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{s3://bucket/prefix/index.rds
-}\if{html}{\out{</div>}}
-}
-
 \section{Slot overview}{
 
 This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
@@ -62,9 +52,23 @@ and caches a copy of the resource located at the resulting file path using
 }
 }
 
+\section{URI format}{
+
+The URI must correspond to an existing file in an AWS S3 compatible cloud
+storage system.
+
+For instance:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{s3://bucket/prefix/index.rds
+}\if{html}{\out{</div>}}
+
+For details about authentication, see section \dQuote{AWS Credentials} below.
+}
+
 \section{Pre-caching}{
 
 Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
+
 \describe{
 \item{\code{temp_dir}}{Scalar character, the directory to store the downloaded file
 in before it is handed over to \pkg{BiocFileCache}. This directory will be created

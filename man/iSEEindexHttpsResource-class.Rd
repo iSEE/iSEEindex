@@ -11,6 +11,9 @@ iSEEindexHttpsResource(x)
 \arguments{
 \item{x}{List of metadata. See Details.}
 }
+\value{
+The constructor function \code{iSEEindexHttpsResource()} returns an object of object of class \code{iSEEindexHttpsResource}.
+}
 \description{
 The iSEEindexHttpsResource class represents a resource accessible through
 an HTTPS link.
