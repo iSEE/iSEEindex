@@ -187,7 +187,10 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
                 init <- NULL
             } else {
                 initial_id <- pObjects[[.ui_initial]]
-                which_initial <- which(pObjects$initial_table[[.initial_config_id]] == initial_id)
+                which_initial <- which(
+                  pObjects$initial_table[[.initial_config_id]] == initial_id & 
+                  pObjects$initial_table[[.initial_datasets_id]] == dataset_id
+                  )
                 initial_metadata <- as.list(pObjects$initial_table[which_initial, , drop = FALSE])
                 initial_message <- capture.output(
                     init <- try(.load_initial(bfc, dataset_id, initial_id, initial_metadata)),

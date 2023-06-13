@@ -1,3 +1,7 @@
+# iSEEindex 0.99.3
+
+* Bugfix: deduplicate choice of initial configuration.
+
 # iSEEindex 0.99.2
 
 * Added `\value` section to fix `BiocCheck::BiocCheck()` WARNING.
