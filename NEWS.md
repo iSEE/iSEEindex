@@ -1,14 +1,18 @@
+# iSEEindex 0.99.6
+
+* Added man page for package.
+
 # iSEEindex 0.99.5
 
-* Change `options(width=120)` in vignettes when displaying session info.
+* Changed `options(width=120)` in vignettes when displaying session info.
 
 # iSEEindex 0.99.4
 
-* Do not export internal function in NAMESPACE.
+* Removed export of internal function in NAMESPACE.
 
 # iSEEindex 0.99.3
 
-* Bugfix: deduplicate choice of initial configuration.
+* Deduplicated choice of initial configuration.
 
 # iSEEindex 0.99.2
 
