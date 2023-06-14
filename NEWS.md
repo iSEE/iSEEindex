@@ -1,3 +1,7 @@
+# iSEEindex 0.99.4
+
+* Do not export internal function in NAMESPACE.
+
 # iSEEindex 0.99.3
 
 * Bugfix: deduplicate choice of initial configuration.
