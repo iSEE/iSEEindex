@@ -21,7 +21,7 @@ A URI for this type of resource uses the prefix &amp;#8220;s3://&amp;#8221;."><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">iSEEindex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.5</span>
       </span>
     </div>
 
@@ -83,24 +83,20 @@ A URI for this type of resource uses the prefix “s3://”.</p>
 <dd><p>List of metadata. See Details.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>The constructor function <code>iSEEindexS3Resource()</code> returns an object of object of class <code>iSEEindexS3Resource</code>.</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>Required metadata:</p>
 <dl><dt>uri</dt>
-<dd><p>Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.</p></dd>
+<dd><p>Character scalar. URI of the resource.</p></dd>
 
 
 </dl></div>
-    <div id="uri-format">
-    <h2>URI format</h2>
-    
-
-<p>The URI must correspond to an existing file in an AWS S3 compatible cloud
-storage system.</p>
-<p>For details about authentication, see section “AWS Credentials” below.</p>
-<p>For instance:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>s3<span class="sc">:</span><span class="er">//</span>bucket<span class="sc">/</span>prefix<span class="sc">/</span>index.rds</span></code></pre><p></p></div>
-    </div>
     <div id="slot-overview">
     <h2>Slot overview</h2>
     
@@ -123,11 +119,22 @@ downloads the resource from AWS S3 using that information,
 and caches a copy of the resource located at the resulting file path using
 <span class="pkg">BiocFileCache</span>, before returning the file path to the cached file.</p></li>
 </ul></div>
+    <div id="uri-format">
+    <h2>URI format</h2>
+    
+
+<p>The URI must correspond to an existing file in an AWS S3 compatible cloud
+storage system.</p>
+<p>For instance:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>s3<span class="sc">:</span><span class="er">//</span>bucket<span class="sc">/</span>prefix<span class="sc">/</span>index.rds</span></code></pre><p></p></div>
+<p>For details about authentication, see section “AWS Credentials” below.</p>
+    </div>
     <div id="pre-caching">
     <h2>Pre-caching</h2>
     
 
-<p>Additional arguments to the <code><a href="iSEEindexResource-generics.html">precache</a>(x, ..., temp_dir = tempdir())</code>:</p><dl><dt><code>temp_dir</code></dt>
+<p>Additional arguments to the <code><a href="iSEEindexResource-generics.html">precache</a>(x, ..., temp_dir = tempdir())</code>:</p>
+<dl><dt><code>temp_dir</code></dt>
 <dd><p>Scalar character, the directory to store the downloaded file
 in before it is handed over to <span class="pkg">BiocFileCache</span>. This directory will be created
 recursively if it doesn't already exist.</p></dd>
