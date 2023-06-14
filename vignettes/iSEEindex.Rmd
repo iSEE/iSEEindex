@@ -190,7 +190,7 @@ round(totalTime, digits = 3)
 ```{r reproduce3, echo=FALSE}
 ## Session info
 library("sessioninfo")
-options(width = 120)
+options(width = 100)
 session_info()
 ```
 

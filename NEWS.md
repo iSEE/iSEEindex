@@ -1,3 +1,7 @@
+# iSEEindex 0.99.5
+
+* Change `options(width=120)` in vignettes when displaying session info.
+
 # iSEEindex 0.99.4
 
 * Do not export internal function in NAMESPACE.
