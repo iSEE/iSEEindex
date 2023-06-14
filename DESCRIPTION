@@ -1,6 +1,6 @@
 Package: iSEEindex
 Title: iSEE extension for a landing page to a custom collection of data sets
-Version: 0.99.5
+Version: 0.99.6
 Date: 2022-06-14
 Authors@R: 
     c(person("Kevin", "Rue-Albrecht", email = "kevinrue67@gmail.com",
