@@ -1,3 +1,7 @@
+# iSEEindex 0.99.7
+
+* Fix package man page.
+
 # iSEEindex 0.99.6
 
 * Added man page for package.
