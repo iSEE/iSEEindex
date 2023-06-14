@@ -17,7 +17,6 @@
 #'
 #' @author Kevin Rue-Albrecht
 #'
-#' @export
 #' @rdname INTERNAL_initial_choices
 .initial_choices <- function(id, available) {
     choices <- c("Default" = .initial_default_choice)
