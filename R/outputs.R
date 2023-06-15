@@ -95,7 +95,11 @@
             ))
         } else {
             initial_id <- pObjects[[.ui_initial]]
-            which_initial <- which(pObjects$initial_table[[.initial_config_id]] == initial_id)
+            dataset_id <- pObjects[[.dataset_selected_id]]
+            which_initial <- which(
+              pObjects$initial_table[[.initial_config_id]] == initial_id & 
+              pObjects$initial_table[[.initial_datasets_id]] == dataset_id
+            )
             initial_info <- pObjects$initial_table[which_initial, .initial_description, drop=TRUE]
             contents <- markdown(initial_info)
         }
