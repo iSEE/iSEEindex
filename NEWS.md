@@ -1,3 +1,7 @@
+# iSEEindex 0.99.9
+
+* Disable GitHub CommonMark extensions and demonstrate `target="_blank"` for issue #41.
+
 # iSEEindex 0.99.8
 
 * Fixed duplication of UI output displaying information about initial configuration.
