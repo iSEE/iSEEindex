@@ -21,8 +21,6 @@ initial:
       One `ReducedDimensionPlot` panel, one `ColumnDataTable` panel.
 
       File distributed with the `iSEEindex` package.
-
-      <Source: YAML>
   - id: config02rcall
     datasets:
       - dataset1
@@ -33,23 +31,17 @@ initial:
       One `RowDataTable` panel, one `ColumnDataTable` panel.
 
       File distributed with the `iSEEindex` package.
-
-      <Source: YAML>
   - id: config01zenodo
     title: Configuration 1 (zenodo.org)
     uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_01.R
     description: |
       One `ReducedDimensionPlot` panel, one `ColumnDataTable` panel.
 
-      File downloaded from <https://zenodo.org/record/7304331>.
-
-      <Source: YAML>
+      File downloaded from <a href="https://zenodo.org/record/7304331" target="_blank">https://zenodo.org/record/7304331</a>.
   - id: config02zenodo
     title: Configuration 2 (zenodo.org)
     uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_02.R
     description: |
       One `RowDataTable` panel, one `ColumnDataTable` panel.
 
-      File downloaded from <https://zenodo.org/record/7304331>.
-
-      <Source: YAML>
+      File downloaded from <a href="https://zenodo.org/record/7304331" target="_blank">https://zenodo.org/record/7304331</a>.

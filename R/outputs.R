@@ -71,7 +71,7 @@
             contents <- markdown(paste0(
                 "# ", sprintf("%s", dataset_info[[.datasets_title]]), "\n\n",
                 sprintf("%s", dataset_info[[.datasets_description]]), "\n\n"
-            ))
+            ), extensions = FALSE)
         }
         contents
     })
@@ -101,7 +101,7 @@
               pObjects$initial_table[[.initial_datasets_id]] == dataset_id
             )
             initial_info <- pObjects$initial_table[which_initial, .initial_description, drop=TRUE]
-            contents <- markdown(initial_info)
+            contents <- markdown(initial_info, extensions = FALSE)
         }
         contents
     })
