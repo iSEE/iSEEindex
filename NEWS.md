@@ -1,6 +1,10 @@
-# iSEEindex 0.99.7
+# iSEEindex 0.99.8
 
 * Fixed duplication of UI output displaying information about initial configuration.
+
+# iSEEindex 0.99.7
+
+* Fix package man page.
 
 # iSEEindex 0.99.6
 
