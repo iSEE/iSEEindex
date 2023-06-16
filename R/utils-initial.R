@@ -28,25 +28,33 @@
     choices
 }
 
-#' Load an Initial Application State
-#'
-#' Loads the selected initial application state.
+#' Parses an Initial Application State script
+#' 
+#' @description
+#' Parses the selected initial application state script.
 #' This can be a custom R script or the default initial state that creates
 #' one panel of each class compatible with the contents of the data set.
+#' 
+#' The same script may define two objects `initial` and `tour` (see 'Value').
 #'
 #' @param bfc A [BiocFileCache()] object.
 #' @param dataset_id Character scalar. Identifier of the data set selected.
 #' @param config_id Character scalar. Identifier of the configuration file to load.
 #' @param metadata Named list of metadata. See individual resource classes for required and optional metadata.
 #'
-#' @return A `list` of [Panel-class] objects, representing an initial app state.
+#' @return A `list` of two elements.
+#' \describe{
+#' \item{initial}{A list of [Panel-class] objects, representing an initial app state}
+#' \item{tour}{A `data.frame` representing an \pkg{rintrojs} interactive tour}
+#' }
 #'
 #' @author Kevin Rue-Albrecht
 #'
-#' @rdname INTERNAL_load_initial
-.load_initial <- function(bfc, dataset_id, config_id, metadata) {
+#' @rdname INTERNAL_parse_initial
+.parse_initial <- function(bfc, dataset_id, config_id, metadata) {
     if (identical(config_id, .initial_default_choice)) {
         initial <- NULL
+        tour <- NULL
     } else {
         bfc_config_id <- paste0(dataset_id, "_", config_id)
         # TODO: refactor to a function that is also used by .load_sce
@@ -66,8 +74,16 @@
                  "defined in the config script.")
         }
         initial <- get("initial", pos = env)
+        if (exists("tour", where = env)) {
+          tour <- get("tour", pos = env)
+        } else {
+          tour <- NULL
+        }
     }
-    initial
+    list(
+      initial=initial,
+      tour=tour
+    )
 }
 
 #' Check Validity of Initial Configurations Metadata

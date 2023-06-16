@@ -1,3 +1,7 @@
+# iSEEindex 0.99.10
+
+* Added support for custom tours through initial state configuration scripts.
+
 # iSEEindex 0.99.9
 
 * Disable GitHub CommonMark extensions and demonstrate `target="_blank"` for issue #41.
