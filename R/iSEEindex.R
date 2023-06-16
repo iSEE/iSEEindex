@@ -184,7 +184,8 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")
         } else {
             if (is.null(pObjects$initial_table)) {
-                init <- NULL
+              initial <- NULL
+              tour <- NULL
             } else {
                 initial_id <- pObjects[[.ui_initial]]
                 which_initial <- which(
@@ -193,8 +194,10 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
                   )
                 initial_metadata <- as.list(pObjects$initial_table[which_initial, , drop = FALSE])
                 initial_message <- capture.output(
-                    init <- try(.load_initial(bfc, dataset_id, initial_id, initial_metadata)),
+                    init <- try(.parse_initial(bfc, dataset_id, initial_id, initial_metadata)),
                     type = "message")
+                initial <- init$initial
+                tour <- init$tour
             }
             if (is(init, "try-error")) {
                 showModal(modalDialog(
@@ -208,7 +211,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
                   ))
                 return(NULL)
             }
-            FUN(SE=se2, INITIAL=init)
+            FUN(SE=se2, INITIAL=initial, TOUR=tour)
             shinyjs::enable(iSEE:::.generalOrganizePanels) # organize panels
             shinyjs::enable(iSEE:::.generalLinkGraph) # link graph
             shinyjs::enable(iSEE:::.generalExportOutput) # export content

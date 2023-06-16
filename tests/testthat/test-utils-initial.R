@@ -23,34 +23,34 @@ test_that(".initial_choices works ", {
     expect_identical(out, c(Default = "(Default)", "Configuration 01" = "config01"))
 })
 
-# .load_sce ----
+# .parse_initial ----
 
-test_that(".load_initial works for default choice", {
+test_that(".parse_initial works for default choice", {
 
-    out <- iSEEindex:::.load_initial(bfc, dataset_id = "dummy", config_id = "(Default)", metadata = "dummy")
+    out <- iSEEindex:::.parse_initial(bfc, dataset_id = "dummy", config_id = "(Default)", metadata = "dummy")
     expect_null(out)
 
 })
 
-test_that(".load_initial works for non-default choice", {
+test_that(".parse_initial works for non-default choice", {
 
     config_file <- paste0(
         "localhost://",
         system.file(package = "iSEEindex", "ReprocessedAllenData_config_01.R"))
     config_metadata <- list(uri = config_file)
-    out <- iSEEindex:::.load_initial(bfc, "ID1", "config01", config_metadata)
+    out <- iSEEindex:::.parse_initial(bfc, "ID1", "config01", config_metadata)
     expect_type(out, "list")
 
 })
 
-test_that(".load_initial detects invalid scripts", {
+test_that(".parse_initial detects invalid scripts", {
 
     tf <- tempfile()
     file.create(tf)
     metadata <- list(uri = paste0("localhost://", tf))
 
     expect_error(
-        iSEEindex:::.load_initial(bfc, "ID0", "config0", metadata),
+        iSEEindex:::.parse_initial(bfc, "ID0", "config0", metadata),
         "No object named 'initial' was found")
 
 })
