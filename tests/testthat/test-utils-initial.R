@@ -28,7 +28,13 @@ test_that(".initial_choices works ", {
 test_that(".parse_initial works for default choice", {
 
     out <- iSEEindex:::.parse_initial(bfc, dataset_id = "dummy", config_id = "(Default)", metadata = "dummy")
-    expect_null(out)
+    expect_identical(
+      out,
+      list(
+        initial = NULL,
+        tour = NULL
+      )
+    )
 
 })
 
