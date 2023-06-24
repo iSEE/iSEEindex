@@ -1,3 +1,7 @@
+# iSEEindex 0.99.11
+
+* Added second example data set to replace copy of first one.
+
 # iSEEindex 0.99.10
 
 * Added support for custom tours through initial state configuration scripts.
