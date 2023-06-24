@@ -1,21 +1,20 @@
 datasets:
-  - id: dataset1
+  - id: ReprocessedAllenData
     title: ReprocessedAllenData
-    uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds
+    uri: https://zenodo.org/record/8076991/files/ReprocessedAllenData.rds
     description: |
         Reprocessed Allen Data.
-  - id: dataset2
-    title: ReprocessedAllenData
-    uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData.rds
+  - id: BuettnerESCData
+    title: BuettnerESCData
+    uri: https://zenodo.org/record/8076991/files/BuettnerESCData.rds
     description: |
         Reprocessed Allen Data (copy).
 
 initial:
   - id: config01rcall
     datasets:
-      - dataset1
-      - dataset2
-    title: Configuration 1 (R call)
+      - ReprocessedAllenData
+    title: Example configuration 1 (R call)
     uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
     description: |
       One `ReducedDimensionPlot` panel, one `ColumnDataTable` panel.
@@ -23,24 +22,36 @@ initial:
       File distributed with the `iSEEindex` package.
   - id: config02rcall
     datasets:
-      - dataset1
-      - dataset2
-    title: Configuration 2 (R call)
+      - ReprocessedAllenData
+    title: Example configuration 2 (R call)
     uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_02.R')
     description: |
       One `RowDataTable` panel, one `ColumnDataTable` panel.
 
       File distributed with the `iSEEindex` package.
   - id: config01zenodo
-    title: Configuration 1 (zenodo.org)
-    uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_01.R
+    datasets:
+      - ReprocessedAllenData
+    title: Example configuration 1 (zenodo.org)
+    uri: https://zenodo.org/record/8076991/files/ReprocessedAllenData_config_01.R
     description: |
       One `ReducedDimensionPlot` panel, one `ColumnDataTable` panel.
 
       File downloaded from <a href="https://zenodo.org/record/7304331" target="_blank">https://zenodo.org/record/7304331</a>.
   - id: config02zenodo
-    title: Configuration 2 (zenodo.org)
-    uri: https://zenodo.org/record/7304331/files/ReprocessedAllenData_config_02.R
+    datasets:
+      - ReprocessedAllenData
+    title: Example configuration 2 (zenodo.org)
+    uri: https://zenodo.org/record/8076991/files/ReprocessedAllenData_config_02.R
+    description: |
+      One `RowDataTable` panel, one `ColumnDataTable` panel.
+
+      File downloaded from <a href="https://zenodo.org/record/7304331" target="_blank">https://zenodo.org/record/7304331</a>.
+  - id: BuettnerESCData_config01
+    datasets:
+      - BuettnerESCData
+    title: Color by gene expression
+    uri: https://zenodo.org/record/8076991/files/BuettnerESCData_config_01.R
     description: |
       One `RowDataTable` panel, one `ColumnDataTable` panel.
 
