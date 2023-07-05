@@ -3,6 +3,12 @@
 #' @param bfc A [BiocFileCache()] object.
 #' @param FUN.datasets A function that returns a `data.frame` of metadata for available data sets.
 #' @param FUN.initial A function that returns a `data.frame` of metadata for initial configuration states.
+#' @param default.add Logical scalar indicating whether a default
+#' initial configuration should be added as a choice in the Shiny `selectizeInput()`.
+#' See [iSEEindex()].
+#' @param default.position Character scalar indicating whether the default
+#' initial configuration should be added as the `"first"` or `"last"` option
+#' in the Shiny `selectizeInput()`.
 #'
 #' @return A `function` that defines UI elements and observers for the
 #' landing page of the app.
@@ -16,7 +22,7 @@
 #' @importFrom shinyjs disable
 #'
 #' @rdname INTERNAL_landing_page
-.landing_page <- function(bfc, FUN.datasets, FUN.initial) {
+.landing_page <- function(bfc, FUN.datasets, FUN.initial, default.add, default.position) {
     # datasets
     datasets_available_list <- FUN.datasets()
     .check_datasets_list(datasets_available_list)
@@ -82,7 +88,7 @@
             rerender_overview=1L,
             rerender_initial=1L)
 
-        .create_observers(input, session, pObjects, rObjects, FUN.initial)
+        .create_observers(input, session, pObjects, rObjects, FUN.initial, default.add, default.position)
 
         .create_launch_observers(FUN, bfc, input, session, pObjects)
 

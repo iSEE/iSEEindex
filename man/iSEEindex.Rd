@@ -4,7 +4,13 @@
 \alias{iSEEindex}
 \title{iSEEindex App}
 \usage{
-iSEEindex(bfc, FUN.datasets, FUN.initial = NULL)
+iSEEindex(
+  bfc,
+  FUN.datasets,
+  FUN.initial = NULL,
+  default.add = TRUE,
+  default.position = c("first", "last")
+)
 }
 \arguments{
 \item{bfc}{An \code{\link[=BiocFileCache]{BiocFileCache()}} object.}
@@ -14,6 +20,16 @@ available data sets.}
 
 \item{FUN.initial}{A function that returns a \code{list} of metadata for
 available initial configuration states.}
+
+\item{default.add}{Logical scalar indicating whether a default
+initial configuration should be added as a choice in the Shiny \code{selectizeInput()}.
+See \code{\link[=iSEEindex]{iSEEindex()}}.}
+
+\item{default.position}{Character scalar indicating whether the default
+initial configuration should be added as the \code{"first"} or \code{"last"} option
+in the Shiny \code{selectizeInput()}.}
+
+\item{available}{Metadata for available initial configurations, as \code{data.frame}.}
 }
 \value{
 An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.

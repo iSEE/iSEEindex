@@ -1,3 +1,7 @@
+# iSEEindex 0.99.12
+
+* Added control over inclusion and location of default initial configuration amongst available choices.
+
 # iSEEindex 0.99.11
 
 * Added second example data set to replace copy of first one.

@@ -6,11 +6,25 @@
 #'
 #' @param id Data set identifier, as a character scalar.
 #' @param available Metadata for available initial configurations, as `data.frame`.
+#' @param default.add Logical scalar indicating whether a default
+#' initial configuration should be added as a choice in the Shiny `selectizeInput()`.
+#' See Details.
+#' @param default.position Character scalar indicating whether the default
+#' initial configuration should be added as the `"first"` or `"last"` option
+#' in the Shiny `selectizeInput()`.
 #'
 #' @details
-#' A default option is automatically prepended to the choices for all data sets.
+#' An option representing a default initial configuration can be automatically
+#' added to the choices for all data sets.
 #' That default option launches an initial state that includes one panel of
 #' each type compatible with the information present in the data set.
+#' 
+#' The default initial configuration is always added for data sets which are not
+#' associated with any custom initial configuration.
+#' 
+#' The option `default.add` controls whether the default initial configuration
+#' is added to the choices for data sets associated with at least one custom
+#' initial configuration.
 #'
 #' @return A named character vector of choices for initial states of the
 #' [iSEE()] app for that data set.
@@ -18,14 +32,23 @@
 #' @author Kevin Rue-Albrecht
 #'
 #' @rdname INTERNAL_initial_choices
-.initial_choices <- function(id, available) {
-    choices <- c("Default" = .initial_default_choice)
-    which_initial <- available[[.initial_datasets_id]] == id
-    config_subset_table <- available[which_initial, , drop=FALSE]
-    initial_choices <- config_subset_table[[.initial_config_id]]
-    names(initial_choices) <- config_subset_table[[.initial_title]]
-    choices <- c(choices, initial_choices)
-    choices
+.initial_choices <- function(id, available, default.add = TRUE, default.position = c("first", "last")) {
+  default.position <- match.arg(default.position)
+  which_initial <- available[[.initial_datasets_id]] == id
+  config_subset_table <- available[which_initial, , drop=FALSE]
+  initial_choices <- config_subset_table[[.initial_config_id]]
+  names(initial_choices) <- config_subset_table[[.initial_title]]
+  
+  if (default.add) {
+    default_choice <- c("Default" = .initial_default_choice)
+    if (identical(default.position, "first")) {
+      initial_choices <- c(default_choice, initial_choices)
+    } else if (identical(default.position, "last")) {
+      initial_choices <- c(initial_choices, default_choice)
+    }
+  }
+  
+  initial_choices
 }
 
 #' Parses an Initial Application State script
