@@ -85,6 +85,13 @@
 #' available data sets.
 #' @param FUN.initial A function that returns a `list` of metadata for
 #' available initial configuration states.
+#' @param available Metadata for available initial configurations, as `data.frame`.
+#' @param default.add Logical scalar indicating whether a default
+#' initial configuration should be added as a choice in the Shiny `selectizeInput()`.
+#' See [iSEEindex()].
+#' @param default.position Character scalar indicating whether the default
+#' initial configuration should be added as the `"first"` or `"last"` option
+#' in the Shiny `selectizeInput()`.
 #'
 #' @return An [iSEE::iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
 #'
@@ -122,13 +129,13 @@
 #' if (interactive()) {
 #'     shiny::runApp(app, port = 1234)
 #' }
-iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL) {
+iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE, default.position = c("first", "last")) {
     stopifnot(is(bfc, "BiocFileCache"))
     if (is.null(FUN.initial)) {
         FUN.initial <- function() NULL
     }
     iSEE(
-        landingPage=.landing_page(bfc, FUN.datasets, FUN.initial),
+        landingPage=.landing_page(bfc, FUN.datasets, FUN.initial, default.add, default.position),
         appTitle = sprintf("iSEEindex - v%s",
             packageVersion("iSEEindex")
             )

@@ -11,6 +11,12 @@
 #' @param pObjects An environment containing global parameters generated in the landing page.
 #' @param rObjects A reactive list of values generated in the landing page.
 #' @param FUN.initial A function that returns available scripts for initial configurations states for a given data set identifier.
+#' @param default.add Logical scalar indicating whether a default
+#' initial configuration should be added as a choice in the Shiny `selectizeInput()`.
+#' See [iSEEindex()].
+#' @param default.position Character scalar indicating whether the default
+#' initial configuration should be added as the `"first"` or `"last"` option
+#' in the Shiny `selectizeInput()`.
 #' 
 #' @return 
 #' Those functions create observers in the server function in which they are called.
@@ -22,14 +28,14 @@
 #' @importFrom rintrojs introjs
 #'
 #' @rdname INTERNAL_create_observers
-.create_observers <- function(input, session, pObjects, rObjects, FUN.initial) {
+.create_observers <- function(input, session, pObjects, rObjects, FUN.initial, default.add, default.position) {
 
     # nocov start
     observeEvent(input[[.dataset_selected_row]], {
         dataset_selected_id <- pObjects$datasets_table[[.datasets_id]][input[[.dataset_selected_row]]]
         pObjects[[.dataset_selected_id]] <- dataset_selected_id
         rObjects$rerender_overview <- iSEE:::.increment_counter(isolate(rObjects$rerender_overview))
-        initial_choices <- .initial_choices(dataset_selected_id, pObjects$initial_table)
+        initial_choices <- .initial_choices(dataset_selected_id, pObjects$initial_table, default.add, default.position)
         updateSelectizeInput(session, .ui_initial, choices = initial_choices)
     }, ignoreInit = FALSE, ignoreNULL = FALSE)
     # nocov end
