@@ -19,7 +19,7 @@ states prepared by the app maintainer."><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">iSEEindex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.12</span>
       </span>
     </div>
 
@@ -70,7 +70,13 @@ states prepared by the app maintainer.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">iSEEindex</span><span class="op">(</span><span class="va">bfc</span>, <span class="va">FUN.datasets</span>, FUN.initial <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">iSEEindex</span><span class="op">(</span></span>
+<span>  <span class="va">bfc</span>,</span>
+<span>  <span class="va">FUN.datasets</span>,</span>
+<span>  FUN.initial <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  default.add <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  default.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -87,6 +93,22 @@ available data sets.</p></dd>
 <dt>FUN.initial</dt>
 <dd><p>A function that returns a <code>list</code> of metadata for
 available initial configuration states.</p></dd>
+
+
+<dt>default.add</dt>
+<dd><p>Logical scalar indicating whether a default
+initial configuration should be added as a choice in the Shiny <code>selectizeInput()</code>.
+See <code>iSEEindex()</code>.</p></dd>
+
+
+<dt>default.position</dt>
+<dd><p>Character scalar indicating whether the default
+initial configuration should be added as the <code>"first"</code> or <code>"last"</code> option
+in the Shiny <code>selectizeInput()</code>.</p></dd>
+
+
+<dt>available</dt>
+<dd><p>Metadata for available initial configurations, as <code>data.frame</code>.</p></dd>
 
 </dl></div>
     <div id="value">
