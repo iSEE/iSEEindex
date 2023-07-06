@@ -142,12 +142,7 @@ initial_fun <- function() {
     x$initial
 }
 
-header <- shiny::fluidRow(column(width=12L, p("Custom header")))
-footer <- shiny::fluidRow(column(width=12L, p("Custom footer")))
-
-app <- iSEEindex(bfc, dataset_fun, initial_fun,
-    body.header = header, body.footer = footer
-)
+app <- iSEEindex(bfc, dataset_fun, initial_fun)
 
 if (interactive()) {
     shiny::runApp(app, port = 1234)
