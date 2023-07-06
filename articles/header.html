@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introduction to iSEEindex • iSEEindex</title>
+<title>Adding a custom header and footer to the landing page • iSEEindex</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Introduction to iSEEindex">
+<meta property="og:title" content="Adding a custom header and footer to the landing page">
 <meta property="og:description" content="iSEEindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -85,7 +85,8 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introduction to iSEEindex</h1>
+      <h1 data-toc-skip>Adding a custom header and footer to the landing
+page</h1>
                         <h4 data-toc-skip class="author">Kevin
 Rue-Albrecht</h4>
             <address class="author_afil">
@@ -95,157 +96,111 @@ Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-
                   
             <h4 data-toc-skip class="date">6 July 2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEindex/blob/HEAD/vignettes/iSEEindex.Rmd" class="external-link"><code>vignettes/iSEEindex.Rmd</code></a></small>
-      <div class="hidden name"><code>iSEEindex.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEindex/blob/HEAD/vignettes/header.Rmd" class="external-link"><code>vignettes/header.Rmd</code></a></small>
+      <div class="hidden name"><code>header.Rmd</code></div>
 
     </div>
 
     
     
 <div class="section level2">
-<h2 id="basics">Basics<a class="anchor" aria-label="anchor" href="#basics"></a>
+<h2 id="custom-header-and-footer">Custom header and footer<a class="anchor" aria-label="anchor" href="#custom-header-and-footer"></a>
 </h2>
 <div class="section level3">
-<h3 id="install-iseeindex">Install <code>iSEEindex</code><a class="anchor" aria-label="anchor" href="#install-iseeindex"></a>
+<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
-<p><code>R</code> is an open-source statistical environment which can be
-easily modified to enhance its functionality via packages. <em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
-is a <code>R</code> package available via the <a href="http://bioconductor.org" class="external-link">Bioconductor</a> repository for packages.
-<code>R</code> can be installed on any operating system from <a href="https://cran.r-project.org/" class="external-link">CRAN</a> after which you can install
-<em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
-by using the following commands in your <code>R</code> session:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"iSEEindex"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Check that you have a valid Bioconductor installation</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/valid.html" class="external-link">valid</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="required-knowledge">Required knowledge<a class="anchor" aria-label="anchor" href="#required-knowledge"></a>
-</h3>
+<p>By default, <em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
+creates a minimal landing page presenting users with a fluid row that
+contains two <code><a href="https://rdrr.io/pkg/shinydashboard/man/box.html" class="external-link">shinydashboard::box()</a></code>:</p>
+<ul>
+<li>On the left, users can select a data set.</li>
+<li>On the right, users can select an initial configuration and launch
+the main app interface.</li>
+</ul>
 <p><em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
-is based on many other packages and in particular those that have
-implemented the infrastructure needed for dealing with omics data and
-interactive visualisation. That is, packages like <em><a href="https://bioconductor.org/packages/3.17/SummarizedExperiment" class="external-link">SummarizedExperiment</a></em>,
-<em><a href="https://bioconductor.org/packages/3.17/SingleCellExperiment" class="external-link">SingleCellExperiment</a></em>,
-<em><a href="https://bioconductor.org/packages/3.17/iSEE" class="external-link">iSEE</a></em>
-and <em><a href="https://bioconductor.org/packages/3.17/shiny" class="external-link">shiny</a></em>.</p>
-<p>If you are asking yourself the question “Where do I start using
-Bioconductor?” you might be interested in <a href="http://lcolladotor.github.io/2014/10/16/startbioc/#.VkOKbq6rRuU" class="external-link">this
-blog post</a>.</p>
+offers the opportunity for app maintainers to add content above (i.e.,
+header) and below (i.e., footer) that row.</p>
+<p>That header and footer space may contain any valid UI element that
+will be displayed in the application UI <em>as is</em>.</p>
 </div>
 <div class="section level3">
-<h3 id="asking-for-help">Asking for help<a class="anchor" aria-label="anchor" href="#asking-for-help"></a>
+<h3 id="implementation">Implementation<a class="anchor" aria-label="anchor" href="#implementation"></a>
 </h3>
-<p>As package developers, we try to explain clearly how to use our
-packages and in which order to use the functions. But <code>R</code> and
-<code>Bioconductor</code> have a steep learning curve so it is critical
-to learn where to ask for help. The blog post quoted above mentions some
-but we would like to highlight the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a>
-as the main resource for getting help: remember to use the
-<code>iSEEindex</code> tag and check <a href="https://support.bioconductor.org/t/iSEEindex/" class="external-link">the older
-posts</a>. Other alternatives are available such as creating GitHub
-issues and tweeting. However, please note that if you want to receive
-help you should adhere to the <a href="http://www.bioconductor.org/help/support/posting-guide/" class="external-link">posting
-guidelines</a>. It is particularly critical that you provide a small
-reproducible example and your session information so package developers
-can track down the source of the error.</p>
-</div>
-<div class="section level3">
-<h3 id="citing-iseeindex">Citing <code>iSEEindex</code><a class="anchor" aria-label="anchor" href="#citing-iseeindex"></a>
-</h3>
-<p>We hope that <em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
-will be useful for your research. Please use the following information
-to cite the package and the overall approach. Thank you!</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Citation info</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"iSEEindex"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; To cite package 'iSEEindex' in publications use:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Rue-Albrecht K (2022). _iSEEindex: iSEE extension for a landing page</span></span>
-<span><span class="co">#&gt;   to a custom collection of data sets_. R package version 0.99.13,</span></span>
-<span><span class="co">#&gt;   &lt;https://github.com/iSEE/iSEEindex&gt;.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   @Manual{,</span></span>
-<span><span class="co">#&gt;     title = {iSEEindex: iSEE extension for a landing page to a custom collection of data sets},</span></span>
-<span><span class="co">#&gt;     author = {Kevin Rue-Albrecht},</span></span>
-<span><span class="co">#&gt;     year = {2022},</span></span>
-<span><span class="co">#&gt;     note = {R package version 0.99.13},</span></span>
-<span><span class="co">#&gt;     url = {https://github.com/iSEE/iSEEindex},</span></span>
-<span><span class="co">#&gt;   }</span></span></code></pre></div>
+<p>The function <code><a href="../reference/iSEEindex.html">iSEEindex()</a></code> accepts header and footer
+content through its arguments <code>body.header=</code> and
+<code>body.footer=</code>.</p>
+<p>We recommend wrapping header and footer content in
+<code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">shiny::fluidRow()</a></code>, to fit naturally with the main fluid row
+(see above).</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="quick-start-to-using-iseeindex">Quick start to using <code>iSEEindex</code><a class="anchor" aria-label="anchor" href="#quick-start-to-using-iseeindex"></a>
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to launch an application
-that lists publicly available data sets hosted on <a href="https://zenodo.org/record/7304331" class="external-link">zenodo.org</a>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/iSEE/iSEEindex" class="external-link">"iSEEindex"</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"BiocFileCache"</span><span class="op">)</span></span>
+<p>First, let us set up the core elements of a simple application (see
+<code><a href="../reference/iSEEindex.html">?iSEEindex</a></code>).</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"BiocFileCache"</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co">##</span></span>
+<span><span class="co"># BiocFileCache ----</span></span>
+<span><span class="co">##</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BiocFileCache</span><span class="op">)</span></span>
 <span><span class="va">bfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache</a></span><span class="op">(</span>cache <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co">##</span></span>
+<span><span class="co"># iSEEindex ----</span></span>
+<span><span class="co">##</span></span>
+<span></span>
 <span><span class="va">dataset_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"iSEEindex"</span>, <span class="st">"example.yaml"</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="va">x</span><span class="op">$</span><span class="va">datasets</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"iSEEindex"</span>, <span class="st">"example.yaml"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">x</span><span class="op">$</span><span class="va">datasets</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">initial_fun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"iSEEindex"</span>, <span class="st">"example.yaml"</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="va">x</span><span class="op">$</span><span class="va">initial</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/iSEEindex.html">iSEEindex</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="va">dataset_fun</span>, <span class="va">initial_fun</span><span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">read_yaml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"iSEEindex"</span>, <span class="st">"example.yaml"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">x</span><span class="op">$</span><span class="va">initial</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Then, we design header and footer content, each wrapped in a
+<code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">shiny::fluidRow()</a></code>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://shiny.posit.co/" class="external-link">"shiny"</a></span><span class="op">)</span></span>
+<span><span class="va">header</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidRow</a></span><span class="op">(</span><span class="fu">shinydashboard</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shinydashboard/man/box.html" class="external-link">box</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">12L</span>, </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html" class="external-link">column</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>    <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">strong</a></span><span class="op">(</span><span class="st">"Welcome to this demonstration app!"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span></span>
+<span>      <span class="st">"This is an example header that demonstrate how to use the functionality."</span>,</span>
+<span>      <span class="st">"A great place for branding and intros."</span>,</span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"On the right, we demonstrate how other content such as images can be added to this header."</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html" class="external-link">column</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">2</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">img</a></span><span class="op">(</span>src<span class="op">=</span><span class="st">"www/iSEE.png"</span>, width <span class="op">=</span> <span class="st">"100px"</span>, height <span class="op">=</span> <span class="st">"120px"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">footer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidRow</a></span><span class="op">(</span><span class="fu">shinydashboard</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shinydashboard/man/box.html" class="external-link">box</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">12L</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"This is a example footer. A great place for copyright statements and outros."</span>, style<span class="op">=</span><span class="st">"text-align: center;"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span></span>
+<span>    <span class="st">"© 2023 iSEE."</span>,</span>
+<span>    <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">a</a></span><span class="op">(</span><span class="st">"Artistic-2.0"</span>, href <span class="op">=</span> <span class="st">"https://opensource.org/license/artistic-2-0/"</span><span class="op">)</span>,</span>
+<span>    style<span class="op">=</span><span class="st">"text-align: center;"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>For the image file to be found, the containing directory must be
+added to the Shiny resource path as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://shiny.posit.co/" class="external-link">"shiny"</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/resourcePaths.html" class="external-link">addResourcePath</a></span><span class="op">(</span><span class="st">"www"</span>, <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"iSEEindex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, we supply the custom header and footer to
+<code><a href="../reference/iSEEindex.html">iSEEindex()</a></code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/iSEE/iSEEindex" class="external-link">"iSEEindex"</a></span><span class="op">)</span></span>
+<span><span class="va">app</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/iSEEindex.html">iSEEindex</a></span><span class="op">(</span><span class="va">bfc</span>, <span class="va">dataset_fun</span>, <span class="va">initial_fun</span>,</span>
+<span>  body.header <span class="op">=</span> <span class="va">header</span>, body.footer <span class="op">=</span> <span class="va">footer</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="va">app</span>, port <span class="op">=</span> <span class="fl">1234</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><img src="screenshots/landing_page.png" width="600"></p>
-<p>Let’s break down this example step by step, to illustrate the
-functionality and flexibility of <em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>.</p>
-<p>First, we load the <em><a href="https://bioconductor.org/packages/3.17/iSEEindex" class="external-link">iSEEindex</a></em>
-and <em><a href="https://bioconductor.org/packages/3.17/BiocFileCache" class="external-link">BiocFileCache</a></em>
-packages, to access their functionality.</p>
-<p>Next, we use the <code><a href="https://rdrr.io/pkg/BiocFileCache/man/BiocFileCache-class.html" class="external-link">BiocFileCache::BiocFileCache()</a></code>
-function, to create a persistent on-disk cache of files that the app can
-use for adding and retrieving data files between sessions. This is
-particularly useful in this example, as we demonstrate the hosting of
-data sets and configuration scripts in RDS files and R scripts remotely,
-in a <a href="https://zenodo.org/record/7304331" class="external-link">zenodo.org
-repository</a>.</p>
-<p>Next, we define a function – in this example, named
-<code>dataset_fun</code> – that returns a <code>list</code> of metadata
-for available data sets. In this example, the information is parsed from
-an example file distributed in the <code>inst/</code> directory of the
-package. However, users may define a function that fetches that
-information in any way they see fit, e.g. authenticating and accessing
-data from privately accessible sources. Requirements for that function
-are detailed in the help page <code><a href="../reference/iSEEindex.html">?iSEEindex</a></code>, for the argument
-<code>FUN.datasets</code>.</p>
-<p>Next, we define another function – in this example, named
-<code>initial_fun</code> – that returns a <code>list</code> of metadata
-for available initial configurations of the application state, for each
-individual data set. In this example, the information is parsed from an
-example file distributed in the <code>inst/</code> directory of the
-package. However, similarly to the previous function, users may define a
-function that fetches that information in any way they see fit.
-Requirements for that function are detailed in the help page
-<code><a href="../reference/iSEEindex.html">?iSEEindex</a></code>, for the argument <code>FUN.initial</code>.</p>
-<p>Then, we pass the <code>BiocFileCache</code> object and the two
-custom functions defined above to the
-<code><a href="../reference/iSEEindex.html">iSEEindex::iSEEindex()</a></code> function, to create an <em><a href="https://bioconductor.org/packages/3.17/iSEE" class="external-link">iSEE</a></em>
-application that incorporates a landing page offering users the choice
-of data sets and initial configurations fetched by the custom
-functions.</p>
-<p>Finally, we use the <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp()</a></code> function to launch
-the app.</p>
+<p><img src="screenshots/header_footer.png" width="600"></p>
 </div>
 <div class="section level2">
 <h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
@@ -276,18 +231,18 @@ Cheng, Chang, and Iannone, 2023)</li>
 </ul>
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.17/biocthis" class="external-link">biocthis</a></em>.</p>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create the vignette</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"iSEEindex.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"header.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Extract the R code</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"iSEEindex.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"header.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2023-07-06 20:02:04 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2023-07-06 20:01:50 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 8.62 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 8.535 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -408,7 +363,7 @@ Cheng, Chang, and Iannone, 2023)</li>
 <span><span class="co">#&gt;  scales                 1.2.1     <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  sessioninfo          * 1.2.2     <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  shape                  1.4.6     <span style="color: #555555;">2021-05-19</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
-<span><span class="co">#&gt;  shiny                  1.7.4.1   <span style="color: #555555;">2023-07-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
+<span><span class="co">#&gt;  shiny                * 1.7.4.1   <span style="color: #555555;">2023-07-06</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  shinyAce               0.4.2     <span style="color: #555555;">2022-05-06</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  shinydashboard         0.7.2     <span style="color: #555555;">2021-09-30</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
 <span><span class="co">#&gt;  shinyjs                2.1.0     <span style="color: #555555;">2021-12-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">CRAN (R 4.3.1)</span></span></span>
