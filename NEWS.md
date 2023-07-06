@@ -1,3 +1,7 @@
+# iSEEindex 0.99.13
+
+* Added possibility to inject custom header and footer in landing page.
+
 # iSEEindex 0.99.12
 
 * Added control over inclusion and location of default initial configuration amongst available choices.

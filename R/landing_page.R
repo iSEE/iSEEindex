@@ -9,6 +9,8 @@
 #' @param default.position Character scalar indicating whether the default
 #' initial configuration should be added as the `"first"` or `"last"` option
 #' in the Shiny `selectizeInput()`.
+#' @param body.header UI element to display \emph{above} the main landing page body.
+#' @param body.footer UI element to display \emph{below} the main landing page body.
 #'
 #' @return A `function` that defines UI elements and observers for the
 #' landing page of the app.
@@ -22,7 +24,8 @@
 #' @importFrom shinyjs disable
 #'
 #' @rdname INTERNAL_landing_page
-.landing_page <- function(bfc, FUN.datasets, FUN.initial, default.add, default.position) {
+.landing_page <- function(bfc, FUN.datasets, FUN.initial, default.add = TRUE, default.position = c("first", "last"), body.header = NULL, body.footer = NULL) {
+    default.position <- match.arg(default.position)
     # datasets
     datasets_available_list <- FUN.datasets()
     .check_datasets_list(datasets_available_list)
@@ -36,6 +39,7 @@
         # nocov start
         output$allPanels <- renderUI({
             tagList(
+                body.header,
                 fluidRow(
                     column(width = 7L,
                         shinydashboard::box(title = "Available Data Sets",
@@ -66,7 +70,8 @@
                                 uiOutput(.ui_initial_overview))
                             )
                         )
-                    )
+                    ),
+                body.footer
                 ) # tagList
         }) # renderUI
 

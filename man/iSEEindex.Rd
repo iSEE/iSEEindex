@@ -9,7 +9,9 @@ iSEEindex(
   FUN.datasets,
   FUN.initial = NULL,
   default.add = TRUE,
-  default.position = c("first", "last")
+  default.position = c("first", "last"),
+  body.header = NULL,
+  body.footer = NULL
 )
 }
 \arguments{
@@ -29,7 +31,9 @@ See \code{\link[=iSEEindex]{iSEEindex()}}.}
 initial configuration should be added as the \code{"first"} or \code{"last"} option
 in the Shiny \code{selectizeInput()}.}
 
-\item{available}{Metadata for available initial configurations, as \code{data.frame}.}
+\item{body.header}{UI element to display \emph{above} the main landing page body.}
+
+\item{body.footer}{UI element to display \emph{below} the main landing page body.}
 }
 \value{
 An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
