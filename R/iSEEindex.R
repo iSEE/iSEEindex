@@ -85,7 +85,6 @@
 #' available data sets.
 #' @param FUN.initial A function that returns a `list` of metadata for
 #' available initial configuration states.
-#' @param available Metadata for available initial configurations, as `data.frame`.
 #' @param default.add Logical scalar indicating whether a default
 #' initial configuration should be added as a choice in the Shiny `selectizeInput()`.
 #' See [iSEEindex()].

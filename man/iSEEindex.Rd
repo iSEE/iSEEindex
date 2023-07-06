@@ -34,8 +34,6 @@ in the Shiny \code{selectizeInput()}.}
 \item{body.header}{UI element to display \emph{above} the main landing page body.}
 
 \item{body.footer}{UI element to display \emph{below} the main landing page body.}
-
-\item{available}{Metadata for available initial configurations, as \code{data.frame}.}
 }
 \value{
 An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
