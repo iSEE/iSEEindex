@@ -10,7 +10,7 @@
 #' initial configuration should be added as the `"first"` or `"last"` option
 #' in the Shiny `selectizeInput()`.
 #' @param body.header UI element to display \emph{above} the main landing page body.
-#' @param body.footer UI element to display \emp{below} the main landing page body.
+#' @param body.footer UI element to display \emph{below} the main landing page body.
 #'
 #' @return A `function` that defines UI elements and observers for the
 #' landing page of the app.

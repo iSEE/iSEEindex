@@ -105,12 +105,14 @@ Then, we design header and footer content, each wrapped in a `shiny::fluidRow()`
 ```{r, message=FALSE}
 library("shiny")
 header <- fluidRow(shinydashboard::box(width = 12L, 
-  column(width = 10, p(
-  strong("Welcome to this demonstration app!"),
-  br(),
-  p("This is an example header that demonstrate how to use the functionality.",
-  "On the right, we demonstrate how other content such as images can be added to this header.")
-  )),
+  column(width = 10,
+    p(strong("Welcome to this demonstration app!")),
+    p(
+      "This is an example header that demonstrate how to use the functionality.",
+      "A great place for branding and intros.",
+    ),
+    p("On the right, we demonstrate how other content such as images can be added to this header.")
+  ),
   column(width = 2, img(src="www/iSEE.png", width = "100px", height = "120px"))
 ))
 footer <- fluidRow(shinydashboard::box(width = 12L,
