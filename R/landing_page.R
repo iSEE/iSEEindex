@@ -34,8 +34,6 @@
     initial_available_list <- FUN.initial()
     .check_initial_list(initial_available_list)
     initial_available_table <- .initial_to_dataframe(initial_available_list, datasets_available_table[[.datasets_id]])
-    #
-    
     # landing page function (return value)
     function (FUN, input, output, session) {
         # nocov start
