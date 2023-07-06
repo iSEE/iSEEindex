@@ -9,7 +9,9 @@ iSEEindex(
   FUN.datasets,
   FUN.initial = NULL,
   default.add = TRUE,
-  default.position = c("first", "last")
+  default.position = c("first", "last"),
+  body.header = NULL,
+  body.footer = NULL
 )
 }
 \arguments{
@@ -28,6 +30,10 @@ See \code{\link[=iSEEindex]{iSEEindex()}}.}
 \item{default.position}{Character scalar indicating whether the default
 initial configuration should be added as the \code{"first"} or \code{"last"} option
 in the Shiny \code{selectizeInput()}.}
+
+\item{body.header}{UI element to display \emph{above} the main landing page body.}
+
+\item{body.footer}{UI element to display \emph{below} the main landing page body.}
 
 \item{available}{Metadata for available initial configurations, as \code{data.frame}.}
 }
@@ -138,7 +144,12 @@ initial_fun <- function() {
     x$initial
 }
 
-app <- iSEEindex(bfc, dataset_fun, initial_fun)
+header <- shiny::fluidRow(column(width=12L, p("Custom header")))
+footer <- shiny::fluidRow(column(width=12L, p("Custom footer")))
+
+app <- iSEEindex(bfc, dataset_fun, initial_fun,
+    body.header = header, body.footer = footer
+)
 
 if (interactive()) {
     shiny::runApp(app, port = 1234)

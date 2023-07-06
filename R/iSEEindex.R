@@ -92,6 +92,8 @@
 #' @param default.position Character scalar indicating whether the default
 #' initial configuration should be added as the `"first"` or `"last"` option
 #' in the Shiny `selectizeInput()`.
+#' @param body.header UI element to display \emph{above} the main landing page body.
+#' @param body.footer UI element to display \emph{below} the main landing page body.
 #'
 #' @return An [iSEE::iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
 #'
@@ -123,19 +125,24 @@
 #'     x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
 #'     x$initial
 #' }
+#' 
+#' header <- shiny::fluidRow(column(width=12L, p("Custom header")))
+#' footer <- shiny::fluidRow(column(width=12L, p("Custom footer")))
 #'
-#' app <- iSEEindex(bfc, dataset_fun, initial_fun)
+#' app <- iSEEindex(bfc, dataset_fun, initial_fun,
+#'     body.header = header, body.footer = footer
+#' )
 #'
 #' if (interactive()) {
 #'     shiny::runApp(app, port = 1234)
 #' }
-iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE, default.position = c("first", "last")) {
+iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE, default.position = c("first", "last"), body.header = NULL, body.footer = NULL) {
     stopifnot(is(bfc, "BiocFileCache"))
     if (is.null(FUN.initial)) {
         FUN.initial <- function() NULL
     }
     iSEE(
-        landingPage=.landing_page(bfc, FUN.datasets, FUN.initial, default.add, default.position),
+        landingPage=.landing_page(bfc, FUN.datasets, FUN.initial, default.add, default.position, body.header, body.footer),
         appTitle = sprintf("iSEEindex - v%s",
             packageVersion("iSEEindex")
             )
