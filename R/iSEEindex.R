@@ -91,6 +91,9 @@
 #' @param default.position Character scalar indicating whether the default
 #' initial configuration should be added as the `"first"` or `"last"` option
 #' in the Shiny `selectizeInput()`.
+#' @param app.title Character string to specify the desired title to be displayed
+#' in the main window of the dashboard. Defaults to `NULL`, which displays some
+#' info on the versions of the `iSEEindex` and `iSEE` packages.
 #' @param body.header UI element to display \emph{above} the main landing page body.
 #' @param body.footer UI element to display \emph{below} the main landing page body.
 #'
@@ -130,18 +133,25 @@
 #' if (interactive()) {
 #'     shiny::runApp(app, port = 1234)
 #' }
-iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE, default.position = c("first", "last"), body.header = NULL, body.footer = NULL) {
+iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE, default.position = c("first", "last"), app.title = NULL, body.header = NULL, body.footer = NULL) {
     stopifnot(is(bfc, "BiocFileCache"))
     if (is.null(FUN.initial)) {
         FUN.initial <- function() NULL
     }
+
+    if (is.null(app.title)) {
+        app.title <- sprintf("iSEEindex - v%s|powered by iSEE - v%s",
+                             packageVersion("iSEEindex"),
+                             packageVersion("iSEE"))
+    }
+
     iSEE(
         landingPage=.landing_page(bfc, FUN.datasets, FUN.initial, default.add, default.position, body.header, body.footer),
-        appTitle = sprintf("iSEEindex - v%s",
-            packageVersion("iSEEindex")
-            )
+        appTitle = app.title
         )
 }
+
+
 
 #' Prepare and Launch the Main App.
 #'
