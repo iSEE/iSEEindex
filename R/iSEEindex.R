@@ -140,7 +140,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
     }
 
     if (is.null(app.title)) {
-        app.title <- sprintf("iSEEindex - v%s|powered by iSEE - v%s",
+        app.title <- sprintf("iSEEindex - v%s | powered by iSEE - v%s",
                              packageVersion("iSEEindex"),
                              packageVersion("iSEE"))
     }
