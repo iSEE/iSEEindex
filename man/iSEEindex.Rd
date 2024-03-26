@@ -10,6 +10,7 @@ iSEEindex(
   FUN.initial = NULL,
   default.add = TRUE,
   default.position = c("first", "last"),
+  app.title = NULL,
   body.header = NULL,
   body.footer = NULL
 )
@@ -30,6 +31,10 @@ See \code{\link[=iSEEindex]{iSEEindex()}}.}
 \item{default.position}{Character scalar indicating whether the default
 initial configuration should be added as the \code{"first"} or \code{"last"} option
 in the Shiny \code{selectizeInput()}.}
+
+\item{app.title}{Character string to specify the desired title to be displayed
+in the main window of the dashboard. Defaults to \code{NULL}, which displays some
+info on the versions of the \code{iSEEindex} and \code{iSEE} packages.}
 
 \item{body.header}{UI element to display \emph{above} the main landing page body.}
 
