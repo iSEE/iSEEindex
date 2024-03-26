@@ -4,7 +4,7 @@
 #' single iSEE web-application.
 #' The main functionality of this package is to define a custom landing page
 #' allowing app maintainers to list a custom collection of data sets that users
-#' can selected from and directly load objects into an iSEE web-application.
+#' can select from and directly load objects into an iSEE web-application.
 #' 
 #' @seealso 
 #' Useful links:
@@ -13,6 +13,5 @@
 #' - Report bugs at <https://support.bioconductor.org/t/iSEEindex>
 #' 
 #' @keywords internal
-#' @name iSEEindex-pkg
-#' @docType package
-NULL
+#' @aliases iSEEindex-package NULL
+"_PACKAGE"
