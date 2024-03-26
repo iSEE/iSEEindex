@@ -1,6 +1,6 @@
 Package: iSEEindex
 Title: iSEE extension for a landing page to a custom collection of data sets
-Version: 1.1.1
+Version: 1.1.2
 Date: 2024-02-21
 Authors@R: 
     c(person("Kevin", "Rue-Albrecht", email = "kevinrue67@gmail.com",
@@ -25,7 +25,7 @@ biocViews: Software,
     Infrastructure
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Depends:
     SummarizedExperiment,
     SingleCellExperiment
