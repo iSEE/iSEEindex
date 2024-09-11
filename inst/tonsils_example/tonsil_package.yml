@@ -1,0 +1,59 @@
+datasets:
+  - id: Tonsil_epithelial
+    title: Tonsil Data - Epithelial
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "epithelial")
+    description: |
+        Tonsil Data - Epithelial, 396 cells
+
+        <p align="center">
+        <img src="https://github.com/Bioconductor/BiocStickers/blob/devel/iSEE/iSEE.png?raw=true" alt="" height = "150"/>
+        </p>
+  - id: Tonsil_cytotoxic
+    title: Tonsil Data - Cytotoxic
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "Cytotoxic")
+    description: |
+        Tonsil Data - Cytotoxic, 24065 cells
+  - id: Tonsil_myeloid
+    title: Tonsil Data - Myeloid
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "myeloid")
+    description: |
+        Tonsil Data - Myeloid, 5334 cells
+  - id: Tonsil_NBC-MBC
+    title: Tonsil Data - NBC-MBC
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "NBC-MBC")
+    description: |
+        Tonsil Data - NBC-MBC, 118010 cells
+  - id: Tonsil_GCBC
+    title: Tonsil Data - GCBC
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "GCBC")
+    description: |
+        Tonsil Data - GCBC, 72174 cells
+  - id: Tonsil_PC
+    title: Tonsil Data - PC
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "PC")
+    description: |
+        Tonsil Data - PC, 12779 cells
+  - id: Tonsil_CD4-T
+    title: Tonsil Data - CD4-T
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "CD4-T")
+    description: |
+        Tonsil Data - CD4-T, 52307 cells
+  - id: Tonsil_FDC
+    title: Tonsil Data - FDC
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "FDC")
+    description: |
+        Tonsil Data - FDC, 926 cells
+  - id: Tonsil_PDC
+    title: Tonsil Data - PDC
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "PDC")
+    description: |
+        Tonsil Data - PDC, 322 cells
+initial:
+  - id: Tonsil_epithelial_full5
+    datasets:
+      - Tonsil_epithelial
+    title: Tonsil_epithelial configuration 1 (R call)
+    uri: localhost:///Users/fede/Development/iSEEindex/hca_tonsil_epithelial_v2.R
+    # uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
+    description: |
+      touring around, first go
