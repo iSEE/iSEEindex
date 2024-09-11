@@ -1,9 +1,9 @@
 #' Observers for iSEEindex
-#' 
-#' @description 
-#' 
+#'
+#' @description
+#'
 #' `.create_observers()` initialises observers for the \pkg{iSEEindex} landing page.
-#' 
+#'
 #' `.create_launch_observers()` initialises observers for launching the \pkg{iSEE} main app.
 #'
 #' @param input The Shiny input object from the server function.
@@ -17,11 +17,11 @@
 #' @param default.position Character scalar indicating whether the default
 #' initial configuration should be added as the `"first"` or `"last"` option
 #' in the Shiny `selectizeInput()`.
-#' 
-#' @return 
+#'
+#' @return
 #' Those functions create observers in the server function in which they are called.
 #' In all cases, a \code{NULL} value is invisibly returned.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny isolate observeEvent updateSelectizeInput
@@ -81,3 +81,17 @@
 
     invisible(NULL)
 }
+
+
+
+.create_launch_observers_runr <- function(FUN, bfc, input, session, pObjects) {
+
+  # nocov start
+  observeEvent(input[[.ui_launch_button]], {
+    .launch_isee_runr(FUN, bfc, session, pObjects)
+  }, ignoreNULL=TRUE, ignoreInit=TRUE)
+  # nocov end
+
+  invisible(NULL)
+}
+

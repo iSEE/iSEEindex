@@ -37,9 +37,9 @@ setClass("iSEEindexResource",
 
 #' @export
 #' @rdname iSEEindexResource-class
-#' 
+#'
 #' @param object An `iSEEindexResource` object.
-#' 
+#'
 #' @return `show()` returns `NULL` after displaying a summary of the object.
 setMethod("show", "iSEEindexResource",
     function(object)
@@ -51,7 +51,7 @@ setMethod("show", "iSEEindexResource",
 #' Generics for iSEEindexResources Objects
 #'
 #' An overview of the generics for `iSEEindexResources` objects.
-#' 
+#'
 #' @param x An [`iSEEindexResource-class`] object.
 #' @param bfc A [BiocFileCache()] object.
 #' @param id A data set identifier as a character scalar.
@@ -78,7 +78,7 @@ NULL
 
 #' @export
 #' @rdname iSEEindexResource-generics
-#' 
+#'
 #' @return `precache()` returns the file path to the cached copy of a resource fetched from a given URI.
 setGeneric("precache", function(x, bfc, id, ...) {
     stopifnot(is(x, "iSEEindexResource"), length(x) == 1L)
@@ -87,12 +87,12 @@ setGeneric("precache", function(x, bfc, id, ...) {
 
 #' @export
 #' @rdname iSEEindexResource-class
-#' 
+#'
 #' @param x An [`iSEEindexResource-class`] object.
 #' @param bfc A [BiocFileCache()] object.
 #' @param id A data set identifier as a character scalar.
 #' @param ... additional arguments passed to and from other methods.
-#' 
+#'
 #' @return `precache()` throws an error if no method is found for the derived class.
 setMethod("precache", "iSEEindexResource",
     function(x, bfc, id, ...)
@@ -110,10 +110,10 @@ setMethod("precache", "iSEEindexResource",
 #' The iSEEindexHttpsResource class represents a resource accessible through
 #' an HTTPS link.
 #' A URI for this type of resource uses the prefix \dQuote{https://}.
-#' 
+#'
 #' @details
 #' Required metadata:
-#' 
+#'
 #' \describe{
 #' \item{uri}{Character scalar. URI of the resource.}
 #' }
@@ -147,7 +147,7 @@ setClass("iSEEindexHttpsResource", contains="iSEEindexResource")
 #' @rdname iSEEindexHttpsResource-class
 #'
 #' @param x List of metadata. See Details.
-#' 
+#'
 #' @return The constructor function `iSEEindexHttpsResource()` returns an object of object of class `iSEEindexHttpsResource`.
 iSEEindexHttpsResource <- function(x) {
     new("iSEEindexHttpsResource", uri = x[[.datasets_uri]])
@@ -174,7 +174,7 @@ setMethod("precache", "iSEEindexHttpsResource",
 #'
 #' @details
 #' Required metadata:
-#' 
+#'
 #' \describe{
 #' \item{uri}{Character scalar. URI of the resource.}
 #' }
@@ -189,9 +189,9 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' \itemize{
 #' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
 #' }
-#' 
+#'
 #' @section Absolute and relative paths:
-#' 
+#'
 #' Absolute and relative paths are both supported.
 #'
 #' Absolute paths require an additional `/` (forward slash)
@@ -224,7 +224,7 @@ setClass("iSEEindexLocalhostResource", contains="iSEEindexResource")
 #' @rdname iSEEindexLocalhostResource-class
 #'
 #' @param x List of metadata. See Details.
-#' 
+#'
 #' @return The constructor function `iSEEindexLocalhostResource()` returns an object of object of class `iSEEindexLocalhostResource`.
 iSEEindexLocalhostResource <- function(x) {
     new("iSEEindexLocalhostResource", uri = x[[.datasets_uri]])
@@ -250,15 +250,15 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' The iSEEindexRcallResource class represents a resource accessible through
 #' the result of an R call.
 #' A URI for this type of resource uses the prefix \dQuote{rcall://}.
-#' 
+#'
 #' @details
 #' Required metadata:
-#' 
+#'
 #' \describe{
 #' \item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
 #' }
 #'
-#' @section URI format: 
+#' @section URI format:
 #' The URI must contain valid R code, once the prefix `rcall://` is removed.
 #' The code must return the path to an existing file on the local filesystem.
 #'
@@ -302,7 +302,7 @@ setClass("iSEEindexRcallResource", contains="iSEEindexResource")
 #' @rdname iSEEindexRcallResource-class
 #'
 #' @param x List of metadata. See Details.
-#' 
+#'
 #' @return The constructor function `iSEEindexRcallResource()` returns an object of object of class `iSEEindexRcallResource`.
 iSEEindexRcallResource <- function(x) {
     new("iSEEindexRcallResource", uri = x[[.datasets_uri]])
@@ -324,6 +324,77 @@ setMethod("precache", "iSEEindexRcallResource",
     return(object_path)
 })
 
+
+
+# iSEEindexRunrResource ----
+
+#' The iSEEindexRunrResource class
+#'
+#' The iSEEindexRunrResource class represents an SE object, obtained directly
+#' through an R call.
+#'
+#' A URI for this type of resource uses the prefix \dQuote{runr://}.
+#'
+#' @details
+#' Required metadata:
+#'
+#'
+#' @examples
+#' iSEEindexRunrResource(list(
+#'   uri = "runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType = 'epithelial')"
+#' ))
+NULL
+
+#' @export
+setClass("iSEEindexRunrResource", contains="iSEEindexResource")
+
+#' @export
+#' @rdname iSEEindexRunrResource-class
+#'
+#' @param x List of metadata. See Details.
+#'
+#' @return The constructor function `iSEEindexRunrResource()` returns an object of object of class `iSEEindexRunrResource`.
+iSEEindexRunrResource <- function(x) {
+  new("iSEEindexRunrResource", uri = x[[.datasets_uri]])
+}
+
+#' @export
+setMethod("precache", "iSEEindexRunrResource",
+          function(x, bfc, id, ...)
+          {
+            # Trim 'runr://' from the original URI and evaluate the R call,
+            # check that the value is an existing filepath and pass to BiocFileCache,
+            # which will manage the caching.
+            # Use action="copy" to leave the original file untouched.
+            call_string <- sub("runr://", "", x@uri)
+            env <- new.env()
+
+            # fpath not needed per se, we should have a "valid r call and that is it"
+
+            object_path <- eval(parse(text = call_string))
+
+
+            # fpath <- eval(parse(text = call_string), envir = env)
+            # stopifnot(file.exists(fpath))
+            # object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "copy", ...)
+
+
+
+
+            return(object_path)
+          })
+
+
+
+
+
+
+
+
+
+
+
+
 # iSEEindexS3Resource ----
 
 #' The iSEEindexS3Resource class
@@ -333,10 +404,10 @@ setMethod("precache", "iSEEindexRcallResource",
 #' [paws.storage](https://cran.r-project.org/package=paws.storage)
 #' R package.
 #' A URI for this type of resource uses the prefix \dQuote{s3://}.
-#' 
+#'
 #' @details
 #' Required metadata:
-#' 
+#'
 #' \describe{
 #' \item{uri}{Character scalar. URI of the resource.}
 #' }
@@ -361,7 +432,7 @@ setMethod("precache", "iSEEindexRcallResource",
 #' \pkg{BiocFileCache}, before returning the file path to the cached file.
 #' }
 #'
-#' @section URI format: 
+#' @section URI format:
 #' The URI must correspond to an existing file in an AWS S3 compatible cloud
 #' storage system.
 #'
@@ -375,7 +446,7 @@ setMethod("precache", "iSEEindexRcallResource",
 #'
 #' @section Pre-caching:
 #' Additional arguments to the \code{\link{precache}(x, ..., temp_dir = tempdir())}:
-#' 
+#'
 #' \describe{
 #' \item{`temp_dir`}{Scalar character, the directory to store the downloaded file
 #' in before it is handed over to \pkg{BiocFileCache}. This directory will be created
@@ -449,7 +520,7 @@ setClass("iSEEindexS3Resource", contains="iSEEindexResource", slots = c("region"
 #' @rdname iSEEindexS3Resource-class
 #'
 #' @param x List of metadata. See Details.
-#' 
+#'
 #' @return The constructor function `iSEEindexS3Resource()` returns an object of object of class `iSEEindexS3Resource`.
 iSEEindexS3Resource <- function(x) {
     region <- x[[.dataset_region]]

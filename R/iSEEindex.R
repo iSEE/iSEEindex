@@ -52,7 +52,7 @@
 #' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
 #' \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
 #' }
-#' 
+#'
 #' For each initial configuration, optional metadata are:
 #' \describe{
 #' \item{datasets}{A series of data set identifiers for which the configuration should be made available. If missing, the configuration will be available for all data sets.}
@@ -110,7 +110,7 @@
 #' ##
 #' # BiocFileCache ----
 #' ##
-#' 
+#'
 #' library(BiocFileCache)
 #' bfc <- BiocFileCache(cache = tempdir())
 #'
@@ -149,6 +149,85 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
         landingPage=.landing_page(bfc, FUN.datasets, FUN.initial, default.add, default.position, body.header, body.footer),
         appTitle = app.title
         )
+}
+
+#' @examples
+#' ##
+#' # BiocFileCache ----
+#' ##
+#'
+#' library(BiocFileCache)
+#' bfc <- BiocFileCache(cache = tempdir())
+#'
+#' ##
+#' # iSEEindex ----
+#' ##
+#'
+#' dataset_fun <- function() {
+#'     x <- yaml::read_yaml("tonsil_package.yml")
+#'     x$datasets
+#' }
+#'
+#' initial_fun <- function() {
+#'     x <- yaml::read_yaml("tonsil_package.yml")
+#'     x$initial
+#' }
+#'
+#' header_tonsils <- fluidRow(
+#'   shinydashboard::box(
+#'     width = 12,
+#'     collapsible = TRUE,
+#'     collapsed = TRUE,
+#'     title = "How to explore the Tonsil Atlas datasets",
+#'     includeMarkdown("header_tonsils.md")
+#'   )
+#' )
+#'
+#' footer_tonsils <- fluidRow(
+#'   shinydashboard::box(
+#'     width = 12,
+#'     includeMarkdown("footer_tonsils.md")
+#'   )
+#' )
+#'
+#' app <- iSEEindex_runr(bfc, dataset_fun, initial_fun,
+#'                       default.add = TRUE,
+#'                       default.position = "last",
+#'                       app.title = "iSEE ❤️ Tonsil Data Atlas",
+#'                       body.header = header_tonsils,
+#'                       body.footer = footer_tonsils)
+#'
+#' if (interactive()) {
+#'     shiny::runApp(app, port = 1234)
+#' }
+iSEEindex_runr <- function(bfc,
+                           FUN.datasets,
+                           FUN.initial = NULL,
+                           default.add = TRUE, default.position = c("first", "last"),
+                           app.title = NULL,
+                           body.header = NULL,
+                           body.footer = NULL) {
+  stopifnot(is(bfc, "BiocFileCache"))
+  if (is.null(FUN.initial)) {
+    FUN.initial <- function() NULL
+  }
+
+  if (is.null(app.title)) {
+    app.title <- sprintf("iSEEindex - v%s",
+                         packageVersion("iSEEindex"))
+  } else {
+    app.title <- app.title
+  }
+
+  iSEE(
+    landingPage=.landing_page_runr(bfc,
+                                   FUN.datasets,
+                                   FUN.initial,
+                                   default.add, default.position,
+                                   body.header,
+                                   body.footer),
+    appTitle = app.title
+  )
 }
 
 
@@ -207,7 +286,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
             } else {
                 initial_id <- pObjects[[.ui_initial]]
                 which_initial <- which(
-                  pObjects$initial_table[[.initial_config_id]] == initial_id & 
+                  pObjects$initial_table[[.initial_config_id]] == initial_id &
                   pObjects$initial_table[[.initial_datasets_id]] == dataset_id
                   )
                 initial_metadata <- as.list(pObjects$initial_table[which_initial, , drop = FALSE])
@@ -243,4 +322,77 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
 
     invisible(NULL)
     # nocov end
+}
+
+
+
+
+
+
+.launch_isee_runr <- function(FUN, bfc, session, pObjects) {
+  # nocov start
+  dataset_id <- pObjects[[.dataset_selected_id]]
+  which_dataset <- which(pObjects$datasets_table[[.datasets_id]] == dataset_id)
+  # TODO: refactor as function that takes data set identifier and returns uri
+  dataset_metadata <- as.list(pObjects$datasets_table[which_dataset, , drop=FALSE])
+  # TODO: refactor as function that takes data set identifier and returns title
+  dataset_title <- pObjects$datasets_table[which_dataset, .datasets_title, drop=TRUE]
+  withProgress(message = sprintf("Loading '%s'", dataset_title),
+               value = 0, max = 2, {
+                 incProgress(1, detail = "(Down)loading object")
+
+
+                 # se2 <- try(.load_sce_runr(bfc, dataset_id, dataset_metadata))
+                 se2 <- try(.load_sce_runr(bfc, dataset_id, dataset_metadata))
+
+
+
+
+
+                 incProgress(1, detail = "Launching iSEE app")
+                 if (is(se2, "try-error")) {
+                   showNotification("Invalid SummarizedExperiment supplied.", type="error")
+                 } else {
+                   if (is.null(pObjects$initial_table)) {
+                     initial <- NULL
+                     tour <- NULL
+                   } else {
+                     initial_id <- pObjects[[.ui_initial]]
+                     which_initial <- which(
+                       pObjects$initial_table[[.initial_config_id]] == initial_id &
+                         pObjects$initial_table[[.initial_datasets_id]] == dataset_id
+                     )
+                     initial_metadata <- as.list(pObjects$initial_table[which_initial, , drop = FALSE])
+                     initial_message <- capture.output(
+                       init <- try(.parse_initial(bfc, dataset_id, initial_id, initial_metadata)),
+                       type = "message")
+                     initial <- init$initial
+                     tour <- init$tour
+                   }
+                   if (is(init, "try-error")) {
+                     showModal(modalDialog(
+                       title = "Invalid initial state",
+                       p("An error occured while evaluating the script:"),
+                       markdown(paste0(c("```", initial_message, "```"), collapse = "\n")),
+                       p("Contact the app maintainer for further help."),
+                       footer = NULL,
+                       size = "l",
+                       easyClose = TRUE
+                     ))
+                     return(NULL)
+                   }
+                   FUN(SE=se2, INITIAL=initial, TOUR=tour)
+                   shinyjs::enable(iSEE:::.generalOrganizePanels) # organize panels
+                   shinyjs::enable(iSEE:::.generalLinkGraph) # link graph
+                   shinyjs::enable(iSEE:::.generalExportOutput) # export content
+                   shinyjs::enable(iSEE:::.generalCodeTracker) # tracked code
+                   shinyjs::enable(iSEE:::.generalPanelSettings) # panel settings
+                   shinyjs::enable(iSEE:::.generalVignetteOpen) # open vignette
+                   shinyjs::enable(iSEE:::.generalSessionInfo) # session info
+                   shinyjs::enable(iSEE:::.generalCitationInfo) # citation info
+                 }
+               }, session = session)
+
+  invisible(NULL)
+  # nocov end
 }
