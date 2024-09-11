@@ -1,3 +1,7 @@
+# iSEEindex 1.1.1
+
+* Add possibility to customise the title of the app.
+
 # iSEEindex 0.99.13
 
 * Added possibility to inject custom header and footer in landing page.
