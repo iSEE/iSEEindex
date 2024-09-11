@@ -2,6 +2,7 @@
 % Please edit documentation in R/iSEEindex-pkg.R
 \docType{package}
 \name{iSEEindex-pkg}
+\alias{iSEEindex-package}
 \alias{iSEEindex-pkg}
 \title{iSEEindex: iSEE extension for a landing page to a custom collection of data sets}
 \description{
@@ -17,5 +18,15 @@ Useful links:
 \item \url{https://github.com/iSEE/iSEEindex}
 \item Report bugs at \url{https://support.bioconductor.org/t/iSEEindex}
 }
+}
+\author{
+\strong{Maintainer}: Kevin Rue-Albrecht \email{kevinrue67@gmail.com} (\href{https://orcid.org/0000-0003-3899-3872}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Thomas Sandmann \email{tomsing1@gmail.com} (\href{https://orcid.org/0000-0002-6601-8890}{ORCID}) [contributor]
+  \item Denali Therapeutics [funder]
+}
+
 }
 \keyword{internal}
