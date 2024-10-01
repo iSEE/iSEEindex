@@ -338,6 +338,22 @@ setMethod("precache", "iSEEindexRcallResource",
 #' @details
 #' Required metadata:
 #'
+#' \describe{
+#' \item{uri}{Character scalar. URI of the resource.}
+#' }
+#'
+#' @section Supported methods:
+#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexRunrResource} class.
+#' Refer to the documentation for each method for more details on the remaining arguments.
+#'
+#' \itemize{
+#' \item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at the given URI using \pkg{BiocFileCache} and returns the file path to the cached file.
+#' }
+#'
+#' @name iSEEindexRunrResource-class
+#' @rdname iSEEindexRunrResource-class
+#' @aliases
+#' precache,iSEEindexRunrResource-method
 #'
 #' @examples
 #' iSEEindexRunrResource(list(
