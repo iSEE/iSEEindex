@@ -348,7 +348,10 @@ initial[["ComplexHeatmapPlot4"]] <- new("ComplexHeatmapPlot", Assay = "logcounts
 
 ## Adding a tour to tell things to people - they like to hear or read about the data!
 
-tour <- read.delim("tour_tda_epithelial.txt", sep = ";", header = TRUE)
+tour <- read.delim(
+  system.file("tonsils_example/tour_tda_epithelial.txt", package = "iSEEindex"),
+  sep = ";", header = TRUE
+)
 
 
 

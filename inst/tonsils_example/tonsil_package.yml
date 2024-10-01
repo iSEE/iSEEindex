@@ -53,7 +53,8 @@ initial:
     datasets:
       - Tonsil_epithelial
     title: Tonsil_epithelial configuration 1 (R call)
-    uri: localhost:///Users/fede/Development/iSEEindex/hca_tonsil_epithelial_v2.R
+    uri: rcall://system.file(package='iSEEindex','tonsils_example/hca_tonsil_epithelial_v2.R')
+    # uri: localhost:///Users/fede/Development/iSEEindex/hca_tonsil_epithelial_v2.R
     # uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
     description: |
       touring around, first go

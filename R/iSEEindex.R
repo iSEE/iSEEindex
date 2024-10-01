@@ -164,29 +164,38 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
 #' ##
 #'
 #' dataset_fun <- function() {
-#'     x <- yaml::read_yaml("tonsil_package.yml")
+#'     x <- yaml::read_yaml(
+#'       system.file("tonsils_example", "tonsil_package.yml", package = "iSEEindex")
+#'     )
 #'     x$datasets
 #' }
 #'
 #' initial_fun <- function() {
-#'     x <- yaml::read_yaml("tonsil_package.yml")
+#'     x <- yaml::read_yaml(
+#'       system.file("tonsils_example", "tonsil_package.yml", package = "iSEEindex")
+#'     )
 #'     x$initial
 #' }
 #'
+#' library("shiny")
 #' header_tonsils <- fluidRow(
 #'   shinydashboard::box(
 #'     width = 12,
 #'     collapsible = TRUE,
 #'     collapsed = TRUE,
 #'     title = "How to explore the Tonsil Atlas datasets",
-#'     includeMarkdown("header_tonsils.md")
+#'     includeMarkdown(
+#'       system.file("tonsils_example", "header_tonsils.md", package = "iSEEindex")
+#'     )
 #'   )
 #' )
 #'
 #' footer_tonsils <- fluidRow(
 #'   shinydashboard::box(
 #'     width = 12,
-#'     includeMarkdown("footer_tonsils.md")
+#'     includeMarkdown(
+#'       system.file("tonsils_example", "footer_tonsils.md", package = "iSEEindex")
+#'     )
 #'   )
 #' )
 #'
