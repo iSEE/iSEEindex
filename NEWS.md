@@ -1,3 +1,7 @@
+# iSEEindex 1.3.1
+
+* Version bump to rebuild classes derived from `DotPlot`.
+
 # iSEEindex 1.1.1
 
 * Add possibility to customise the title of the app.
