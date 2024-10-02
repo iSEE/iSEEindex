@@ -8,7 +8,6 @@
 #' @param bfc A [BiocFileCache()] object.
 #' @param id A data set identifier as a character scalar.
 #' @param metadata Named list of metadata. See individual resource classes for required and optional metadata.
-#' @param already_se_object Logical, TODO - shall we default this to FALSE?
 #'
 #' @return
 #' For `.load_sce()`, a [SingleCellExperiment()] object.
@@ -29,18 +28,28 @@
 #'
 #' ## Usage ---
 #'
-#' iSEEindex:::.load_sce(bfc, id, metadata, already_se_object = FALSE)
+#' iSEEindex:::.load_sce(bfc, id, metadata)
 #'
 #' ## Alternatively, using the runr approach
 #' id_tonsil <- "demo_load_sce_tonsil"
-#' metadata <- list(
+#' metadata_tonsil <- list(
 #'   uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType =  'epithelial')"
 #' )
-#' iSEEindex:::.load_sce(bfc, id, metadata, already_se_object = TRUE)
+#' iSEEindex:::.load_sce(bfc, id_tonsil, metadata_tonsil)
 .load_sce <- function(bfc,
                       id,
-                      metadata,
-                      already_se_object) {
+                      metadata) {
+    resource_obj <- .metadata_to_object(metadata)
+    if (is(resource_obj, "iSEEindexHttpsResource") | is(resource_obj, "iSEEindexLocalhostResource") |
+        is(resource_obj, "iSEEindexRcallResource") | is(resource_obj, "iSEEindexS3Resource")) {
+        already_se_object <- FALSE
+    } else if (is(resource_obj, "iSEEindexRunrResource")) {
+        already_se_object <- TRUE
+    } else {
+        # without knowing too much about it...
+        already_se_object <- FALSE
+    }
+
     if (!already_se_object) {
         bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
         # nocov start
