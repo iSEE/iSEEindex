@@ -12,8 +12,7 @@ iSEEindex(
   default.position = c("first", "last"),
   app.title = NULL,
   body.header = NULL,
-  body.footer = NULL,
-  already_se_object = FALSE
+  body.footer = NULL
 )
 }
 \arguments{
@@ -40,11 +39,10 @@ info on the versions of the \code{iSEEindex} and \code{iSEE} packages.}
 \item{body.header}{UI element to display \emph{above} the main landing page body.}
 
 \item{body.footer}{UI element to display \emph{below} the main landing page body.}
-
-\item{already_se_object}{TODO}
 }
 \value{
-An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
+An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a
+\code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
 }
 \description{
 Generate an \pkg{iSEE} app that includes a landing page enabling
@@ -53,57 +51,75 @@ states prepared by the app maintainer.
 }
 \section{Data Sets}{
 
-The function passed to the argument \code{FUN.datasets} must return a \code{list} that contains metadata about the available data sets.
+The function passed to the argument \code{FUN.datasets} must return a \code{list} that
+contains metadata about the available data sets.
 
 For each data set, required metadata are:
 
 \describe{
 \item{id}{A unique identifier for the data set.}
-\item{title}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
-\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
-\item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
+\item{title}{A short human-readable title for the data set, displayed in the
+'Info' panel when the data set is selected.}
+\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of
+the data file that contains the data set.}
+\item{description}{A more detailed description of the data set, displayed in
+the 'Info' panel when the data set is selected.}
 }
 
 Example:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{list(
   list(
-     id = "dataset01",
-     title = "Dataset 01",
-     uri = "https://example.com/1.rds",
-     description = "My first data set."
+    id = "dataset01",
+    title = "Dataset 01",
+    uri = "https://example.com/1.rds",
+    description = "My first data set."
   ),
   list(
-     id = "dataset02",
-     title = "Dataset 02",
-     uri = "https://example.com/1.rds",
-     description = "My second data set."
+    id = "dataset02",
+    title = "Dataset 02",
+    uri = "https://example.com/1.rds",
+    description = "My second data set."
   )
 )
 }\if{html}{\out{</div>}}
 
-The individual sub-lists may also contain optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
+The individual sub-lists may also contain optional named metadata specific to
+individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of
+those classes for details).
 
-\strong{Important}: The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
-Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the \code{BiocFileCache(cache)} argument to specify an on-disk location (directory path) for the dedicated cache.
+\strong{Important}: The \code{id} value is used to identify the data set file in the
+\pkg{BiocFileCache}.
+Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the
+\code{BiocFileCache(cache)} argument to specify an on-disk location (directory
+path) for the dedicated cache.
 }
 
 \section{Initial Configurations}{
 
-The function passed to the argument \code{FUN.initial} must return a \code{list} that contains metadata about the available initial configurations, or \code{NULL} in the absence of any custom initial configuration (default settings will be applied to all data sets.).
+The function passed to the argument \code{FUN.initial} must return a \code{list} that
+contains metadata about the available initial configurations, or \code{NULL} in
+the absence of any custom initial configuration (default settings will be
+applied to all data sets.).
 
 For each initial configuration, required metadata are:
 
 \describe{
 \item{id}{A unique identifier for the initial configuration.}
-\item{title}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
-\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
-\item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
+\item{title}{A short human-readable title for the initial configuration,
+representing the initial configuration in the 'Initial settings' dropdown menu.}
+\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of
+the R script that contains the initial configuration.}
+\item{description}{A more detailed description of the initial configuration,
+displayed in the 'Configure and launch' panel when the initial configuration
+is selected.}
 }
 
 For each initial configuration, optional metadata are:
 \describe{
-\item{datasets}{A series of data set identifiers for which the configuration should be made available. If missing, the configuration will be available for all data sets.}
+\item{datasets}{A series of data set identifiers for which the configuration
+should be made available. If missing, the configuration will be available for
+all data sets.}
 }
 
 Example:
@@ -125,7 +141,9 @@ Example:
 )
 }\if{html}{\out{</div>}}
 
-The individual sub-lists may also contain additional optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
+The individual sub-lists may also contain additional optional named metadata
+specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help
+page of those classes for details).
 }
 
 \examples{
@@ -189,8 +207,7 @@ app_tonsils <- iSEEindex(bfc,
     default.position = "last",
     app.title = "iSEE ❤️ Tonsil Data Atlas",
     body.header = header_tonsils,
-    body.footer = footer_tonsils,
-    already_se_object = TRUE)
+    body.footer = footer_tonsils)
 
 if (interactive()) {
     shiny::runApp(app_tonsils, port = 5678)

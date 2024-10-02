@@ -19,7 +19,7 @@ test_that(".create_launch_observers works", {
     pObjects <- new.env()
     FUN <- function(SE, INITIAL) invisible(NULL)
 
-    out <- iSEEindex:::.create_launch_observers(FUN, bfc, input, session = NULL, pObjects, already_se_object = FALSE)
+    out <- iSEEindex:::.create_launch_observers(FUN, bfc, input, session = NULL, pObjects)
     expect_null(out)
 
 })

@@ -12,7 +12,8 @@ iSEEindexRunrResource(x)
 \item{x}{List of metadata. See Details.}
 }
 \value{
-The constructor function \code{iSEEindexRunrResource()} returns an object of object of class \code{iSEEindexRunrResource}.
+The constructor function \code{iSEEindexRunrResource()} returns an object
+of object of class \code{iSEEindexRunrResource}.
 }
 \description{
 The iSEEindexRunrResource class represents an SE object, obtained directly
@@ -29,11 +30,15 @@ Required metadata:
 }
 \section{Supported methods}{
 
-In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexRunrResource} class.
-Refer to the documentation for each method for more details on the remaining arguments.
+In the following code snippets, \code{x} is an instance of a
+\linkS4class{iSEEindexRunrResource} class.
+Refer to the documentation for each method for more details on the remaining
+arguments.
 
 \itemize{
-\item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at the given URI using \pkg{BiocFileCache} and returns the file path to the cached file.
+\item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at
+the given URI using \pkg{BiocFileCache} and returns the file path to the
+cached file.
 }
 }
 

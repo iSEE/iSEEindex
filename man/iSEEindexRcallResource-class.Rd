@@ -12,7 +12,8 @@ iSEEindexRcallResource(x)
 \item{x}{List of metadata. See Details.}
 }
 \value{
-The constructor function \code{iSEEindexRcallResource()} returns an object of object of class \code{iSEEindexRcallResource}.
+The constructor function \code{iSEEindexRcallResource()} returns an object
+of object of class \code{iSEEindexRcallResource}.
 }
 \description{
 The iSEEindexRcallResource class represents a resource accessible through
@@ -23,7 +24,8 @@ A URI for this type of resource uses the prefix \dQuote{rcall://}.
 Required metadata:
 
 \describe{
-\item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
+\item{uri}{Character scalar. R call which, once evaluated, produces a
+character scalar that is the URI of the resource.}
 }
 }
 \section{URI format}{
@@ -39,13 +41,16 @@ For instance:
 
 \section{Slot overview}{
 
-This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+This class inherits all slots from its parent class
+\linkS4class{iSEEindexResource}.
 }
 
 \section{Supported methods}{
 
-In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexRcallResource} class.
-Refer to the documentation for each method for more details on the remaining arguments.
+In the following code snippets, \code{x} is an instance of a
+\linkS4class{iSEEindexRcallResource} class.
+Refer to the documentation for each method for more details on the remaining
+arguments.
 
 \itemize{
 \item \code{\link{precache}(x, ...)} trims the \verb{rcall://} prefix,

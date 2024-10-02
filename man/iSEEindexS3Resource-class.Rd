@@ -12,7 +12,8 @@ iSEEindexS3Resource(x)
 \item{x}{List of metadata. See Details.}
 }
 \value{
-The constructor function \code{iSEEindexS3Resource()} returns an object of object of class \code{iSEEindexS3Resource}.
+The constructor function \code{iSEEindexS3Resource()} returns an object of
+object of class \code{iSEEindexS3Resource}.
 }
 \description{
 The iSEEindexS3Resource class represents a cloud storage resource accessible
@@ -30,7 +31,8 @@ Required metadata:
 }
 \section{Slot overview}{
 
-This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+This class inherits all slots from its parent class
+\linkS4class{iSEEindexResource}.
 
 Furthermore, this class defines the additional slot(s) below:
 \describe{
@@ -40,12 +42,14 @@ Furthermore, this class defines the additional slot(s) below:
 
 \section{Supported methods}{
 
-In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexS3Resource} class.
-Refer to the documentation for each method for more details on the remaining arguments.
+In the following code snippets, \code{x} is an instance of a
+\linkS4class{iSEEindexS3Resource} class.
+Refer to the documentation for each method for more details on the remaining
+arguments.
 
 \itemize{
-\item \code{\link{precache}(x, ..., temp_dir = tempdir())} trims the \verb{s3://} prefix,
-parses information encoded in the remainder of the URI,
+\item \code{\link{precache}(x, ..., temp_dir = tempdir())} trims the \verb{s3://}
+prefix, parses information encoded in the remainder of the URI,
 downloads the resource from AWS S3 using that information,
 and caches a copy of the resource located at the resulting file path using
 \pkg{BiocFileCache}, before returning the file path to the cached file.
@@ -81,7 +85,8 @@ recursively if it doesn't already exist.}
 For detailed information, please consult the
 \href{https://github.com/paws-r/paws/blob/main/docs/credentials.md}{paws R package documentation}.
 
-Currently, you must have the \href{https://aws.amazon.com/cli/}{AWS Command Line Interface} installed to use AWS SSO with \pkg{paws.storage}.
+Currently, you must have the \href{https://aws.amazon.com/cli/}{AWS Command Line Interface}
+installed to use AWS SSO with \pkg{paws.storage}.
 
 A default AWS region can be set in the file \verb{~/.aws/config}.
 For instance:
@@ -90,7 +95,8 @@ For instance:
 region=eu-west-2
 }\if{html}{\out{</div>}}
 
-Optionally, a field named \code{region} can be added in the list of resource metadata to set the AWS S3 region for each individual resource, e.g.
+Optionally, a field named \code{region} can be added in the list of resource
+metadata to set the AWS S3 region for each individual resource, e.g.
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{- id: ID1
   title: ReprocessedAllenData
@@ -100,12 +106,16 @@ Optionally, a field named \code{region} can be added in the list of resource met
   region: eu-west-2
 }\if{html}{\out{</div>}}
 
-Regions set in individual resource metadata override the default AWS region set in \verb{~/.aws/config} (if any).
-The region metadata does not need to be set for resources that should use the default region, and resource classes that do not require region information.
+Regions set in individual resource metadata override the default AWS region
+set in \verb{~/.aws/config} (if any).
+The region metadata does not need to be set for resources that should use the
+default region, and resource classes that do not require region information.
 
-If a default region is NOT set in \verb{~/.aws/config}, then the region MUST be set in the metadata.
+If a default region is NOT set in \verb{~/.aws/config}, then the region MUST be
+set in the metadata.
 
-Credentials for all services can be set in the AWS shared credentials file \verb{~/.aws/credentials}.
+Credentials for all services can be set in the AWS shared credentials file
+\verb{~/.aws/credentials}.
 For instance:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{[default]

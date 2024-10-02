@@ -18,14 +18,16 @@ precache(x, bfc, id, ...)
 \item{...}{additional arguments passed to and from other methods.}
 }
 \value{
-\code{precache()} returns the file path to the cached copy of a resource fetched from a given URI.
+\code{precache()} returns the file path to the cached copy of a resource
+fetched from a given URI.
 }
 \description{
 An overview of the generics for \code{iSEEindexResources} objects.
 }
 \section{Preparing and caching resources}{
 
-\code{precache(x, bfc, id, ...)} retrieves and caches a resource from an URI, caches it, and returns the path to the cached file.
+\code{precache(x, bfc, id, ...)} retrieves and caches a resource from an URI,
+caches it, and returns the path to the cached file.
 }
 
 \examples{
