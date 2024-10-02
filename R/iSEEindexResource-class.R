@@ -376,29 +376,21 @@ iSEEindexRunrResource <- function(x) {
 
 #' @export
 setMethod("precache", "iSEEindexRunrResource",
-          function(x, bfc, id, ...)
-          {
-            # Trim 'runr://' from the original URI and evaluate the R call,
-            # check that the value is an existing filepath and pass to BiocFileCache,
-            # which will manage the caching.
-            # Use action="copy" to leave the original file untouched.
-            call_string <- sub("runr://", "", x@uri)
-            env <- new.env()
+    function(x, bfc, id, ...)
+{
+    # Trim 'runr://' from the original URI and evaluate the R call,
+    # We expect already that an SE object will be returned
+    call_string <- sub("runr://", "", x@uri)
 
-            # fpath not needed per se, we should have a "valid r call and that is it"
+    # fpath not needed per se, we should have a "valid r call and that is it"
+    # this time it is called object, as it is already returning that
+    object <- eval(parse(text = call_string))
 
-            object_path <- eval(parse(text = call_string))
+    ## "we have to believe" that this is already somehow cached e.g. via
+    ## Bioc data packages using the cache, and many times it is so
 
-
-            # fpath <- eval(parse(text = call_string), envir = env)
-            # stopifnot(file.exists(fpath))
-            # object_path <- bfcadd(x = bfc, rname = id, fpath = fpath, action = "copy", ...)
-
-
-
-
-            return(object_path)
-          })
+    return(object)
+})
 
 
 

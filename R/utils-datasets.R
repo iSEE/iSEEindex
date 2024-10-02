@@ -8,6 +8,7 @@
 #' @param bfc A [BiocFileCache()] object.
 #' @param id A data set identifier as a character scalar.
 #' @param metadata Named list of metadata. See individual resource classes for required and optional metadata.
+#' @param already_se_object Logical, TODO - shall we default this to FALSE?
 #'
 #' @return
 #' For `.load_sce()`, a [SingleCellExperiment()] object.
@@ -28,66 +29,82 @@
 #'
 #' ## Usage ---
 #'
-#' iSEEindex:::.load_sce(bfc, id, metadata)
+#' iSEEindex:::.load_sce(bfc, id, metadata, already_se_object = FALSE)
 #'
-.load_sce <- function(bfc, id, metadata) {
-    bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
-    # nocov start
-    if (nrow(bfc_result) == 0) {
-        uri_object <- .metadata_to_object(metadata)
-        object_path <- precache(uri_object, bfc, id)
+#' ## Alternatively, using the runr approach
+#' id_tonsil <- "demo_load_sce_tonsil"
+#' metadata <- list(
+#'   uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType =  'epithelial')"
+#' )
+#' iSEEindex:::.load_sce(bfc, id, metadata, already_se_object = TRUE)
+.load_sce <- function(bfc,
+                      id,
+                      metadata,
+                      already_se_object) {
+    if (!already_se_object) {
+        bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
+        # nocov start
+        if (nrow(bfc_result) == 0) {
+            uri_object <- .metadata_to_object(metadata)
+            object_path <- precache(uri_object, bfc, id)
+        } else {
+            object_path <- bfc[[bfc_result$rid]]
+        }
+        # nocov end
+        object <- readRDS(object_path)
+        object <- .convert_to_sce(object)
     } else {
-        object_path <- bfc[[bfc_result$rid]]
+        # if providing directly an SE object, e.g. via data packages...
+        uri_object <- .metadata_to_object(metadata)
+
+        object <- precache(uri_object, bfc, id)
+        object <- .convert_to_sce(object)
     }
-    # nocov end
-    object <- readRDS(object_path)
-    object <- .convert_to_sce(object)
     object
 }
 
 
 
 
-#' @examples
-#'
-#' library(BiocFileCache)
-#' bfc <- BiocFileCache(tempdir())
-#' id <- "demo_load_sce_tonsil"
-#' metadata <- list(uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType = 'epithelial')")
-#'
-#' ## Usage ---
-#'
-#' iSEEindex:::.load_sce_runr(bfc, id, metadata)
-.load_sce_runr <- function(bfc, id, metadata) {
-  bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
-  # nocov start
-  # if (nrow(bfc_result) == 0) {
-  #   uri_object <- .metadata_to_object(metadata)
-  #   object_path <- precache(uri_object, bfc, id)
-  # } else {
-  #   object_path <- bfc[[bfc_result$rid]]
-  # }
-
-
-  uri_object <- .metadata_to_object_runr(metadata)
-
-  object_call <- precache(uri_object, bfc, id)
-  # if (nrow(bfc_result) == 0) {
-  #   uri_object <- .metadata_to_object(metadata)
-  #   object_path <- precache(uri_object, bfc, id)
-  # } else {
-  #   object_path <- bfc[[bfc_result$rid]]
-  # }
-
-
-  # nocov end
-  # object <- readRDS(object_path)
-
-  object <- object_call
-
-  object <- .convert_to_sce(object)
-  object
-}
+### #' @examples
+### #'
+### #' library(BiocFileCache)
+### #' bfc <- BiocFileCache(tempdir())
+### #' id <- "demo_load_sce_tonsil"
+### #' metadata <- list(uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType =  'epithelial')")
+### #'
+### #' ## Usage ---
+### #'
+### #' iSEEindex:::.load_sce_runr(bfc, id, metadata)
+# .load_sce_runr <- function(bfc, id, metadata) {
+#   bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
+#   # nocov start
+#   # if (nrow(bfc_result) == 0) {
+#   #   uri_object <- .metadata_to_object(metadata)
+#   #   object_path <- precache(uri_object, bfc, id)
+#   # } else {
+#   #   object_path <- bfc[[bfc_result$rid]]
+#   # }
+#
+#   uri_object <- .metadata_to_object(metadata)
+#
+#   object_call <- precache(uri_object, bfc, id)
+#   # if (nrow(bfc_result) == 0) {
+#   #   uri_object <- .metadata_to_object(metadata)
+#   #   object_path <- precache(uri_object, bfc, id)
+#   # } else {
+#   #   object_path <- bfc[[bfc_result$rid]]
+#   # }
+#
+#
+#   # nocov end
+#   # object <- readRDS(object_path)
+#
+#   object <- object_call
+#
+#   object <- .convert_to_sce(object)
+#   object
+# }
 
 
 
@@ -135,6 +152,11 @@
 #' ))
 #' iSEEindex:::.metadata_to_object(list(uri="s3://your-bucket/your-prefix/file.rds"))
 #' iSEEindex:::.metadata_to_object(list(uri="s3://your-bucket/your-prefix/file.rds"))
+#' iSEEindex:::.metadata_to_object(
+#'   list(
+#'     uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType = 'epithelial')"
+#'   )
+#' )
 .metadata_to_object <- function(x) {
     scheme <- urltools::url_parse(x[[.datasets_uri]])$scheme
     scheme_titled <- str_to_title(scheme)
@@ -150,28 +172,6 @@
     }
     constructor.FUN(x)
 }
-
-
-#' @examples
-#' iSEEindex:::.metadata_to_object(list(uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType = 'epithelial')"))
-.metadata_to_object_runr <- function(x) {
-  scheme <- urltools::url_parse(x[[.datasets_uri]])$scheme
-  scheme_titled <- str_to_title(scheme)
-  target_class <- sprintf("iSEEindex%sResource", scheme_titled)
-  constructor.FUN <- try({
-    get(target_class)
-  }, silent = TRUE)
-  if (is(constructor.FUN, "try-error")) {
-    stop(
-      sprintf("No constructor function available for scheme '%s'. ", scheme),
-      sprintf("Consider implementing the constructor function '%s()'.", target_class)
-    )
-  }
-  constructor.FUN(x)
-}
-
-
-
 
 
 

@@ -12,7 +12,8 @@ iSEEindex(
   default.position = c("first", "last"),
   app.title = NULL,
   body.header = NULL,
-  body.footer = NULL
+  body.footer = NULL,
+  already_se_object = FALSE
 )
 }
 \arguments{
@@ -39,6 +40,8 @@ info on the versions of the \code{iSEEindex} and \code{iSEE} packages.}
 \item{body.header}{UI element to display \emph{above} the main landing page body.}
 
 \item{body.footer}{UI element to display \emph{below} the main landing page body.}
+
+\item{already_se_object}{TODO}
 }
 \value{
 An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
@@ -126,16 +129,8 @@ The individual sub-lists may also contain additional optional named metadata spe
 }
 
 \examples{
-##
-# BiocFileCache ----
-##
-
-library(BiocFileCache)
+library("BiocFileCache")
 bfc <- BiocFileCache(cache = tempdir())
-
-##
-# iSEEindex ----
-##
 
 dataset_fun <- function() {
     x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
@@ -151,6 +146,54 @@ app <- iSEEindex(bfc, dataset_fun, initial_fun)
 
 if (interactive()) {
     shiny::runApp(app, port = 1234)
+}
+
+## Alternatively, with the example based on using runr calls
+
+dataset_fun_tonsils <- function() {
+    x <- yaml::read_yaml(
+        system.file("tonsils_example", "tonsil_package.yml", package = "iSEEindex")
+    )
+    x$datasets
+}
+initial_fun_tonsils <- function() {
+    x <- yaml::read_yaml(
+        system.file("tonsils_example", "tonsil_package.yml", package = "iSEEindex")
+    )
+    x$initial
+}
+
+library("shiny")
+header_tonsils <- fluidRow(
+  shinydashboard::box(
+    width = 12, collapsible = TRUE, collapsed = TRUE,
+    title = "How to explore the Tonsil Atlas datasets",
+    includeMarkdown(
+      system.file("tonsils_example", "header_tonsils.md", package = "iSEEindex")
+    )
+  )
+)
+footer_tonsils <- fluidRow(
+  shinydashboard::box(
+    width = 12,
+    includeMarkdown(
+      system.file("tonsils_example", "footer_tonsils.md", package = "iSEEindex")
+    )
+  )
+)
+
+app_tonsils <- iSEEindex(bfc,
+    dataset_fun_tonsils,
+    initial_fun_tonsils,
+    default.add = TRUE,
+    default.position = "last",
+    app.title = "iSEE ❤️ Tonsil Data Atlas",
+    body.header = header_tonsils,
+    body.footer = footer_tonsils,
+    already_se_object = TRUE)
+
+if (interactive()) {
+    shiny::runApp(app_tonsils, port = 5678)
 }
 }
 \author{

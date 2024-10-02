@@ -65,17 +65,22 @@
 
 #' @param FUN A function to initialize the \pkg{iSEE} observer
 #' architecture. Refer to [iSEE::createLandingPage()] for more details.
+#'
 #' @param bfc A [BiocFileCache()] object.
 #' landing page.
+#' @param input TODO
+#' @param session TODO
+#' @param pObjects TODO
+#' @param already_se_object TODO
 #'
 #' @importFrom shiny observeEvent
 #'
 #' @rdname INTERNAL_create_observers
-.create_launch_observers <- function(FUN, bfc, input, session, pObjects) {
+.create_launch_observers <- function(FUN, bfc, input, session, pObjects, already_se_object) {
 
     # nocov start
     observeEvent(input[[.ui_launch_button]], {
-        .launch_isee(FUN, bfc, session, pObjects)
+        .launch_isee(FUN, bfc, session, pObjects, already_se_object = already_se_object)
     }, ignoreNULL=TRUE, ignoreInit=TRUE)
     # nocov end
 
@@ -83,15 +88,15 @@
 }
 
 
-
-.create_launch_observers_runr <- function(FUN, bfc, input, session, pObjects) {
-
-  # nocov start
-  observeEvent(input[[.ui_launch_button]], {
-    .launch_isee_runr(FUN, bfc, session, pObjects)
-  }, ignoreNULL=TRUE, ignoreInit=TRUE)
-  # nocov end
-
-  invisible(NULL)
-}
+#
+# .create_launch_observers_runr <- function(FUN, bfc, input, session, pObjects) {
+#
+#   # nocov start
+#   observeEvent(input[[.ui_launch_button]], {
+#     .launch_isee(FUN, bfc, session, pObjects, already_se_object = TRUE)
+#   }, ignoreNULL=TRUE, ignoreInit=TRUE)
+#   # nocov end
+#
+#   invisible(NULL)
+# }
 
