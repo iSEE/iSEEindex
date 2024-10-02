@@ -10,7 +10,7 @@ test_that(".load_sce works", {
 
     ## Usage ---
 
-    out <- iSEEindex:::.load_sce(bfc, id, metadata, already_se_object = FALSE)
+    out <- iSEEindex:::.load_sce(bfc, id, metadata)
 
     expect_s4_class(out, "SummarizedExperiment")
 })

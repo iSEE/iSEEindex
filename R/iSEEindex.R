@@ -96,7 +96,6 @@
 #' info on the versions of the `iSEEindex` and `iSEE` packages.
 #' @param body.header UI element to display \emph{above} the main landing page body.
 #' @param body.footer UI element to display \emph{below} the main landing page body.
-#' @param already_se_object TODO
 #'
 #' @return An [iSEE::iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
 #'
@@ -168,8 +167,7 @@
 #'     default.position = "last",
 #'     app.title = "iSEE ❤️ Tonsil Data Atlas",
 #'     body.header = header_tonsils,
-#'     body.footer = footer_tonsils,
-#'     already_se_object = TRUE)
+#'     body.footer = footer_tonsils)
 #'
 #' if (interactive()) {
 #'     shiny::runApp(app_tonsils, port = 5678)
@@ -181,8 +179,7 @@ iSEEindex <- function(bfc,
                       default.position = c("first", "last"),
                       app.title = NULL,
                       body.header = NULL,
-                      body.footer = NULL,
-                      already_se_object = FALSE) {
+                      body.footer = NULL) {
     stopifnot(is(bfc, "BiocFileCache"))
     if (is.null(FUN.initial)) {
         FUN.initial <- function() NULL
@@ -201,8 +198,7 @@ iSEEindex <- function(bfc,
                                     default.add,
                                     default.position,
                                     body.header,
-                                    body.footer,
-                                    already_se_object = already_se_object
+                                    body.footer
         ),
         appTitle = app.title
     )
@@ -319,7 +315,6 @@ iSEEindex <- function(bfc,
 #' @param session The Shiny session object from the server function.
 #' @param pObjects An environment containing global parameters generated in the
 #' landing page.
-#' @param already_se_object TODO propagated
 #'
 #' @return A `NULL` value is invisibly returned.
 #'
@@ -331,7 +326,7 @@ iSEEindex <- function(bfc,
 #' @importFrom shinyjs enable
 #'
 #' @rdname INTERNAL_launch_isee
-.launch_isee <- function(FUN, bfc, session, pObjects, already_se_object) {
+.launch_isee <- function(FUN, bfc, session, pObjects) {
     # nocov start
     dataset_id <- pObjects[[.dataset_selected_id]]
     which_dataset <- which(pObjects$datasets_table[[.datasets_id]] == dataset_id)
@@ -342,8 +337,7 @@ iSEEindex <- function(bfc,
     withProgress(message = sprintf("Loading '%s'", dataset_title),
         value = 0, max = 2, {
         incProgress(1, detail = "(Down)loading object")
-        se2 <- try(.load_sce(bfc, dataset_id, dataset_metadata,
-                             already_se_object = already_se_object))
+        se2 <- try(.load_sce(bfc, dataset_id, dataset_metadata))
         incProgress(1, detail = "Launching iSEE app")
         if (is(se2, "try-error")) {
             showNotification("Invalid SummarizedExperiment supplied.", type="error")

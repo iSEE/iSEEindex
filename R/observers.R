@@ -71,16 +71,15 @@
 #' @param input TODO
 #' @param session TODO
 #' @param pObjects TODO
-#' @param already_se_object TODO
 #'
 #' @importFrom shiny observeEvent
 #'
 #' @rdname INTERNAL_create_observers
-.create_launch_observers <- function(FUN, bfc, input, session, pObjects, already_se_object) {
+.create_launch_observers <- function(FUN, bfc, input, session, pObjects) {
 
     # nocov start
     observeEvent(input[[.ui_launch_button]], {
-        .launch_isee(FUN, bfc, session, pObjects, already_se_object = already_se_object)
+        .launch_isee(FUN, bfc, session, pObjects)
     }, ignoreNULL=TRUE, ignoreInit=TRUE)
     # nocov end
 

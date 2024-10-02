@@ -11,7 +11,6 @@
 #' in the Shiny `selectizeInput()`.
 #' @param body.header UI element to display \emph{above} the main landing page body.
 #' @param body.footer UI element to display \emph{below} the main landing page body.
-#' @param already_se_object TODO to be propagated
 #'
 #' @return A `function` that defines UI elements and observers for the
 #' landing page of the app.
@@ -31,8 +30,7 @@
                           default.add = TRUE,
                           default.position = c("first", "last"),
                           body.header = NULL,
-                          body.footer = NULL,
-                          already_se_object) {
+                          body.footer = NULL) {
     default.position <- match.arg(default.position)
     # datasets
     datasets_available_list <- FUN.datasets()
@@ -103,7 +101,7 @@
 
         .create_observers(input, session, pObjects, rObjects, FUN.initial, default.add, default.position)
 
-        .create_launch_observers(FUN, bfc, input, session, pObjects, already_se_object = already_se_object)
+        .create_launch_observers(FUN, bfc, input, session, pObjects)
 
         .render_datasets_table(output, pObjects, rObjects)
 

@@ -12,8 +12,7 @@ iSEEindex(
   default.position = c("first", "last"),
   app.title = NULL,
   body.header = NULL,
-  body.footer = NULL,
-  already_se_object = FALSE
+  body.footer = NULL
 )
 }
 \arguments{
@@ -40,8 +39,6 @@ info on the versions of the \code{iSEEindex} and \code{iSEE} packages.}
 \item{body.header}{UI element to display \emph{above} the main landing page body.}
 
 \item{body.footer}{UI element to display \emph{below} the main landing page body.}
-
-\item{already_se_object}{TODO}
 }
 \value{
 An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
@@ -189,8 +186,7 @@ app_tonsils <- iSEEindex(bfc,
     default.position = "last",
     app.title = "iSEE ❤️ Tonsil Data Atlas",
     body.header = header_tonsils,
-    body.footer = footer_tonsils,
-    already_se_object = TRUE)
+    body.footer = footer_tonsils)
 
 if (interactive()) {
     shiny::runApp(app_tonsils, port = 5678)
