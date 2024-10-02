@@ -1,3 +1,8 @@
+# iSEEindex 1.3.2
+
+* Added a full implementation of the `runr` resource class, defining its behavior with simple heuristics based on the fact that users can now also provide not just a path but the call to the command of R to be run (therefore, the name `runr`) to obtain an object to explore.
+  A typical use case would be to deploy a collection of datasets from a data package.
+
 # iSEEindex 1.3.1
 
 * Version bump to rebuild classes derived from `DotPlot`.
