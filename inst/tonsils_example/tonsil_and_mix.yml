@@ -1,0 +1,48 @@
+datasets:
+  - id: Tonsil_epithelial
+    title: Tonsil Data - Epithelial
+    uri: runr://HCATonsilData::HCATonsilData(assayType = "RNA", cellType = "epithelial")
+    description: |
+        Tonsil Data - Epithelial, 396 cells
+
+        <p align="center">
+        <img src="https://github.com/Bioconductor/BiocStickers/blob/devel/iSEE/iSEE.png?raw=true" alt="" height = "150"/>
+        </p>
+  - id: ReprocessedAllenData
+    title: ReprocessedAllenData
+    uri: https://zenodo.org/record/8076991/files/ReprocessedAllenData.rds
+    description: |
+        Reprocessed Allen Data.
+  - id: BuettnerESCData
+    title: BuettnerESCData
+    uri: https://zenodo.org/record/8076991/files/BuettnerESCData.rds
+    description: |
+        Reprocessed Allen Data (copy).
+initial:
+  - id: Tonsil_epithelial_full5
+    datasets:
+      - Tonsil_epithelial
+    title: Tonsil_epithelial configuration 1 (R call)
+    uri: rcall://system.file(package='iSEEindex','tonsils_example/hca_tonsil_epithelial_v2.R')
+    # uri: localhost:///Users/fede/Development/iSEEindex/hca_tonsil_epithelial_v2.R
+    # uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
+    description: |
+      touring around, first go
+  - id: config01rcall
+    datasets:
+      - ReprocessedAllenData
+    title: Example configuration 1 (R call)
+    uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
+    description: |
+      One `ReducedDimensionPlot` panel, one `ColumnDataTable` panel.
+
+      File distributed with the `iSEEindex` package.
+  - id: config02rcall
+    datasets:
+      - ReprocessedAllenData
+    title: Example configuration 2 (R call)
+    uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_02.R')
+    description: |
+      One `RowDataTable` panel, one `ColumnDataTable` panel.
+
+      File distributed with the `iSEEindex` package.

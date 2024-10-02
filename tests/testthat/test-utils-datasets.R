@@ -13,6 +13,15 @@ test_that(".load_sce works", {
     out <- iSEEindex:::.load_sce(bfc, id, metadata)
 
     expect_s4_class(out, "SummarizedExperiment")
+
+
+    # loading directly via runr
+    id_allen <- "demo_load_sce_tonsil"
+    metadata_allen <- list(
+      uri="runr://scRNAseq::ReprocessedAllenData()"
+    )
+    out <- iSEEindex:::.load_sce(bfc, id_allen, metadata_allen)
+    expect_s4_class(out, "SummarizedExperiment")
 })
 
 # .convert_to_sce ----

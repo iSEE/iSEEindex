@@ -27,7 +27,8 @@
 \code{precache()} throws an error if no method is found for the derived class.
 }
 \description{
-The iSEEindexResource class is a virtual class from which classes of supported resource must be derived.
+The iSEEindexResource class is a virtual class from which classes of
+supported resource must be derived.
 }
 \section{Slot overview}{
 
@@ -38,11 +39,14 @@ The iSEEindexResource class is a virtual class from which classes of supported r
 
 \section{Supported methods}{
 
-In the following code snippets, \code{x} is an instance of a \code{\linkS4class{iSEEindexResource}} class.
-Refer to the documentation for each method for more details on the remaining arguments.
+In the following code snippets, \code{x} is an instance of a
+\code{\linkS4class{iSEEindexResource}} class.
+Refer to the documentation for each method for more details on the remaining
+arguments.
 
 \itemize{
-\item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging users to develop a method for derived classes that are not supported yet.
+\item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging
+users to develop a method for derived classes that are not supported yet.
 }
 }
 

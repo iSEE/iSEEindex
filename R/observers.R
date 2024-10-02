@@ -4,13 +4,16 @@
 #'
 #' `.create_observers()` initialises observers for the \pkg{iSEEindex} landing page.
 #'
-#' `.create_launch_observers()` initialises observers for launching the \pkg{iSEE} main app.
+#' `.create_launch_observers()` initialises observers for launching the
+#' \pkg{iSEE} main app.
 #'
 #' @param input The Shiny input object from the server function.
 #' @param session The Shiny session object from the server function.
-#' @param pObjects An environment containing global parameters generated in the landing page.
+#' @param pObjects An environment containing global parameters generated in the
+#' landing page.
 #' @param rObjects A reactive list of values generated in the landing page.
-#' @param FUN.initial A function that returns available scripts for initial configurations states for a given data set identifier.
+#' @param FUN.initial A function that returns available scripts for initial
+#' configurations states for a given data set identifier.
 #' @param default.add Logical scalar indicating whether a default
 #' initial configuration should be added as a choice in the Shiny `selectizeInput()`.
 #' See [iSEEindex()].
@@ -28,7 +31,13 @@
 #' @importFrom rintrojs introjs
 #'
 #' @rdname INTERNAL_create_observers
-.create_observers <- function(input, session, pObjects, rObjects, FUN.initial, default.add, default.position) {
+.create_observers <- function(input,
+                              session,
+                              pObjects,
+                              rObjects,
+                              FUN.initial,
+                              default.add,
+                              default.position) {
 
     # nocov start
     observeEvent(input[[.dataset_selected_row]], {
@@ -67,6 +76,10 @@
 #' architecture. Refer to [iSEE::createLandingPage()] for more details.
 #' @param bfc A [BiocFileCache()] object.
 #' landing page.
+#' @param input The Shiny input object from the server function.
+#' @param session The Shiny session object from the server function.
+#' @param pObjects An environment containing global parameters generated in the
+#' landing page.
 #'
 #' @importFrom shiny observeEvent
 #'
@@ -81,17 +94,3 @@
 
     invisible(NULL)
 }
-
-
-
-.create_launch_observers_runr <- function(FUN, bfc, input, session, pObjects) {
-
-  # nocov start
-  observeEvent(input[[.ui_launch_button]], {
-    .launch_isee_runr(FUN, bfc, session, pObjects)
-  }, ignoreNULL=TRUE, ignoreInit=TRUE)
-  # nocov end
-
-  invisible(NULL)
-}
-
