@@ -180,6 +180,29 @@ Now, while the scheme `s3` is recognised by the [AWS Command Line Interface][aws
 In this instance, the `precache()` function has the job to parse the URI for information that is passed to the `r BiocStyle::CRANpkg("paws.storage")` package to download the file, which is then cached using `r Biocpkg("BiocFileCache")`.
 
 
+## iSEEindexRunrResource
+
+### Structure
+
+This type of resource is documented in `help("iSEEindexRunrResource-class")`.
+
+This class is used to represent directly objects that are generated via a call to arbitrary R code.
+
+The URI must use the custom scheme "runr", followed by the code itself to be run to obtain the object to explore.
+
+Example:
+
+```bash
+runr://function_to_call(param1 = "value1", param2 = "value2")
+```
+
+### Caching
+
+As this class does not directly specify a path, but rather focus on the object itself, the classical `r Biocpkg("BiocFileCache")`-based caching will not work automatically.
+
+Nonetheless, since a typical use case would be to host a collection of datasets provided in a data package, chances are that these packages implement some form of `r Biocpkg("BiocFileCache")`-enabled caching.
+
+
 # Reproducibility
 
 The `r Biocpkg("iSEEindex")` package `r Citep(bib[["iSEEindex"]])` was made possible thanks to:
