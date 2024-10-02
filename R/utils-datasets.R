@@ -7,7 +7,8 @@
 #'
 #' @param bfc A [BiocFileCache()] object.
 #' @param id A data set identifier as a character scalar.
-#' @param metadata Named list of metadata. See individual resource classes for required and optional metadata.
+#' @param metadata Named list of metadata. See individual resource classes for
+#' required and optional metadata.
 #'
 #' @return
 #' For `.load_sce()`, a [SingleCellExperiment()] object.
@@ -40,8 +41,10 @@
                       id,
                       metadata) {
     resource_obj <- .metadata_to_object(metadata)
-    if (is(resource_obj, "iSEEindexHttpsResource") | is(resource_obj, "iSEEindexLocalhostResource") |
-        is(resource_obj, "iSEEindexRcallResource") | is(resource_obj, "iSEEindexS3Resource")) {
+    if (is(resource_obj, "iSEEindexHttpsResource") |
+        is(resource_obj, "iSEEindexLocalhostResource") |
+        is(resource_obj, "iSEEindexRcallResource") |
+        is(resource_obj, "iSEEindexS3Resource")) {
         already_se_object <- FALSE
     } else if (is(resource_obj, "iSEEindexRunrResource")) {
         already_se_object <- TRUE
@@ -74,50 +77,6 @@
 
 
 
-
-### #' @examples
-### #'
-### #' library(BiocFileCache)
-### #' bfc <- BiocFileCache(tempdir())
-### #' id <- "demo_load_sce_tonsil"
-### #' metadata <- list(uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType =  'epithelial')")
-### #'
-### #' ## Usage ---
-### #'
-### #' iSEEindex:::.load_sce_runr(bfc, id, metadata)
-# .load_sce_runr <- function(bfc, id, metadata) {
-#   bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
-#   # nocov start
-#   # if (nrow(bfc_result) == 0) {
-#   #   uri_object <- .metadata_to_object(metadata)
-#   #   object_path <- precache(uri_object, bfc, id)
-#   # } else {
-#   #   object_path <- bfc[[bfc_result$rid]]
-#   # }
-#
-#   uri_object <- .metadata_to_object(metadata)
-#
-#   object_call <- precache(uri_object, bfc, id)
-#   # if (nrow(bfc_result) == 0) {
-#   #   uri_object <- .metadata_to_object(metadata)
-#   #   object_path <- precache(uri_object, bfc, id)
-#   # } else {
-#   #   object_path <- bfc[[bfc_result$rid]]
-#   # }
-#
-#
-#   # nocov end
-#   # object <- readRDS(object_path)
-#
-#   object <- object_call
-#
-#   object <- .convert_to_sce(object)
-#   object
-# }
-
-
-
-
 #' @param x An object Coercible to SingleCellExperiment
 #'
 #' @return
@@ -138,6 +97,7 @@
     }
     x
 }
+
 
 #' Convert Metadata to Class
 #'
@@ -183,12 +143,12 @@
 }
 
 
-
 #' Check Validity of Data Sets Metadata
 #'
 #' @param x `list` of of lists of metadata.
 #'
-#' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an error.
+#' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an
+#' error.
 #'
 #' @author Kevin Rue-Albrecht
 #'

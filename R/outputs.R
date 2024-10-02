@@ -1,14 +1,15 @@
 #' Render Table of Available Data Sets
 #'
 #' @param output The Shiny output object from the server function.
-#' @param pObjects An environment containing global parameters generated in the landing page.
+#' @param pObjects An environment containing global parameters generated in the
+#' landing page.
 #' @param rObjects A reactive list of values generated in the landing page.
 #'
 #' @return Adds a rendered [DT::datatable()] to `output`.
 #' A \code{NULL} value is invisibly returned.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
-#' 
+#'
 #' @importFrom DT datatable renderDT
 #'
 #' @rdname INTERNAL_render_datasets_table
@@ -32,17 +33,20 @@
 }
 
 #' Render Overview of Selected Data Set
-#' 
+#'
 #' @description
-#' 
-#' `.render_markdown_overview()` renders an overview of the selected data set using Markdown.
-#' 
-#' `.render_initial_overview()` renders an overview of the selected initial configuration using Markdown.
+#'
+#' `.render_markdown_overview()` renders an overview of the selected data set
+#' using Markdown.
+#'
+#' `.render_initial_overview()` renders an overview of the selected initial
+#' configuration using Markdown.
 #'
 #' @param output The Shiny output object from the server function.
-#' @param pObjects An environment containing global parameters generated in the landing page.
+#' @param pObjects An environment containing global parameters generated in the
+#' landing page.
 #' @param rObjects A reactive list of values generated in the landing page.
-#' 
+#'
 #' @details
 #' Currently, those functions expect a column named `uri` in the metadata table
 #' of available data sets, which it uses as the identifier for each data set.
@@ -50,9 +54,9 @@
 #' @return
 #' `.render_markdown_overview()` and `.render_initial_overview()` both
 #' add a rendered [shiny::markdown()] to `output`.
-#' 
+#'
 #' In both cases, a \code{NULL} value is invisibly returned.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny markdown renderUI
@@ -97,7 +101,7 @@
             initial_id <- pObjects[[.ui_initial]]
             dataset_id <- pObjects[[.dataset_selected_id]]
             which_initial <- which(
-              pObjects$initial_table[[.initial_config_id]] == initial_id & 
+              pObjects$initial_table[[.initial_config_id]] == initial_id &
               pObjects$initial_table[[.initial_datasets_id]] == dataset_id
             )
             initial_info <- pObjects$initial_table[which_initial, .initial_description, drop=TRUE]

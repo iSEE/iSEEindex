@@ -2,7 +2,8 @@
 
 #' The iSEEindexResource class
 #'
-#' The iSEEindexResource class is a virtual class from which classes of supported resource must be derived.
+#' The iSEEindexResource class is a virtual class from which classes of
+#' supported resource must be derived.
 #'
 #' @section Slot overview:
 #' \itemize{
@@ -10,11 +11,14 @@
 #' }
 #'
 #' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a [`iSEEindexResource-class`] class.
-#' Refer to the documentation for each method for more details on the remaining arguments.
+#' In the following code snippets, \code{x} is an instance of a
+#' [`iSEEindexResource-class`] class.
+#' Refer to the documentation for each method for more details on the remaining
+#' arguments.
 #'
 #' \itemize{
-#' \item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging users to develop a method for derived classes that are not supported yet.
+#' \item \code{\link{precache}(x, bfc, id, ...)} throws an error, encouraging
+#' users to develop a method for derived classes that are not supported yet.
 #' }
 #'
 #' @author Kevin Rue-Albrecht
@@ -58,7 +62,8 @@ setMethod("show", "iSEEindexResource",
 #' @param ... additional arguments passed to and from other methods.
 #'
 #' @section Preparing and caching resources:
-#' `precache(x, bfc, id, ...)` retrieves and caches a resource from an URI, caches it, and returns the path to the cached file.
+#' `precache(x, bfc, id, ...)` retrieves and caches a resource from an URI,
+#' caches it, and returns the path to the cached file.
 #'
 #' @author Kevin Rue-Albrecht
 #'
@@ -79,7 +84,8 @@ NULL
 #' @export
 #' @rdname iSEEindexResource-generics
 #'
-#' @return `precache()` returns the file path to the cached copy of a resource fetched from a given URI.
+#' @return `precache()` returns the file path to the cached copy of a resource
+#' fetched from a given URI.
 setGeneric("precache", function(x, bfc, id, ...) {
     stopifnot(is(x, "iSEEindexResource"), length(x) == 1L)
     standardGeneric("precache")
@@ -119,14 +125,19 @@ setMethod("precache", "iSEEindexResource",
 #' }
 #'
 #' @section Slot overview:
-#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+#' This class inherits all slots from its parent class
+#' \linkS4class{iSEEindexResource}.
 #'
 #' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexHttpsResource} class.
-#' Refer to the documentation for each method for more details on the remaining arguments.
+#' In the following code snippets, \code{x} is an instance of a
+#' \linkS4class{iSEEindexHttpsResource} class.
+#' Refer to the documentation for each method for more details on the remaining
+#' arguments.
 #'
 #' \itemize{
-#' \item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at the given URI using \pkg{BiocFileCache} and returns the file path to the cached file.
+#' \item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at
+#' the given URI using \pkg{BiocFileCache} and returns the file path to the
+#' cached file.
 #' }
 #'
 #' @author Kevin Rue-Albrecht
@@ -148,7 +159,8 @@ setClass("iSEEindexHttpsResource", contains="iSEEindexResource")
 #'
 #' @param x List of metadata. See Details.
 #'
-#' @return The constructor function `iSEEindexHttpsResource()` returns an object of object of class `iSEEindexHttpsResource`.
+#' @return The constructor function `iSEEindexHttpsResource()` returns an object
+#' of class `iSEEindexHttpsResource`.
 iSEEindexHttpsResource <- function(x) {
     new("iSEEindexHttpsResource", uri = x[[.datasets_uri]])
 }
@@ -183,11 +195,15 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
 #'
 #' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexLocalhostResource} class.
-#' Refer to the documentation for each method for more details on the remaining arguments.
+#' In the following code snippets, \code{x} is an instance of a
+#' \linkS4class{iSEEindexLocalhostResource} class.
+#' Refer to the documentation for each method for more details on the remaining
+#' arguments.
 #'
 #' \itemize{
-#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
+#' \item \code{\link{precache}(x, ...)} trims the `localhost://` prefix, and
+#' caches a copy of the resource located at the resulting file path using
+#' \pkg{BiocFileCache}, before returning the file path to the cached file.
 #' }
 #'
 #' @section Absolute and relative paths:
@@ -195,7 +211,8 @@ setMethod("precache", "iSEEindexHttpsResource",
 #' Absolute and relative paths are both supported.
 #'
 #' Absolute paths require an additional `/` (forward slash)
-#' following the double forward slash `//` separating the scheme component of the URI.
+#' following the double forward slash `//` separating the scheme component of
+#' the URI.
 #'
 #' For instance:
 #'
@@ -225,7 +242,8 @@ setClass("iSEEindexLocalhostResource", contains="iSEEindexResource")
 #'
 #' @param x List of metadata. See Details.
 #'
-#' @return The constructor function `iSEEindexLocalhostResource()` returns an object of object of class `iSEEindexLocalhostResource`.
+#' @return The constructor function `iSEEindexLocalhostResource()` returns an
+#' object of object of class `iSEEindexLocalhostResource`.
 iSEEindexLocalhostResource <- function(x) {
     new("iSEEindexLocalhostResource", uri = x[[.datasets_uri]])
 }
@@ -255,7 +273,8 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' Required metadata:
 #'
 #' \describe{
-#' \item{uri}{Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.}
+#' \item{uri}{Character scalar. R call which, once evaluated, produces a
+#' character scalar that is the URI of the resource.}
 #' }
 #'
 #' @section URI format:
@@ -269,11 +288,14 @@ setMethod("precache", "iSEEindexLocalhostResource",
 #' ```
 #'
 #' @section Slot overview:
-#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+#' This class inherits all slots from its parent class
+#' \linkS4class{iSEEindexResource}.
 #'
 #' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexRcallResource} class.
-#' Refer to the documentation for each method for more details on the remaining arguments.
+#' In the following code snippets, \code{x} is an instance of a
+#' \linkS4class{iSEEindexRcallResource} class.
+#' Refer to the documentation for each method for more details on the remaining
+#' arguments.
 #'
 #' \itemize{
 #' \item \code{\link{precache}(x, ...)} trims the `rcall://` prefix,
@@ -303,7 +325,8 @@ setClass("iSEEindexRcallResource", contains="iSEEindexResource")
 #'
 #' @param x List of metadata. See Details.
 #'
-#' @return The constructor function `iSEEindexRcallResource()` returns an object of object of class `iSEEindexRcallResource`.
+#' @return The constructor function `iSEEindexRcallResource()` returns an object
+#' of object of class `iSEEindexRcallResource`.
 iSEEindexRcallResource <- function(x) {
     new("iSEEindexRcallResource", uri = x[[.datasets_uri]])
 }
@@ -325,7 +348,6 @@ setMethod("precache", "iSEEindexRcallResource",
 })
 
 
-
 # iSEEindexRunrResource ----
 
 #' The iSEEindexRunrResource class
@@ -343,11 +365,15 @@ setMethod("precache", "iSEEindexRcallResource",
 #' }
 #'
 #' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexRunrResource} class.
-#' Refer to the documentation for each method for more details on the remaining arguments.
+#' In the following code snippets, \code{x} is an instance of a
+#' \linkS4class{iSEEindexRunrResource} class.
+#' Refer to the documentation for each method for more details on the remaining
+#' arguments.
 #'
 #' \itemize{
-#' \item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at the given URI using \pkg{BiocFileCache} and returns the file path to the cached file.
+#' \item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at
+#' the given URI using \pkg{BiocFileCache} and returns the file path to the
+#' cached file.
 #' }
 #'
 #' @name iSEEindexRunrResource-class
@@ -369,7 +395,8 @@ setClass("iSEEindexRunrResource", contains="iSEEindexResource")
 #'
 #' @param x List of metadata. See Details.
 #'
-#' @return The constructor function `iSEEindexRunrResource()` returns an object of object of class `iSEEindexRunrResource`.
+#' @return The constructor function `iSEEindexRunrResource()` returns an object
+#' of object of class `iSEEindexRunrResource`.
 iSEEindexRunrResource <- function(x) {
   new("iSEEindexRunrResource", uri = x[[.datasets_uri]])
 }
@@ -394,15 +421,6 @@ setMethod("precache", "iSEEindexRunrResource",
 
 
 
-
-
-
-
-
-
-
-
-
 # iSEEindexS3Resource ----
 
 #' The iSEEindexS3Resource class
@@ -421,7 +439,8 @@ setMethod("precache", "iSEEindexRunrResource",
 #' }
 #'
 #' @section Slot overview:
-#' This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+#' This class inherits all slots from its parent class
+#' \linkS4class{iSEEindexResource}.
 #'
 #' Furthermore, this class defines the additional slot(s) below:
 #' \describe{
@@ -429,12 +448,14 @@ setMethod("precache", "iSEEindexRunrResource",
 #' }
 #'
 #' @section Supported methods:
-#' In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexS3Resource} class.
-#' Refer to the documentation for each method for more details on the remaining arguments.
+#' In the following code snippets, \code{x} is an instance of a
+#' \linkS4class{iSEEindexS3Resource} class.
+#' Refer to the documentation for each method for more details on the remaining
+#' arguments.
 #'
 #' \itemize{
-#' \item \code{\link{precache}(x, ..., temp_dir = tempdir())} trims the `s3://` prefix,
-#' parses information encoded in the remainder of the URI,
+#' \item \code{\link{precache}(x, ..., temp_dir = tempdir())} trims the `s3://`
+#' prefix, parses information encoded in the remainder of the URI,
 #' downloads the resource from AWS S3 using that information,
 #' and caches a copy of the resource located at the resulting file path using
 #' \pkg{BiocFileCache}, before returning the file path to the cached file.
@@ -465,7 +486,8 @@ setMethod("precache", "iSEEindexRunrResource",
 #' For detailed information, please consult the
 #' [paws R package documentation](https://github.com/paws-r/paws/blob/main/docs/credentials.md).
 #'
-#' Currently, you must have the [AWS Command Line Interface](https://aws.amazon.com/cli/) installed to use AWS SSO with \pkg{paws.storage}.
+#' Currently, you must have the [AWS Command Line Interface](https://aws.amazon.com/cli/)
+#' installed to use AWS SSO with \pkg{paws.storage}.
 #'
 #' A default AWS region can be set in the file `~/.aws/config`.
 #' For instance:
@@ -475,7 +497,8 @@ setMethod("precache", "iSEEindexRunrResource",
 #' region=eu-west-2
 #' ```
 #'
-#' Optionally, a field named `region` can be added in the list of resource metadata to set the AWS S3 region for each individual resource, e.g.
+#' Optionally, a field named `region` can be added in the list of resource
+#' metadata to set the AWS S3 region for each individual resource, e.g.
 #'
 #' ```
 #' - id: ID1
@@ -486,12 +509,16 @@ setMethod("precache", "iSEEindexRunrResource",
 #'   region: eu-west-2
 #' ```
 #'
-#' Regions set in individual resource metadata override the default AWS region set in `~/.aws/config` (if any).
-#' The region metadata does not need to be set for resources that should use the default region, and resource classes that do not require region information.
+#' Regions set in individual resource metadata override the default AWS region
+#' set in `~/.aws/config` (if any).
+#' The region metadata does not need to be set for resources that should use the
+#' default region, and resource classes that do not require region information.
 #'
-#' If a default region is NOT set in `~/.aws/config`, then the region MUST be set in the metadata.
+#' If a default region is NOT set in `~/.aws/config`, then the region MUST be
+#' set in the metadata.
 #'
-#' Credentials for all services can be set in the AWS shared credentials file `~/.aws/credentials`.
+#' Credentials for all services can be set in the AWS shared credentials file
+#' `~/.aws/credentials`.
 #' For instance:
 #'
 #' ```
@@ -529,7 +556,8 @@ setClass("iSEEindexS3Resource", contains="iSEEindexResource", slots = c("region"
 #'
 #' @param x List of metadata. See Details.
 #'
-#' @return The constructor function `iSEEindexS3Resource()` returns an object of object of class `iSEEindexS3Resource`.
+#' @return The constructor function `iSEEindexS3Resource()` returns an object of
+#' object of class `iSEEindexS3Resource`.
 iSEEindexS3Resource <- function(x) {
     region <- x[[.dataset_region]]
     if (is.null(region) || identical(nchar(region), 0L)) {
