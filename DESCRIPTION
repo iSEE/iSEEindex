@@ -48,6 +48,7 @@ Suggests:
     knitr,
     RefManageR,
     rmarkdown,
+    markdown,
     scRNAseq,
     sessioninfo,
     testthat (>= 3.0.0),
