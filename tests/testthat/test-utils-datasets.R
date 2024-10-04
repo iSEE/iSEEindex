@@ -16,7 +16,7 @@ test_that(".load_sce works", {
 
 
     # loading directly via runr
-    id_allen <- "demo_load_sce_tonsil"
+    id_allen <- "demo_load_sce_allen"
     metadata_allen <- list(
       uri="runr://scRNAseq::ReprocessedAllenData()"
     )
