@@ -12,7 +12,8 @@ iSEEindexLocalhostResource(x)
 \item{x}{List of metadata. See Details.}
 }
 \value{
-The constructor function \code{iSEEindexLocalhostResource()} returns an object of object of class \code{iSEEindexLocalhostResource}.
+The constructor function \code{iSEEindexLocalhostResource()} returns an
+object of object of class \code{iSEEindexLocalhostResource}.
 }
 \description{
 The iSEEindexLocalhostResource class represents a resource accessible through
@@ -33,11 +34,15 @@ This class inherits all slots from its parent class \linkS4class{iSEEindexResour
 
 \section{Supported methods}{
 
-In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexLocalhostResource} class.
-Refer to the documentation for each method for more details on the remaining arguments.
+In the following code snippets, \code{x} is an instance of a
+\linkS4class{iSEEindexLocalhostResource} class.
+Refer to the documentation for each method for more details on the remaining
+arguments.
 
 \itemize{
-\item \code{\link{precache}(x, ...)} trims the \verb{localhost://} prefix, and caches a copy of the resource located at the resulting file path using \pkg{BiocFileCache}, before returning the file path to the cached file.
+\item \code{\link{precache}(x, ...)} trims the \verb{localhost://} prefix, and
+caches a copy of the resource located at the resulting file path using
+\pkg{BiocFileCache}, before returning the file path to the cached file.
 }
 }
 
@@ -47,7 +52,8 @@ Refer to the documentation for each method for more details on the remaining arg
 Absolute and relative paths are both supported.
 
 Absolute paths require an additional \code{/} (forward slash)
-following the double forward slash \verb{//} separating the scheme component of the URI.
+following the double forward slash \verb{//} separating the scheme component of
+the URI.
 
 For instance:
 

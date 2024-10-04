@@ -1,10 +1,13 @@
 #' Landing page function
 #'
 #' @param bfc A [BiocFileCache()] object.
-#' @param FUN.datasets A function that returns a `data.frame` of metadata for available data sets.
-#' @param FUN.initial A function that returns a `data.frame` of metadata for initial configuration states.
+#' @param FUN.datasets A function that returns a `data.frame` of metadata for
+#' available data sets.
+#' @param FUN.initial A function that returns a `data.frame` of metadata for
+#' initial configuration states.
 #' @param default.add Logical scalar indicating whether a default
-#' initial configuration should be added as a choice in the Shiny `selectizeInput()`.
+#' initial configuration should be added as a choice in the Shiny
+#' `selectizeInput()`.
 #' See [iSEEindex()].
 #' @param default.position Character scalar indicating whether the default
 #' initial configuration should be added as the `"first"` or `"last"` option
@@ -24,7 +27,13 @@
 #' @importFrom shinyjs disable
 #'
 #' @rdname INTERNAL_landing_page
-.landing_page <- function(bfc, FUN.datasets, FUN.initial, default.add = TRUE, default.position = c("first", "last"), body.header = NULL, body.footer = NULL) {
+.landing_page <- function(bfc,
+                          FUN.datasets,
+                          FUN.initial,
+                          default.add = TRUE,
+                          default.position = c("first", "last"),
+                          body.header = NULL,
+                          body.footer = NULL) {
     default.position <- match.arg(default.position)
     # datasets
     datasets_available_list <- FUN.datasets()
@@ -33,7 +42,8 @@
     # initial configurations
     initial_available_list <- FUN.initial()
     .check_initial_list(initial_available_list)
-    initial_available_table <- .initial_to_dataframe(initial_available_list, datasets_available_table[[.datasets_id]])
+    initial_available_table <- .initial_to_dataframe(initial_available_list,
+                                                     datasets_available_table[[.datasets_id]])
     # landing page function (return value)
     function (FUN, input, output, session) {
         # nocov start
@@ -45,7 +55,8 @@
                         shinydashboard::box(title = "Available Data Sets",
                             collapsible = FALSE, width = NULL,
                             selectizeInput(.ui_dataset_columns, label = "Show columns:",
-                                choices = setdiff(colnames(datasets_available_table), c(.datasets_id, .datasets_uri, .datasets_description)),
+                                choices = setdiff(colnames(datasets_available_table),
+                                                  c(.datasets_id, .datasets_uri, .datasets_description)),
                                 selected = c(.datasets_title),
                                 multiple = TRUE,
                                 options = list(plugins=list('remove_button', 'drag_drop'))),
@@ -108,12 +119,15 @@
     }
 }
 
+
 #' Create persistent objects
 #'
 #' @param datasets_table A `data.frame` of metadata for all available data sets.
-#' @param initial_table A `data.frame` of metadata for all available initial configuration scripts.
+#' @param initial_table A `data.frame` of metadata for all available initial
+#' configuration scripts.
 #'
-#' @return An environment containing several global variables for use throughout the application.
+#' @return An environment containing several global variables for use throughout
+#' the application.
 #'
 #' @author Kevin Rue-Albrecht
 #'

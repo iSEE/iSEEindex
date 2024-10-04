@@ -6,15 +6,19 @@
 #' states prepared by the app maintainer.
 #'
 #' @section Data Sets:
-#' The function passed to the argument `FUN.datasets` must return a `list` that contains metadata about the available data sets.
+#' The function passed to the argument `FUN.datasets` must return a `list` that
+#' contains metadata about the available data sets.
 #'
 #' For each data set, required metadata are:
 #'
 #' \describe{
 #' \item{id}{A unique identifier for the data set.}
-#' \item{title}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
-#' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
-#' \item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
+#' \item{title}{A short human-readable title for the data set, displayed in the
+#' 'Info' panel when the data set is selected.}
+#' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of
+#' the data file that contains the data set.}
+#' \item{description}{A more detailed description of the data set, displayed in
+#' the 'Info' panel when the data set is selected.}
 #' }
 #'
 #' Example:
@@ -22,40 +26,54 @@
 #' ```
 #' list(
 #'   list(
-#'      id = "dataset01",
-#'      title = "Dataset 01",
-#'      uri = "https://example.com/1.rds",
-#'      description = "My first data set."
+#'     id = "dataset01",
+#'     title = "Dataset 01",
+#'     uri = "https://example.com/1.rds",
+#'     description = "My first data set."
 #'   ),
 #'   list(
-#'      id = "dataset02",
-#'      title = "Dataset 02",
-#'      uri = "https://example.com/1.rds",
-#'      description = "My second data set."
+#'     id = "dataset02",
+#'     title = "Dataset 02",
+#'     uri = "https://example.com/1.rds",
+#'     description = "My second data set."
 #'   )
 #' )
 #' ```
 #'
-#' The individual sub-lists may also contain optional named metadata specific to individual [`iSEEindexResource-class`] classes (refer to the help page of those classes for details).
+#' The individual sub-lists may also contain optional named metadata specific to
+#' individual [`iSEEindexResource-class`] classes (refer to the help page of
+#' those classes for details).
 #'
-#' **Important**: The `id` value is used to identify the data set file in the \pkg{BiocFileCache}.
-#' Thus, we recommend using a dedicated `BiocFileCache()` for the app, using the `BiocFileCache(cache)` argument to specify an on-disk location (directory path) for the dedicated cache.
+#' **Important**: The `id` value is used to identify the data set file in the
+#' \pkg{BiocFileCache}.
+#' Thus, we recommend using a dedicated `BiocFileCache()` for the app, using the
+#' `BiocFileCache(cache)` argument to specify an on-disk location (directory
+#' path) for the dedicated cache.
 #'
 #' @section Initial Configurations:
-#' The function passed to the argument `FUN.initial` must return a `list` that contains metadata about the available initial configurations, or `NULL` in the absence of any custom initial configuration (default settings will be applied to all data sets.).
+#' The function passed to the argument `FUN.initial` must return a `list` that
+#' contains metadata about the available initial configurations, or `NULL` in
+#' the absence of any custom initial configuration (default settings will be
+#' applied to all data sets.).
 #'
 #' For each initial configuration, required metadata are:
 #'
 #' \describe{
 #' \item{id}{A unique identifier for the initial configuration.}
-#' \item{title}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
-#' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
-#' \item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
+#' \item{title}{A short human-readable title for the initial configuration,
+#' representing the initial configuration in the 'Initial settings' dropdown menu.}
+#' \item{uri}{A Uniform Resource Identifier (URI) that indicates the location of
+#' the R script that contains the initial configuration.}
+#' \item{description}{A more detailed description of the initial configuration,
+#' displayed in the 'Configure and launch' panel when the initial configuration
+#' is selected.}
 #' }
-#' 
+#'
 #' For each initial configuration, optional metadata are:
 #' \describe{
-#' \item{datasets}{A series of data set identifiers for which the configuration should be made available. If missing, the configuration will be available for all data sets.}
+#' \item{datasets}{A series of data set identifiers for which the configuration
+#' should be made available. If missing, the configuration will be available for
+#' all data sets.}
 #' }
 #'
 #' Example:
@@ -78,7 +96,9 @@
 #' )
 #' ```
 #'
-#' The individual sub-lists may also contain additional optional named metadata specific to individual [`iSEEindexResource-class`] classes (refer to the help page of those classes for details).
+#' The individual sub-lists may also contain additional optional named metadata
+#' specific to individual [`iSEEindexResource-class`] classes (refer to the help
+#' page of those classes for details).
 #'
 #' @param bfc An [BiocFileCache()] object.
 #' @param FUN.datasets A function that returns a `list` of metadata for
@@ -97,7 +117,8 @@
 #' @param body.header UI element to display \emph{above} the main landing page body.
 #' @param body.footer UI element to display \emph{below} the main landing page body.
 #'
-#' @return An [iSEE::iSEE()] app with a custom landing page using a [BiocFileCache()] to cache a selection of data sets.
+#' @return An [iSEE::iSEE()] app with a custom landing page using a
+#' [BiocFileCache()] to cache a selection of data sets.
 #'
 #' @author Kevin Rue-Albrecht
 #'
@@ -107,16 +128,8 @@
 #' @importFrom utils packageVersion
 #'
 #' @examples
-#' ##
-#' # BiocFileCache ----
-#' ##
-#' 
-#' library(BiocFileCache)
+#' library("BiocFileCache")
 #' bfc <- BiocFileCache(cache = tempdir())
-#'
-#' ##
-#' # iSEEindex ----
-#' ##
 #'
 #' dataset_fun <- function() {
 #'     x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
@@ -133,7 +146,90 @@
 #' if (interactive()) {
 #'     shiny::runApp(app, port = 1234)
 #' }
-iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE, default.position = c("first", "last"), app.title = NULL, body.header = NULL, body.footer = NULL) {
+#'
+#' ## Alternatively, with the example based on using runr calls
+#'
+#' dataset_fun_tonsils <- function() {
+#'     x <- yaml::read_yaml(
+#'         system.file("tonsils_example", "tonsil_package.yml", package = "iSEEindex")
+#'     )
+#'     x$datasets
+#' }
+#' initial_fun_tonsils <- function() {
+#'     x <- yaml::read_yaml(
+#'         system.file("tonsils_example", "tonsil_package.yml", package = "iSEEindex")
+#'     )
+#'     x$initial
+#' }
+#'
+#' library("shiny")
+#' header_tonsils <- fluidRow(
+#'   shinydashboard::box(
+#'     width = 12, collapsible = TRUE, collapsed = TRUE,
+#'     title = "How to explore the Tonsil Atlas datasets",
+#'     includeMarkdown(
+#'       system.file("tonsils_example", "header_tonsils.md", package = "iSEEindex")
+#'     )
+#'   )
+#' )
+#' footer_tonsils <- fluidRow(
+#'   shinydashboard::box(
+#'     width = 12,
+#'     includeMarkdown(
+#'       system.file("tonsils_example", "footer_tonsils.md", package = "iSEEindex")
+#'     )
+#'   )
+#' )
+#'
+#' app_tonsils <- iSEEindex(bfc,
+#'     dataset_fun_tonsils,
+#'     initial_fun_tonsils,
+#'     default.add = TRUE,
+#'     default.position = "last",
+#'     app.title = "iSEE ❤️ Tonsil Data Atlas",
+#'     body.header = header_tonsils,
+#'     body.footer = footer_tonsils)
+#'
+#' if (interactive()) {
+#'     shiny::runApp(app_tonsils, port = 5678)
+#' }
+#'
+#'
+#' ## This example shows that it is possible to mix different types of resources
+#' ## Some provide the path, some directly the object
+#'
+#' dataset_fun_mix <- function() {
+#'     x <- yaml::read_yaml(
+#'         system.file("mixed_resources.yml", package = "iSEEindex")
+#'     )
+#'     x$datasets
+#' }
+#' initial_fun_mix <- function() {
+#'     x <- yaml::read_yaml(
+#'         system.file("mixed_resources.yml", package = "iSEEindex")
+#'     )
+#'     x$initial
+#' }
+#'
+#' app_mixed <- iSEEindex(bfc,
+#'     dataset_fun_mix,
+#'     initial_fun_mix,
+#'     default.add = TRUE,
+#'     default.position = "last",
+#'     app.title = "iSEE ❤ multiple resource types")
+#'
+#' if (interactive()) {
+#'     shiny::runApp(app_mixed, port = 4242)
+#' }
+#'
+iSEEindex <- function(bfc,
+                      FUN.datasets,
+                      FUN.initial = NULL,
+                      default.add = TRUE,
+                      default.position = c("first", "last"),
+                      app.title = NULL,
+                      body.header = NULL,
+                      body.footer = NULL) {
     stopifnot(is(bfc, "BiocFileCache"))
     if (is.null(FUN.initial)) {
         FUN.initial <- function() NULL
@@ -146,11 +242,18 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
     }
 
     iSEE(
-        landingPage=.landing_page(bfc, FUN.datasets, FUN.initial, default.add, default.position, body.header, body.footer),
+        landingPage = .landing_page(
+            bfc,
+            FUN.datasets,
+            FUN.initial,
+            default.add,
+            default.position,
+            body.header,
+            body.footer
+        ),
         appTitle = app.title
-        )
+    )
 }
-
 
 
 #' Prepare and Launch the Main App.
@@ -170,7 +273,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
 #'
 #' @param FUN A function to initialize the \pkg{iSEE} observer
 #' architecture. Refer to [iSEE::createLandingPage()] for more details.
-#' @param bfc An [BiocFileCache()] object.
+#' @param bfc A [BiocFileCache()] object.
 #' @param session The Shiny session object from the server function.
 #' @param pObjects An environment containing global parameters generated in the
 #' landing page.
@@ -207,7 +310,7 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
             } else {
                 initial_id <- pObjects[[.ui_initial]]
                 which_initial <- which(
-                  pObjects$initial_table[[.initial_config_id]] == initial_id & 
+                  pObjects$initial_table[[.initial_config_id]] == initial_id &
                   pObjects$initial_table[[.initial_datasets_id]] == dataset_id
                   )
                 initial_metadata <- as.list(pObjects$initial_table[which_initial, , drop = FALSE])
@@ -244,3 +347,4 @@ iSEEindex <- function(bfc, FUN.datasets, FUN.initial = NULL, default.add = TRUE,
     invisible(NULL)
     # nocov end
 }
+

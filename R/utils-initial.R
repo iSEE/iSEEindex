@@ -18,10 +18,10 @@
 #' added to the choices for all data sets.
 #' That default option launches an initial state that includes one panel of
 #' each type compatible with the information present in the data set.
-#' 
+#'
 #' The default initial configuration is always added for data sets which are not
 #' associated with any custom initial configuration.
-#' 
+#'
 #' The option `default.add` controls whether the default initial configuration
 #' is added to the choices for data sets associated with at least one custom
 #' initial configuration.
@@ -32,13 +32,16 @@
 #' @author Kevin Rue-Albrecht
 #'
 #' @rdname INTERNAL_initial_choices
-.initial_choices <- function(id, available, default.add = TRUE, default.position = c("first", "last")) {
+.initial_choices <- function(id,
+                             available,
+                             default.add = TRUE,
+                             default.position = c("first", "last")) {
   default.position <- match.arg(default.position)
   which_initial <- available[[.initial_datasets_id]] == id
   config_subset_table <- available[which_initial, , drop=FALSE]
   initial_choices <- config_subset_table[[.initial_config_id]]
   names(initial_choices) <- config_subset_table[[.initial_title]]
-  
+
   if (default.add) {
     default_choice <- c("Default" = .initial_default_choice)
     if (identical(default.position, "first")) {
@@ -47,27 +50,29 @@
       initial_choices <- c(initial_choices, default_choice)
     }
   }
-  
+
   initial_choices
 }
 
 #' Parses an Initial Application State script
-#' 
+#'
 #' @description
 #' Parses the selected initial application state script.
 #' This can be a custom R script or the default initial state that creates
 #' one panel of each class compatible with the contents of the data set.
-#' 
+#'
 #' The same script may define two objects `initial` and `tour` (see 'Value').
 #'
 #' @param bfc A [BiocFileCache()] object.
 #' @param dataset_id Character scalar. Identifier of the data set selected.
 #' @param config_id Character scalar. Identifier of the configuration file to load.
-#' @param metadata Named list of metadata. See individual resource classes for required and optional metadata.
+#' @param metadata Named list of metadata. See individual resource classes for
+#' required and optional metadata.
 #'
 #' @return A `list` of two elements.
 #' \describe{
-#' \item{initial}{A list of [Panel-class] objects, representing an initial app state}
+#' \item{initial}{A list of [Panel-class] objects, representing an initial app
+#' state}
 #' \item{tour}{A `data.frame` representing an \pkg{rintrojs} interactive tour}
 #' }
 #'
@@ -113,7 +118,8 @@
 #'
 #' @param x `list` of lists of metadata.
 #'
-#' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an error.
+#' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an
+#' error.
 #'
 #' @author Kevin Rue-Albrecht
 #'

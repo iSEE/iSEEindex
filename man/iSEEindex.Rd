@@ -41,7 +41,8 @@ info on the versions of the \code{iSEEindex} and \code{iSEE} packages.}
 \item{body.footer}{UI element to display \emph{below} the main landing page body.}
 }
 \value{
-An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a \code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
+An \code{\link[iSEE:iSEE]{iSEE::iSEE()}} app with a custom landing page using a
+\code{\link[=BiocFileCache]{BiocFileCache()}} to cache a selection of data sets.
 }
 \description{
 Generate an \pkg{iSEE} app that includes a landing page enabling
@@ -50,57 +51,75 @@ states prepared by the app maintainer.
 }
 \section{Data Sets}{
 
-The function passed to the argument \code{FUN.datasets} must return a \code{list} that contains metadata about the available data sets.
+The function passed to the argument \code{FUN.datasets} must return a \code{list} that
+contains metadata about the available data sets.
 
 For each data set, required metadata are:
 
 \describe{
 \item{id}{A unique identifier for the data set.}
-\item{title}{A short human-readable title for the data set, displayed in the 'Info' panel when the data set is selected.}
-\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the data file that contains the data set.}
-\item{description}{A more detailed description of the data set, displayed in the 'Info' panel when the data set is selected.}
+\item{title}{A short human-readable title for the data set, displayed in the
+'Info' panel when the data set is selected.}
+\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of
+the data file that contains the data set.}
+\item{description}{A more detailed description of the data set, displayed in
+the 'Info' panel when the data set is selected.}
 }
 
 Example:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{list(
   list(
-     id = "dataset01",
-     title = "Dataset 01",
-     uri = "https://example.com/1.rds",
-     description = "My first data set."
+    id = "dataset01",
+    title = "Dataset 01",
+    uri = "https://example.com/1.rds",
+    description = "My first data set."
   ),
   list(
-     id = "dataset02",
-     title = "Dataset 02",
-     uri = "https://example.com/1.rds",
-     description = "My second data set."
+    id = "dataset02",
+    title = "Dataset 02",
+    uri = "https://example.com/1.rds",
+    description = "My second data set."
   )
 )
 }\if{html}{\out{</div>}}
 
-The individual sub-lists may also contain optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
+The individual sub-lists may also contain optional named metadata specific to
+individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of
+those classes for details).
 
-\strong{Important}: The \code{id} value is used to identify the data set file in the \pkg{BiocFileCache}.
-Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the \code{BiocFileCache(cache)} argument to specify an on-disk location (directory path) for the dedicated cache.
+\strong{Important}: The \code{id} value is used to identify the data set file in the
+\pkg{BiocFileCache}.
+Thus, we recommend using a dedicated \code{BiocFileCache()} for the app, using the
+\code{BiocFileCache(cache)} argument to specify an on-disk location (directory
+path) for the dedicated cache.
 }
 
 \section{Initial Configurations}{
 
-The function passed to the argument \code{FUN.initial} must return a \code{list} that contains metadata about the available initial configurations, or \code{NULL} in the absence of any custom initial configuration (default settings will be applied to all data sets.).
+The function passed to the argument \code{FUN.initial} must return a \code{list} that
+contains metadata about the available initial configurations, or \code{NULL} in
+the absence of any custom initial configuration (default settings will be
+applied to all data sets.).
 
 For each initial configuration, required metadata are:
 
 \describe{
 \item{id}{A unique identifier for the initial configuration.}
-\item{title}{A short human-readable title for the initial configuration, representing the initial configuration in the 'Initial settings' dropdown menu.}
-\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of the R script that contains the initial configuration.}
-\item{description}{A more detailed description of the initial configuration, displayed in the 'Configure and launch' panel when the initial configuration is selected.}
+\item{title}{A short human-readable title for the initial configuration,
+representing the initial configuration in the 'Initial settings' dropdown menu.}
+\item{uri}{A Uniform Resource Identifier (URI) that indicates the location of
+the R script that contains the initial configuration.}
+\item{description}{A more detailed description of the initial configuration,
+displayed in the 'Configure and launch' panel when the initial configuration
+is selected.}
 }
 
 For each initial configuration, optional metadata are:
 \describe{
-\item{datasets}{A series of data set identifiers for which the configuration should be made available. If missing, the configuration will be available for all data sets.}
+\item{datasets}{A series of data set identifiers for which the configuration
+should be made available. If missing, the configuration will be available for
+all data sets.}
 }
 
 Example:
@@ -122,20 +141,14 @@ Example:
 )
 }\if{html}{\out{</div>}}
 
-The individual sub-lists may also contain additional optional named metadata specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help page of those classes for details).
+The individual sub-lists may also contain additional optional named metadata
+specific to individual \code{\linkS4class{iSEEindexResource}} classes (refer to the help
+page of those classes for details).
 }
 
 \examples{
-##
-# BiocFileCache ----
-##
-
-library(BiocFileCache)
+library("BiocFileCache")
 bfc <- BiocFileCache(cache = tempdir())
-
-##
-# iSEEindex ----
-##
 
 dataset_fun <- function() {
     x <- yaml::read_yaml(system.file(package = "iSEEindex", "example.yaml"))
@@ -152,6 +165,82 @@ app <- iSEEindex(bfc, dataset_fun, initial_fun)
 if (interactive()) {
     shiny::runApp(app, port = 1234)
 }
+
+## Alternatively, with the example based on using runr calls
+
+dataset_fun_tonsils <- function() {
+    x <- yaml::read_yaml(
+        system.file("tonsils_example", "tonsil_package.yml", package = "iSEEindex")
+    )
+    x$datasets
+}
+initial_fun_tonsils <- function() {
+    x <- yaml::read_yaml(
+        system.file("tonsils_example", "tonsil_package.yml", package = "iSEEindex")
+    )
+    x$initial
+}
+
+library("shiny")
+header_tonsils <- fluidRow(
+  shinydashboard::box(
+    width = 12, collapsible = TRUE, collapsed = TRUE,
+    title = "How to explore the Tonsil Atlas datasets",
+    includeMarkdown(
+      system.file("tonsils_example", "header_tonsils.md", package = "iSEEindex")
+    )
+  )
+)
+footer_tonsils <- fluidRow(
+  shinydashboard::box(
+    width = 12,
+    includeMarkdown(
+      system.file("tonsils_example", "footer_tonsils.md", package = "iSEEindex")
+    )
+  )
+)
+
+app_tonsils <- iSEEindex(bfc,
+    dataset_fun_tonsils,
+    initial_fun_tonsils,
+    default.add = TRUE,
+    default.position = "last",
+    app.title = "iSEE ❤️ Tonsil Data Atlas",
+    body.header = header_tonsils,
+    body.footer = footer_tonsils)
+
+if (interactive()) {
+    shiny::runApp(app_tonsils, port = 5678)
+}
+
+
+## This example shows that it is possible to mix different types of resources
+## Some provide the path, some directly the object
+
+dataset_fun_mix <- function() {
+    x <- yaml::read_yaml(
+        system.file("mixed_resources.yml", package = "iSEEindex")
+    )
+    x$datasets
+}
+initial_fun_mix <- function() {
+    x <- yaml::read_yaml(
+        system.file("mixed_resources.yml", package = "iSEEindex")
+    )
+    x$initial
+}
+
+app_mixed <- iSEEindex(bfc,
+    dataset_fun_mix,
+    initial_fun_mix,
+    default.add = TRUE,
+    default.position = "last",
+    app.title = "iSEE ❤ multiple resource types")
+
+if (interactive()) {
+    shiny::runApp(app_mixed, port = 4242)
+}
+
 }
 \author{
 Kevin Rue-Albrecht

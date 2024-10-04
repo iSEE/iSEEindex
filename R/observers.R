@@ -1,34 +1,43 @@
 #' Observers for iSEEindex
-#' 
-#' @description 
-#' 
+#'
+#' @description
+#'
 #' `.create_observers()` initialises observers for the \pkg{iSEEindex} landing page.
-#' 
-#' `.create_launch_observers()` initialises observers for launching the \pkg{iSEE} main app.
+#'
+#' `.create_launch_observers()` initialises observers for launching the
+#' \pkg{iSEE} main app.
 #'
 #' @param input The Shiny input object from the server function.
 #' @param session The Shiny session object from the server function.
-#' @param pObjects An environment containing global parameters generated in the landing page.
+#' @param pObjects An environment containing global parameters generated in the
+#' landing page.
 #' @param rObjects A reactive list of values generated in the landing page.
-#' @param FUN.initial A function that returns available scripts for initial configurations states for a given data set identifier.
+#' @param FUN.initial A function that returns available scripts for initial
+#' configurations states for a given data set identifier.
 #' @param default.add Logical scalar indicating whether a default
 #' initial configuration should be added as a choice in the Shiny `selectizeInput()`.
 #' See [iSEEindex()].
 #' @param default.position Character scalar indicating whether the default
 #' initial configuration should be added as the `"first"` or `"last"` option
 #' in the Shiny `selectizeInput()`.
-#' 
-#' @return 
+#'
+#' @return
 #' Those functions create observers in the server function in which they are called.
 #' In all cases, a \code{NULL} value is invisibly returned.
-#' 
+#'
 #' @author Kevin Rue-Albrecht
 #'
 #' @importFrom shiny isolate observeEvent updateSelectizeInput
 #' @importFrom rintrojs introjs
 #'
 #' @rdname INTERNAL_create_observers
-.create_observers <- function(input, session, pObjects, rObjects, FUN.initial, default.add, default.position) {
+.create_observers <- function(input,
+                              session,
+                              pObjects,
+                              rObjects,
+                              FUN.initial,
+                              default.add,
+                              default.position) {
 
     # nocov start
     observeEvent(input[[.dataset_selected_row]], {
@@ -66,6 +75,10 @@
 #' @param FUN A function to initialize the \pkg{iSEE} observer
 #' architecture. Refer to [iSEE::createLandingPage()] for more details.
 #' @param bfc A [BiocFileCache()] object.
+#' landing page.
+#' @param input The Shiny input object from the server function.
+#' @param session The Shiny session object from the server function.
+#' @param pObjects An environment containing global parameters generated in the
 #' landing page.
 #'
 #' @importFrom shiny observeEvent

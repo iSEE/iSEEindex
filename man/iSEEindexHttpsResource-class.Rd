@@ -12,7 +12,8 @@ iSEEindexHttpsResource(x)
 \item{x}{List of metadata. See Details.}
 }
 \value{
-The constructor function \code{iSEEindexHttpsResource()} returns an object of object of class \code{iSEEindexHttpsResource}.
+The constructor function \code{iSEEindexHttpsResource()} returns an object
+of class \code{iSEEindexHttpsResource}.
 }
 \description{
 The iSEEindexHttpsResource class represents a resource accessible through
@@ -28,16 +29,21 @@ Required metadata:
 }
 \section{Slot overview}{
 
-This class inherits all slots from its parent class \linkS4class{iSEEindexResource}.
+This class inherits all slots from its parent class
+\linkS4class{iSEEindexResource}.
 }
 
 \section{Supported methods}{
 
-In the following code snippets, \code{x} is an instance of a \linkS4class{iSEEindexHttpsResource} class.
-Refer to the documentation for each method for more details on the remaining arguments.
+In the following code snippets, \code{x} is an instance of a
+\linkS4class{iSEEindexHttpsResource} class.
+Refer to the documentation for each method for more details on the remaining
+arguments.
 
 \itemize{
-\item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at the given URI using \pkg{BiocFileCache} and returns the file path to the cached file.
+\item \code{\link{precache}(x, bfc, id, ...)} caches the resource located at
+the given URI using \pkg{BiocFileCache} and returns the file path to the
+cached file.
 }
 }
 

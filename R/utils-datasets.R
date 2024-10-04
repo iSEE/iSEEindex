@@ -7,7 +7,8 @@
 #'
 #' @param bfc A [BiocFileCache()] object.
 #' @param id A data set identifier as a character scalar.
-#' @param metadata Named list of metadata. See individual resource classes for required and optional metadata.
+#' @param metadata Named list of metadata. See individual resource classes for
+#' required and optional metadata.
 #'
 #' @return
 #' For `.load_sce()`, a [SingleCellExperiment()] object.
@@ -30,20 +31,51 @@
 #'
 #' iSEEindex:::.load_sce(bfc, id, metadata)
 #'
-.load_sce <- function(bfc, id, metadata) {
-    bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
-    # nocov start
-    if (nrow(bfc_result) == 0) {
-        uri_object <- .metadata_to_object(metadata)
-        object_path <- precache(uri_object, bfc, id)
+#' ## Alternatively, using the runr approach
+#' id_tonsil <- "demo_load_sce_tonsil"
+#' metadata_tonsil <- list(
+#'   uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType =  'epithelial')"
+#' )
+#' iSEEindex:::.load_sce(bfc, id_tonsil, metadata_tonsil)
+.load_sce <- function(bfc,
+                      id,
+                      metadata) {
+    resource_obj <- .metadata_to_object(metadata)
+    if (is(resource_obj, "iSEEindexHttpsResource") |
+        is(resource_obj, "iSEEindexLocalhostResource") |
+        is(resource_obj, "iSEEindexRcallResource") |
+        is(resource_obj, "iSEEindexS3Resource")) {
+        already_se_object <- FALSE
+    } else if (is(resource_obj, "iSEEindexRunrResource")) {
+        already_se_object <- TRUE
     } else {
-        object_path <- bfc[[bfc_result$rid]]
+        # without knowing too much about it...
+        already_se_object <- FALSE
     }
-    # nocov end
-    object <- readRDS(object_path)
-    object <- .convert_to_sce(object)
+
+    if (!already_se_object) {
+        bfc_result <- bfcquery(bfc, id, field = "rname", exact = TRUE)
+        # nocov start
+        if (nrow(bfc_result) == 0) {
+            uri_object <- .metadata_to_object(metadata)
+            object_path <- precache(uri_object, bfc, id)
+        } else {
+            object_path <- bfc[[bfc_result$rid]]
+        }
+        # nocov end
+        object <- readRDS(object_path)
+        object <- .convert_to_sce(object)
+    } else {
+        # if providing directly an SE object, e.g. via data packages...
+        uri_object <- .metadata_to_object(metadata)
+
+        object <- precache(uri_object, bfc, id)
+        object <- .convert_to_sce(object)
+    }
     object
 }
+
+
 
 #' @param x An object Coercible to SingleCellExperiment
 #'
@@ -65,6 +97,7 @@
     }
     x
 }
+
 
 #' Convert Metadata to Class
 #'
@@ -88,6 +121,11 @@
 #' ))
 #' iSEEindex:::.metadata_to_object(list(uri="s3://your-bucket/your-prefix/file.rds"))
 #' iSEEindex:::.metadata_to_object(list(uri="s3://your-bucket/your-prefix/file.rds"))
+#' iSEEindex:::.metadata_to_object(
+#'   list(
+#'     uri="runr://HCATonsilData::HCATonsilData(assayType = 'RNA', cellType = 'epithelial')"
+#'   )
+#' )
 .metadata_to_object <- function(x) {
     scheme <- urltools::url_parse(x[[.datasets_uri]])$scheme
     scheme_titled <- str_to_title(scheme)
@@ -104,11 +142,13 @@
     constructor.FUN(x)
 }
 
+
 #' Check Validity of Data Sets Metadata
 #'
 #' @param x `list` of of lists of metadata.
 #'
-#' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an error.
+#' @return Invisible `NULL` if the metadata table is valid. Otherwise, throw an
+#' error.
 #'
 #' @author Kevin Rue-Albrecht
 #'

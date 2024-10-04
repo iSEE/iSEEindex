@@ -17,7 +17,7 @@ coverage](https://codecov.io/gh/iSEE/iSEEindex/branch/main/graph/badge.svg)](htt
 <!-- badges: end -->
 
 The goal of
-*[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)* is to
+*[iSEEindex](https://bioconductor.org/packages/3.19/iSEEindex)* is to
 provide an interface to any collection of data sets, hosted anywhere,
 within a single iSEE web-application.
 
@@ -32,6 +32,7 @@ types of resources, e.g.:
 - Local filesystem
 - HTTPS URIs
 - Amazon S3 buckets
+- Arbitrary R code to load objects directly
 
 Each type of resource is identified by the scheme component of its URI.
 Standard schemes can be used alongside custom-made ones, e.g.:
@@ -39,8 +40,9 @@ Standard schemes can be used alongside custom-made ones, e.g.:
 - `localhost://` for local files.
 - `https://` for files downloaded over the HTTPS protocol.
 - `s3://` for files downloaded from Amazon S3 buckets.
+- `runr://` to load objects directly via a call to R code
 
-The *[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)*
+The *[iSEEindex](https://bioconductor.org/packages/3.19/iSEEindex)*
 framework enables app maintainers to independently define new methods
 for their own choice of standard and custom-made URI schemes. More
 information is available in the vignette *Implementing custom iSEEindex
@@ -51,7 +53,7 @@ with the predefined choice of data sets and initial configuration states
 (specific to each data set). After selecting a data set and – optionally
 – an initial configuration, launching the main app fetches resources
 from their respective URI and caches them using the
-*[BiocFileCache](https://bioconductor.org/packages/3.16/BiocFileCache)*
+*[BiocFileCache](https://bioconductor.org/packages/3.19/BiocFileCache)*
 package. Finally, data sets and configurations are loaded from the cache
 into the main `iSEE` application, for interactive exploration.
 
@@ -59,7 +61,7 @@ into the main `iSEE` application, for interactive exploration.
 
 Get the latest stable `R` release from
 [CRAN](http://cran.r-project.org/). Then install
-*[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)* from
+*[iSEEindex](https://bioconductor.org/packages/3.19/iSEEindex)* from
 [Bioconductor](http://bioconductor.org/) using the following code:
 
 ``` r
@@ -114,26 +116,25 @@ Please run this yourself to check for any updates on how to cite
 
 ``` r
 print(citation('iSEEindex'), bibtex = TRUE)
-#> 
 #> To cite package 'iSEEindex' in publications use:
 #> 
-#>   Rue-Albrecht K (2022). _iSEEindex: iSEE extension for a landing page
-#>   to a custom collection of data sets_. R package version 0.99.0,
-#>   <https://github.com/iSEE/iSEEindex>.
+#>   Rue-Albrecht K, Marini F (2024). _iSEEindex: iSEE extension for a
+#>   landing page to a custom collection of data sets_. R package version
+#>   1.3.1, <https://github.com/iSEE/iSEEindex>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {iSEEindex: iSEE extension for a landing page to a custom collection of data sets},
-#>     author = {Kevin Rue-Albrecht},
-#>     year = {2022},
-#>     note = {R package version 0.99.0},
+#>     author = {Kevin Rue-Albrecht and Federico Marini},
+#>     year = {2024},
+#>     note = {R package version 1.3.1},
 #>     url = {https://github.com/iSEE/iSEEindex},
 #>   }
 ```
 
 Please note that the
-*[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)* was only
+*[iSEEindex](https://bioconductor.org/packages/3.19/iSEEindex)* was only
 made possible thanks to many other R and bioinformatics software
 authors, which are cited either in the vignettes and/or the paper(s)
 describing this package.
@@ -141,7 +142,7 @@ describing this package.
 ## Code of Conduct
 
 Please note that the
-*[iSEEindex](https://bioconductor.org/packages/3.16/iSEEindex)* project
+*[iSEEindex](https://bioconductor.org/packages/3.19/iSEEindex)* project
 is released with a [Contributor Code of
 Conduct](http://bioconductor.org/about/code-of-conduct/). By
 contributing to this project, you agree to abide by its terms.
@@ -155,7 +156,7 @@ contributing to this project, you agree to abide by its terms.
   *[rcmdcheck](https://CRAN.R-project.org/package=rcmdcheck)* customized
   to use [Bioconductor’s docker
   containers](https://www.bioconductor.org/help/docker/) and
-  *[BiocCheck](https://bioconductor.org/packages/3.16/BiocCheck)*.
+  *[BiocCheck](https://bioconductor.org/packages/3.19/BiocCheck)*.
 - Code coverage assessment is possible thanks to
   [codecov](https://codecov.io/gh) and
   *[covr](https://CRAN.R-project.org/package=covr)*.
@@ -171,6 +172,6 @@ contributing to this project, you agree to abide by its terms.
 For more details, check the `dev` directory.
 
 This package was developed using
-*[biocthis](https://bioconductor.org/packages/3.16/biocthis)*.
+*[biocthis](https://bioconductor.org/packages/3.19/biocthis)*.
 
 <!-- Links -->
