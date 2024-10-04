@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">iSEEindex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@ Rue-Albrecht</h4>
 Oxford<br><a class="author_email" href="mailto:#"></a><a href="mailto:kevin.rue-albrecht@imm.ox.ac.uk" class="email">kevin.rue-albrecht@imm.ox.ac.uk</a>
       </address>
                   
-            <h4 data-toc-skip class="date">1 October 2024</h4>
+            <h4 data-toc-skip class="date">4 October 2024</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/iSEE/iSEEindex/blob/devel/vignettes/resources.Rmd" class="external-link"><code>vignettes/resources.Rmd</code></a></small>
       <div class="hidden name"><code>resources.Rmd</code></div>
@@ -261,6 +261,33 @@ parse the URI for information that is passed to the <em><a href="https://CRAN.R-
 package to download the file, which is then cached using <em><a href="https://bioconductor.org/packages/3.20/BiocFileCache" class="external-link">BiocFileCache</a></em>.</p>
 </div>
 </div>
+<div class="section level3">
+<h3 id="iseeindexrunrresource">iSEEindexRunrResource<a class="anchor" aria-label="anchor" href="#iseeindexrunrresource"></a>
+</h3>
+<div class="section level4">
+<h4 id="structure-4">Structure<a class="anchor" aria-label="anchor" href="#structure-4"></a>
+</h4>
+<p>This type of resource is documented in
+<code><a href="../reference/iSEEindexRunrResource-class.html">help("iSEEindexRunrResource-class")</a></code>.</p>
+<p>This class is used to represent directly objects that are generated
+via a call to arbitrary R code.</p>
+<p>The URI must use the custom scheme “runr”, followed by the code
+itself to be run to obtain the object to explore.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">runr://function_to_call</span><span class="er">(</span><span class="ex">param1</span> = <span class="st">"value1"</span>, param2 = <span class="st">"value2"</span><span class="kw">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="caching-4">Caching<a class="anchor" aria-label="anchor" href="#caching-4"></a>
+</h4>
+<p>As this class does not directly specify a path, but rather focus on
+the object itself, the classical <em><a href="https://bioconductor.org/packages/3.20/BiocFileCache" class="external-link">BiocFileCache</a></em>-based
+caching will not work automatically.</p>
+<p>Nonetheless, since a typical use case would be to host a collection
+of datasets provided in a data package, chances are that these packages
+implement some form of <em><a href="https://bioconductor.org/packages/3.20/BiocFileCache" class="external-link">BiocFileCache</a></em>-enabled
+caching.</p>
+</div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
@@ -291,7 +318,7 @@ Cheng, Chang, and Iannone, 2024)</li>
 </ul>
 <p>This package was developed using <em><a href="https://bioconductor.org/packages/3.20/biocthis" class="external-link">biocthis</a></em>.</p>
 <p>Code for creating the vignette</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Create the vignette</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/rstudio/rmarkdown" class="external-link">"rmarkdown"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"resources.Rmd"</span>, <span class="st">"BiocStyle::html_document"</span><span class="op">)</span><span class="op">)</span></span>
@@ -300,9 +327,9 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://yihui.org/knitr/" class="external-link">"knitr"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knit</a></span><span class="op">(</span><span class="st">"resources.Rmd"</span>, tangle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Date the vignette was generated.</p>
-<pre><code><span><span class="co">#&gt; [1] "2024-10-01 14:50:30 UTC"</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; [1] "2024-10-04 20:31:37 UTC"</span></span></code></pre>
 <p>Wallclock time spent generating the vignette.</p>
-<pre><code><span><span class="co">#&gt; Time difference of 0.593 secs</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; Time difference of 0.586 secs</span></span></code></pre>
 <p><code>R</code> session information.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -314,7 +341,7 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-10-01</span></span>
+<span><span class="co">#&gt;  date     2024-10-04</span></span>
 <span><span class="co">#&gt;  pandoc   3.4 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────</span></span></span>
@@ -359,7 +386,7 @@ Cheng, Chang, and Iannone, 2024)</li>
 <span><span class="co">#&gt;  systemfonts   1.1.0   <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  textshaping   0.4.0   <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  timechange    0.3.0   <span style="color: #555555;">2024-01-18</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
-<span><span class="co">#&gt;  xfun          0.47    <span style="color: #555555;">2024-08-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
+<span><span class="co">#&gt;  xfun          0.48    <span style="color: #555555;">2024-10-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  xml2          1.3.6   <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt;  yaml          2.3.10  <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.4.0)</span></span></span>
 <span><span class="co">#&gt; </span></span>
@@ -410,7 +437,7 @@ Computing</em>. R Foundation for Statistical Computing. Vienna, Austria,
 <a id="bib-ruealbrecht2024iseeindex"></a><a href="#cite-ruealbrecht2024iseeindex">[5]</a><cite>
 K. Rue-Albrecht and F. Marini. <em>iSEEindex: iSEE extension for a
 landing page to a custom collection of data sets</em>. R package version
-1.3.1. 2024. URL:
+1.3.2. 2024. URL:
 <a href="https://github.com/iSEE/iSEEindex" class="external-link">https://github.com/iSEE/iSEEindex</a>.</cite>
 </p>
 <p>

@@ -19,7 +19,7 @@ A URI for this type of resource uses the prefix &amp;#8220;localhost://&amp;#822
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">iSEEindex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
       </span>
     </div>
 
@@ -86,7 +86,8 @@ A URI for this type of resource uses the prefix “localhost://”.</p>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The constructor function <code>iSEEindexLocalhostResource()</code> returns an object of object of class <code>iSEEindexLocalhostResource</code>.</p>
+    <p>The constructor function <code>iSEEindexLocalhostResource()</code> returns an
+object of object of class <code>iSEEindexLocalhostResource</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -106,9 +107,13 @@ A URI for this type of resource uses the prefix “localhost://”.</p>
     <h2>Supported methods</h2>
 
 
-<p>In the following code snippets, <code>x</code> is an instance of a iSEEindexLocalhostResource class.
-Refer to the documentation for each method for more details on the remaining arguments.</p>
-<ul><li><p><code><a href="iSEEindexResource-generics.html">precache</a>(x, ...)</code> trims the <code>localhost://</code> prefix, and caches a copy of the resource located at the resulting file path using <span class="pkg">BiocFileCache</span>, before returning the file path to the cached file.</p></li>
+<p>In the following code snippets, <code>x</code> is an instance of a
+iSEEindexLocalhostResource class.
+Refer to the documentation for each method for more details on the remaining
+arguments.</p>
+<ul><li><p><code><a href="iSEEindexResource-generics.html">precache</a>(x, ...)</code> trims the <code>localhost://</code> prefix, and
+caches a copy of the resource located at the resulting file path using
+<span class="pkg">BiocFileCache</span>, before returning the file path to the cached file.</p></li>
 </ul></div>
     <div id="absolute-and-relative-paths">
     <h2>Absolute and relative paths</h2>
@@ -117,7 +122,8 @@ Refer to the documentation for each method for more details on the remaining arg
 
 <p>Absolute and relative paths are both supported.</p>
 <p>Absolute paths require an additional <code>/</code> (forward slash)
-following the double forward slash <code>//</code> separating the scheme component of the URI.</p>
+following the double forward slash <code>//</code> separating the scheme component of
+the URI.</p>
 <p>For instance:</p>
 <ul><li><p><code>localhost://path/to/file</code> refers to the relative path <code>path/to/file</code>
 (relative to the working directory when the Shiny application is launched).</p></li>

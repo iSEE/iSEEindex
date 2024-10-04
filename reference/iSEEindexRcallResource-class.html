@@ -19,7 +19,7 @@ A URI for this type of resource uses the prefix &amp;#8220;rcall://&amp;#8221;."
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">iSEEindex</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
       </span>
     </div>
 
@@ -86,13 +86,15 @@ A URI for this type of resource uses the prefix “rcall://”.</p>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The constructor function <code>iSEEindexRcallResource()</code> returns an object of object of class <code>iSEEindexRcallResource</code>.</p>
+    <p>The constructor function <code>iSEEindexRcallResource()</code> returns an object
+of object of class <code>iSEEindexRcallResource</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>Required metadata:</p>
 <dl><dt>uri</dt>
-<dd><p>Character scalar. R call which, once evaluated, produces a character scalar that is the URI of the resource.</p></dd>
+<dd><p>Character scalar. R call which, once evaluated, produces a
+character scalar that is the URI of the resource.</p></dd>
 
 
 </dl></div>
@@ -109,14 +111,17 @@ The code must return the path to an existing file on the local filesystem.</p>
     <h2>Slot overview</h2>
 
 
-<p>This class inherits all slots from its parent class <a href="iSEEindexResource-class.html">iSEEindexResource</a>.</p>
+<p>This class inherits all slots from its parent class
+<a href="iSEEindexResource-class.html">iSEEindexResource</a>.</p>
     </div>
     <div id="supported-methods">
     <h2>Supported methods</h2>
 
 
-<p>In the following code snippets, <code>x</code> is an instance of a iSEEindexRcallResource class.
-Refer to the documentation for each method for more details on the remaining arguments.</p>
+<p>In the following code snippets, <code>x</code> is an instance of a
+iSEEindexRcallResource class.
+Refer to the documentation for each method for more details on the remaining
+arguments.</p>
 <ul><li><p><code><a href="iSEEindexResource-generics.html">precache</a>(x, ...)</code> trims the <code>rcall://</code> prefix,
 evaluates the remainder of the URI as R code, and caches a copy of the
 resource located at the resulting file path using <span class="pkg">BiocFileCache</span>,
