@@ -193,6 +193,35 @@
 #' if (interactive()) {
 #'     shiny::runApp(app_tonsils, port = 5678)
 #' }
+#'
+#'
+#' ## This example shows that it is possible to mix different types of resources
+#' ## Some provide the path, some directly the object
+#'
+#' dataset_fun_mix <- function() {
+#'     x <- yaml::read_yaml(
+#'         system.file("mixed_resources.yml", package = "iSEEindex")
+#'     )
+#'     x$datasets
+#' }
+#' initial_fun_mix <- function() {
+#'     x <- yaml::read_yaml(
+#'         system.file("mixed_resources.yml", package = "iSEEindex")
+#'     )
+#'     x$initial
+#' }
+#'
+#' app_mixed <- iSEEindex(bfc,
+#'     dataset_fun_mix,
+#'     initial_fun_mix,
+#'     default.add = TRUE,
+#'     default.position = "last",
+#'     app.title = "iSEE ❤ multiple resource types")
+#'
+#' if (interactive()) {
+#'     shiny::runApp(app_mixed, port = 4242)
+#' }
+#'
 iSEEindex <- function(bfc,
                       FUN.datasets,
                       FUN.initial = NULL,
