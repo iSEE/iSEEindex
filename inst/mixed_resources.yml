@@ -1,0 +1,35 @@
+datasets:
+  - id: ReprocessedAllenData
+    title: ReprocessedAllenData - via https
+    uri: https://zenodo.org/record/8076991/files/ReprocessedAllenData.rds
+    description: |
+        Reprocessed Allen Data.
+  - id: BuettnerESCData
+    title: BuettnerESCData
+    uri: https://zenodo.org/record/8076991/files/BuettnerESCData.rds
+    description: |
+        Buettner ESC Data (copy).
+  - id: AllenData_runr
+    title: Allen Data, via runr
+    uri: runr://scRNAseq::ReprocessedAllenData()
+    description: |
+        Allen Data, via runr call
+initial:
+  - id: config01rcall
+    datasets:
+      - ReprocessedAllenData
+    title: Example configuration 1 (R call)
+    uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_01.R')
+    description: |
+      One `ReducedDimensionPlot` panel, one `ColumnDataTable` panel.
+
+      File distributed with the `iSEEindex` package.
+  - id: config02rcall
+    datasets:
+      - ReprocessedAllenData
+    title: Example configuration 2 (R call)
+    uri: rcall://system.file(package='iSEEindex','ReprocessedAllenData_config_02.R')
+    description: |
+      One `RowDataTable` panel, one `ColumnDataTable` panel.
+
+      File distributed with the `iSEEindex` package.
