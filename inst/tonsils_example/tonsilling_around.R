@@ -28,22 +28,14 @@ if (interactive()) {
   shiny::runApp(app, port = 1234)
 }
 
-
-
-
-
 # the logic:
 
+## iSEEindex_runr
 
+## .landing_page_runr
 
-iSEEindex_runr
+## specifically into .create_launch_observers_runr
 
-.landing_page_runr
+## .launch_isee_runr
 
-specifically into .create_launch_observers_runr
-
-.launch_isee_runr
-
-iSEEindexRunrResource -> no need to precache
-
-
+##iSEEindexRunrResource -> no need to precache
