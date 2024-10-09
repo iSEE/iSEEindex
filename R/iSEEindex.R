@@ -186,7 +186,7 @@
 #'     initial_fun_tonsils,
 #'     default.add = TRUE,
 #'     default.position = "last",
-#'     app.title = "iSEE ❤️ Tonsil Data Atlas",
+#'     app.title = "iSEE loves the Tonsil Data Atlas",
 #'     body.header = header_tonsils,
 #'     body.footer = footer_tonsils)
 #'
@@ -216,7 +216,7 @@
 #'     initial_fun_mix,
 #'     default.add = TRUE,
 #'     default.position = "last",
-#'     app.title = "iSEE ❤ multiple resource types")
+#'     app.title = "iSEE loves multiple resource types")
 #'
 #' if (interactive()) {
 #'     shiny::runApp(app_mixed, port = 4242)
