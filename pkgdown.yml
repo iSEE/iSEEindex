@@ -5,4 +5,7 @@ articles:
   header: header.html
   iSEEindex: iSEEindex.html
   resources: resources.html
-last_built: 2024-10-09T10:29Z
+last_built: 2024-10-18T10:44Z
+urls:
+  reference: https://isee.github.io/iSEEindex/reference
+  article: https://isee.github.io/iSEEindex/articles
